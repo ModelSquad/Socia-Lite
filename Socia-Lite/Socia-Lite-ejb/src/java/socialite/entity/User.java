@@ -7,6 +7,7 @@ package socialite.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,11 +15,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,6 +26,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -43,7 +44,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "User.findBySurname", query = "SELECT u FROM User u WHERE u.surname = :surname")
     , @NamedQuery(name = "User.findByNickname", query = "SELECT u FROM User u WHERE u.nickname = :nickname")
     , @NamedQuery(name = "User.findByBirthDate", query = "SELECT u FROM User u WHERE u.birthDate = :birthDate")
-    , @NamedQuery(name = "User.findByBirthPlace", query = "SELECT u FROM User u WHERE u.birthPlace = :birthPlace")})
+    , @NamedQuery(name = "User.findByBirthPlace", query = "SELECT u FROM User u WHERE u.birthPlace = :birthPlace")
+    , @NamedQuery(name = "User.findByJob", query = "SELECT u FROM User u WHERE u.job = :job")
+    , @NamedQuery(name = "User.findByJobPlace", query = "SELECT u FROM User u WHERE u.jobPlace = :jobPlace")
+    , @NamedQuery(name = "User.findByStudyPlace", query = "SELECT u FROM User u WHERE u.studyPlace = :studyPlace")
+    , @NamedQuery(name = "User.findByWebsite", query = "SELECT u FROM User u WHERE u.website = :website")
+    , @NamedQuery(name = "User.findByProfilePic", query = "SELECT u FROM User u WHERE u.profilePic = :profilePic")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -84,13 +90,31 @@ public class User implements Serializable {
     @Size(max = 45)
     @Column(name = "birthPlace")
     private String birthPlace;
-    @JoinColumns({
-        @JoinColumn(name = "idUser", referencedColumnName = "user", insertable = false, updatable = false)
-        , @JoinColumn(name = "idUser", referencedColumnName = "user", insertable = false, updatable = false)})
-    @ManyToOne(optional = false)
+    @Size(max = 100)
+    @Column(name = "job")
+    private String job;
+    @Size(max = 45)
+    @Column(name = "jobPlace")
+    private String jobPlace;
+    @Size(max = 45)
+    @Column(name = "studyPlace")
+    private String studyPlace;
+    @Size(max = 100)
+    @Column(name = "website")
+    private String website;
+    @Size(max = 100)
+    @Column(name = "profilePic")
+    private String profilePic;
+    @ManyToMany(mappedBy = "userList")
+    private List<Group1> group1List;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "admin")
+    private List<Group1> group1List1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<FriendshipRequest> friendshipRequestList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1")
+    private List<FriendshipRequest> friendshipRequestList1;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private Post post;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user1")
-    private UserGroup userGroup;
 
     public User() {
     }
@@ -172,20 +196,88 @@ public class User implements Serializable {
         this.birthPlace = birthPlace;
     }
 
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public String getJobPlace() {
+        return jobPlace;
+    }
+
+    public void setJobPlace(String jobPlace) {
+        this.jobPlace = jobPlace;
+    }
+
+    public String getStudyPlace() {
+        return studyPlace;
+    }
+
+    public void setStudyPlace(String studyPlace) {
+        this.studyPlace = studyPlace;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
+    }
+
+    @XmlTransient
+    public List<Group1> getGroup1List() {
+        return group1List;
+    }
+
+    public void setGroup1List(List<Group1> group1List) {
+        this.group1List = group1List;
+    }
+
+    @XmlTransient
+    public List<Group1> getGroup1List1() {
+        return group1List1;
+    }
+
+    public void setGroup1List1(List<Group1> group1List1) {
+        this.group1List1 = group1List1;
+    }
+
+    @XmlTransient
+    public List<FriendshipRequest> getFriendshipRequestList() {
+        return friendshipRequestList;
+    }
+
+    public void setFriendshipRequestList(List<FriendshipRequest> friendshipRequestList) {
+        this.friendshipRequestList = friendshipRequestList;
+    }
+
+    @XmlTransient
+    public List<FriendshipRequest> getFriendshipRequestList1() {
+        return friendshipRequestList1;
+    }
+
+    public void setFriendshipRequestList1(List<FriendshipRequest> friendshipRequestList1) {
+        this.friendshipRequestList1 = friendshipRequestList1;
+    }
+
     public Post getPost() {
         return post;
     }
 
     public void setPost(Post post) {
         this.post = post;
-    }
-
-    public UserGroup getUserGroup() {
-        return userGroup;
-    }
-
-    public void setUserGroup(UserGroup userGroup) {
-        this.userGroup = userGroup;
     }
 
     @Override

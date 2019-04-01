@@ -43,11 +43,12 @@ public class Media implements Serializable {
     private Integer idMedia;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 1, max = 100)
     @Column(name = "mediaUrl")
     private String mediaUrl;
     @JoinColumns({
         @JoinColumn(name = "post", referencedColumnName = "idPost")
+        , @JoinColumn(name = "post", referencedColumnName = "idPost")
         , @JoinColumn(name = "post", referencedColumnName = "idPost")})
     @ManyToOne(optional = false)
     private Post post;

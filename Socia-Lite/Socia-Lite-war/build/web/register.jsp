@@ -1,3 +1,9 @@
+<%-- 
+    Document   : register
+    Created on : Apr 1, 2019, 10:11:29 AM
+    Author     : Sevi
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link href="login.css" rel="stylesheet"">
@@ -28,3 +34,4 @@
 
   </div>
 </div>
+
