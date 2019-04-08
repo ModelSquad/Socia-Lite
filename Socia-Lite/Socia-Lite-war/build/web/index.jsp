@@ -5,6 +5,10 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
+<% 
+    boolean errorLogin = (boolean)request.getAttribute("errorLogin");
+%>
+
 <div class="wrapper fadeInDown">
   <div id="formContent">
     <!-- Tabs Titles -->
@@ -20,8 +24,16 @@
       <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
       <input type="submit" class="fadeIn fourth" value="Log In">
     </form>
+    
+    <% if(errorLogin) { %>
+    <div class="loginMessage alert alert-danger" role="alert">
+        <a id="message">
+            Usuario o contrase&ntilde;a incorrecta
+        </a>
+    </div>
+    <% } %>
 
-    <!-- Remind Passowrd -->
+    <!-- Remind Password -->
     <div id="formFooter">
       <a class="underlineHover" href="#">Forgot Password?</a>
     </div>

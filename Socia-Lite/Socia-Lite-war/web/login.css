@@ -27,6 +27,13 @@ h2 {
   color: #cccccc;
 }
 
+.loginMessage {
+    margin-top: 0px;
+    margin-bottom: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 
 
 /* STRUCTURE */
