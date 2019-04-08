@@ -9,7 +9,7 @@ import socialite.entity.Media;
 import socialite.entity.User;
 import socialite.entity.Visibility;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-04-01T12:03:27")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-04-08T12:08:25")
 @StaticMetamodel(Post.class)
 public class Post_ { 
 

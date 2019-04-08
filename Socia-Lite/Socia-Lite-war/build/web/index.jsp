@@ -6,7 +6,7 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <% 
-    boolean errorLogin = (boolean)request.getAttribute("errorLogin");
+    Boolean errorLogin = (Boolean)request.getAttribute("errorLogin");
 %>
 
 <div class="wrapper fadeInDown">
@@ -19,13 +19,13 @@
     </div>
 
     <!-- Login Form -->
-    <form>
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="user@email.com">
-      <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
+    <form action="LoginServlet" method="POST">
+      <input type="email" id="login" class="fadeIn second" name="email" placeholder="user@email.com">
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
       <input type="submit" class="fadeIn fourth" value="Log In">
     </form>
     
-    <% if(errorLogin) { %>
+    <% if(errorLogin != null && errorLogin) { %>
     <div class="loginMessage alert alert-danger" role="alert">
         <a id="message">
             Usuario o contrase&ntilde;a incorrecta

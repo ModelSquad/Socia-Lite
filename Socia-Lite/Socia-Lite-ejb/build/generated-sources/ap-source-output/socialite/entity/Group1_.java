@@ -6,7 +6,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import socialite.entity.User;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-04-01T12:03:27")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-04-08T12:08:25")
 @StaticMetamodel(Group1.class)
 public class Group1_ { 
 
