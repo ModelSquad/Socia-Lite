@@ -26,6 +26,8 @@ hs_err_pid*
 
 # no build files
 /Socia-Lite/build/
+/Socia-Lite/Socia-Lite-war/build/
+/Socia-Lite/Socia-Lite-ejb/build/
 
 #no property files
 *.properties
