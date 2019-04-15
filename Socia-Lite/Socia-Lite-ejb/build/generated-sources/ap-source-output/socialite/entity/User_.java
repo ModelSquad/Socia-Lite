@@ -9,7 +9,7 @@ import socialite.entity.FriendshipRequest;
 import socialite.entity.Group1;
 import socialite.entity.Post;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-04-10T17:52:43")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-04-15T17:48:48")
 @StaticMetamodel(User.class)
 public class User_ { 
 

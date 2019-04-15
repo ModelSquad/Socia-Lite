@@ -39,6 +39,10 @@
     <div id="formFooter">
       <a class="underlineHover" href="#">Forgot Password?</a>
     </div>
+        <!-- Register -->
+    <div id="formFooter">
+      <a class="underlineHover" href="register.jsp">Register</a>
+    </div>
 
   </div>
 </div>

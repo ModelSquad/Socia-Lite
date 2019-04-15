@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<link href="register.css" rel="stylesheet">
+<link href="register.css" rel="stylesheet"">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
@@ -15,7 +15,7 @@
     </div>
 
     <!-- Register Form -->
-    <form>
+    <form method="post" action="RegisterServlet" name="registerUser" >
         <table class="center">
             <tr>
                 <td>
@@ -30,7 +30,15 @@
                     <label for="password">Password</label>                    
                 </td>
                 <td>
-                    <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
+                    <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="repeat password">Repeat password</label>                    
+                </td>
+                <td>
+                    <input type="password" id="repeatPassword" class="fadeIn third" name="repeatPassword" placeholder="password">
                 </td>
             </tr>
             <tr>
