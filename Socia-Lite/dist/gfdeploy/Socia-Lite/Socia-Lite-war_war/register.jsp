@@ -1,12 +1,6 @@
-<%-- 
-    Document   : register
-    Created on : Apr 1, 2019, 10:11:29 AM
-    Author     : Sevi
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<link href="login.css" rel="stylesheet"">
+<link href="register.css" rel="stylesheet">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
@@ -17,21 +11,63 @@
 
     <!-- Icon -->
     <div class="fadeIn first">
-      <img style="margin:10px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png" height=100 width=100 alt="User Icon" />
+      <img style="margin:10px" src="https://www.freeiconspng.com/uploads/no-image-icon-4.png" height=100 width=100 alt="User Icon" />
     </div>
 
-    <!-- Login Form -->
+    <!-- Register Form -->
     <form>
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="user@email.com">
-      <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-      <input type="submit" class="fadeIn fourth" value="Log In">
+        <table class="center">
+            <tr>
+                <td>
+                    <label for="email">Email</label>    
+                </td>
+                <td>
+                    <input type="text" id="email" class="fadeIn second" name="email" placeholder="email">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="password">Password</label>                    
+                </td>
+                <td>
+                    <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="name">Name</label>
+                </td>
+                <td>
+                    <input type="text" id="name" class="fadeIn second" name="name" placeholder="name">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Surname">Surname</label>
+                </td>
+                <td>
+                    <input type="text" id="surname" class="fadeIn second" name="surname" placeholder="surname">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Nickname">Nickname</label>
+                </td>
+                <td>
+                    <input type="text" id="nickname" class="fadeIn second" name="nickname" placeholder="nickname">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Birthdate">Birthdate</label>
+                </td>
+                <td>
+                    <input type="date" id="birthdate" class="fadeIn second" name="birthdate" placeholder="birthdate">
+                </td>
+            </tr>  
+        </table>
+        <br>
+        <input type="submit" class="fadeIn fourth" value="Register">
     </form>
-
-    <!-- Remind Passowrd -->
-    <div id="formFooter">
-      <a class="underlineHover" href="#">Forgot Password?</a>
-    </div>
-
   </div>
 </div>
-

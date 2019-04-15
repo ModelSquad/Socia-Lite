@@ -1,11 +1,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<link href="login.css" rel="stylesheet"">
+<style>
+     <%@ include file="login.css"%>
+</style>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
 
-<% 
+
+<%
     Boolean errorLogin = (Boolean)request.getAttribute("errorLogin");
 %>
 
@@ -19,12 +21,12 @@
     </div>
 
     <!-- Login Form -->
-    <form action="LoginServlet" method="POST">
+    <form action="index" method="POST">
       <input type="email" id="login" class="fadeIn second" name="email" placeholder="user@email.com">
       <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
       <input type="submit" class="fadeIn fourth" value="Log In">
     </form>
-    
+
     <% if(errorLogin != null && errorLogin) { %>
     <div class="loginMessage alert alert-danger" role="alert">
         <a id="message">

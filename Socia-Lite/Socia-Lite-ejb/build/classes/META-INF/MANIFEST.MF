@@ -1,5 +1,4 @@
 Manifest-Version: 1.0
 Ant-Version: Apache Ant 1.9.7
-Created-By: 1.8.0_191-8u191-b12-2ubuntu0.18.04.1-b12 (Oracle Corporati
- on)
+Created-By: 1.8.0_181-b13 (Oracle Corporation)
 

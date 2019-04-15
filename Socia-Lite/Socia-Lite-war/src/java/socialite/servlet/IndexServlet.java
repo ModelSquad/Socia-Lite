@@ -6,9 +6,7 @@
 package socialite.servlet;
 
 import java.io.IOException;
-import java.util.List;
-import javax.ejb.EJB;
-import javax.persistence.EntityManager;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,14 +14,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import socialite.dao.UserFacade;
-import socialite.entity.User;
 
-@WebServlet(name = "LoginServlet", urlPatterns = {"/index"})
-public class LoginServlet extends HttpServlet {
+/**
+ *
+ * @author jaysus
+ */
+@WebServlet(name = "IndexServlet", urlPatterns = {"/"})
+public class IndexServlet extends HttpServlet {
 
-    @EJB
-    private UserFacade userFacade;
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -38,9 +49,14 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        if(session.getAttribute("user") == null) {
-            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        RequestDispatcher rd;
+        if(session.getAttribute("user") != null) {
+            rd = request.getRequestDispatcher("/welcome.jsp");
+        } else {
+            rd = request.getRequestDispatcher("/index.jsp");
         }
+        
+        rd.forward(request, response);
     }
 
     /**
@@ -54,32 +70,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
         
-        String email = request.getParameter("email");
-        
-        if(email==null){
-            throw new RuntimeException("ERROR. Username is null");
-        }
-        String password = request.getParameter("password");
-                if(password==null){
-            throw new RuntimeException("ERROR. Password is null");
-        }
-                
-        User user = userFacade.findByEmail(email);
-        RequestDispatcher rd;
-        
-        if(user==null || !user.getPassword().equals(password)){
-            request.setAttribute("errorLogin", true);   
-            rd = request.getRequestDispatcher("/index.jsp");
-        }
-        else{
-            session.setAttribute("user", user);
-            rd = request.getRequestDispatcher("/welcome.jsp");
-        }
-        
-        rd.forward(request, response);
     }
 
     /**
