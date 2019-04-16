@@ -11,6 +11,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+    <%@include file="welcome.js" %>
+    </script>
   </head>
   <body>
   <nav class="navbar navbar-expand-lg navbar-dark">
@@ -42,11 +45,20 @@
         <p><a href="#">Link</a></p>
       </div>
       <div class="col-sm-8 text-left">
-        <h1>Welcome</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <hr>
-        <h3>Test</h3>
-        <p>Lorem ipsum...</p>
+        <div class="jumbotron jumbotron-post">
+            <h4>Comparte tus experiencias</h4>
+            <textarea class="form-control text-area-post" placeholder="Escribe algo aquí"></textarea>
+            <div class="btn-group post-emoji post-actions" role="group">
+              <button type="button" class="btn btn-post btn-emoji">❤️</button>
+              <button type="button" class="btn btn-post btn-emoji">😉</button>
+              <button type="button" class="btn btn-post btn-emoji">😘</button>
+              <button type="button" class="btn btn-post btn-emoji">😂</button>
+            </div>
+            <div class="btn-group post-button post-actions" role="group">
+              <button type="button" class="btn btn-post">Subir foto</button>
+              <button type="button" class="btn btn-post">Enviar</button>
+            </div>
+            </div>
       </div>
       <div class="col-sm-2 sidenav">
         <div class="well">

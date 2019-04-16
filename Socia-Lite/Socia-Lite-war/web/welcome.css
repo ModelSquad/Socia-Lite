@@ -1,4 +1,73 @@
-  /* Remove the navbar's default margin-bottom and rounded borders */
+.jumbotron-post{
+  padding-top: 25px !important;
+  height: 130px;
+  transition: 1.2s ease;
+  margin-top: 15px;
+  background-color: #4285f4 !important;
+  color: whitesmoke;
+  -webkit-box-shadow: 5px 5px 11px -1px rgba(0,0,0,0.51);
+-moz-box-shadow: 5px 5px 11px -1px rgba(0,0,0,0.51);
+box-shadow: 5px 5px 11px -1px rgba(0,0,0,0.51);
+}
+
+.post-emoji {
+  float: left;
+}
+
+.text-area-post {
+  margin-top: 20px;
+  height: 2.3em !important;
+  resize: none;
+  transition: 2s ease-out;
+}
+
+.post-button {
+  float: right;
+}
+
+.jumbotron-post:hover {
+  height: 230px;
+  transition: 0.65s ease;
+}
+
+.btn-group {
+  background-color: #F5F5F5;
+  border-radius: 10px;
+}
+
+.btn-post:hover {
+  background-color: #FFFFFF;
+}
+
+.jumbotron-post:not(:hover) > .post-actions {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s, opacity 0.3s linear;
+}
+
+.post-actions {
+  visibility: hidden;
+  opacity: 0;
+  margin-top: 20px;
+}
+
+.jumbotron-post:hover > .post-actions {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s, opacity 0.7s linear;
+}
+
+.jumbotron-post:hover > .text-area-post {
+  height: 5em !important;
+  transition: 0.7s;
+}
+
+.jumbotron-post:not(:hover) > .text-area-post {
+  height: 2.3em !important;
+  transition: 0.7s;
+}
+
+/* Remove the navbar's default margin-bottom and rounded borders */
   .navbar {
     margin-bottom: 0;
     border-radius: 0;
