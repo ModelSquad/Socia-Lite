@@ -91,7 +91,11 @@ box-shadow: 5px 5px 11px -1px rgba(0,0,0,0.51);
   footer {
     background-color: #555;
     color: white;
-    padding: 15px;
+    padding: 0px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
   }
 
   /* On small screens, set height to 'auto' for sidenav and grid */
@@ -102,3 +106,41 @@ box-shadow: 5px 5px 11px -1px rgba(0,0,0,0.51);
     }
     .row.content {height:auto;}
   }
+  
+  body {
+            background-color: #eeeeee;
+            margin-bottom: 100px;
+        }
+
+        .h7 {
+            font-size: 0.8rem;
+        }
+
+        .gedf-wrapper {
+            margin-top: 0.97rem;
+        }
+
+        @media (min-width: 992px) {
+            .gedf-main {
+                padding-left: 4rem;
+                padding-right: 4rem;
+            }
+            .gedf-card {
+                margin-bottom: 2.77rem;
+            }
+        }
+
+        /**Reset Bootstrap*/
+        .dropdown-toggle::after {
+            content: none;
+            display: none;
+        }
+        .feed{
+            margin-bottom: 50px;
+        }
+        
+        .post-image{        
+            max-height: 400px;
+            width: auto;
+            object-fit: cover;
+        }
