@@ -70,18 +70,7 @@ public class IndexServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        User user = (User)session.getAttribute("user");
-        Post post = new Post();
-        post.setText(request.getParameter("post-text"));
-        post.setTitle("Titulo");
-        post.setLikes(0);
-        post.setDate(new Date());
-        post.setUser(user);
-        post.setVisibility(visibilityFacade.find(1));
-        postFacade.create(post);
-        session.setAttribute("posts", postFacade.findByUser(user));
-        request.getRequestDispatcher("welcome.jsp").forward(request, response);
+
     }
 
     /**

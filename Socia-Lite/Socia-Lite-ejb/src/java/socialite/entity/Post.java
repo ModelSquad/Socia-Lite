@@ -179,5 +179,9 @@ public class Post implements Serializable {
     public String toString() {
         return "socialite.entity.Post[ idPost=" + idPost + " ]";
     }
+
+    public Date getTime() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

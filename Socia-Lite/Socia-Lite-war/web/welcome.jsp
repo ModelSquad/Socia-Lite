@@ -73,7 +73,7 @@
       <div class="col-sm text-left feed">
           
           <!-- ADD POST -->
-        <form method="POST" action="index">
+        <form method="POST" action="AddPostServlet">
             <div class="jumbotron jumbotron-post">
                 <h4>Comparte tus experiencias</h4>
                 <textarea name="post-text" class="form-control text-area-post" placeholder="Escribe algo aquí"></textarea>
@@ -107,8 +107,8 @@
                       : post.getUser().getProfilePic()%>" alt="">
                         </div>
                         <div class="ml-2">
-                            <div class="h5 m-0"><%= post.getUser().getNickname() %></div>
-                            <div class="h7 text-muted"><%=post.getUser().getName()%></div>
+                            <div class="h5 m-0">@<%= post.getUser().getNickname() %></div>
+                            <div class="h7 text-muted"><%=post.getUser().getName()%> <%=post.getUser().getSurname()%></div>
                         </div>
                     </div>
                     <div>
@@ -127,7 +127,7 @@
 
             </div>
             <div class="card-body">
-                <div class="text-muted h7 mb-2"> </div>
+                <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o" aria-hidden="true"></i> <%=post.getDate()%> </div>
 
                 <p class="card-text">
                     <%= post.getText() %>
