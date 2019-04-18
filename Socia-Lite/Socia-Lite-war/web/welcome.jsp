@@ -31,7 +31,9 @@
         <!-- Fancybox -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-
+<!-- Icons -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+ 
 
   </head>
   <body>
@@ -48,7 +50,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="welcome.jsp"><i class="material-icons" style="font-size:20px;">home</i>Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="friends.jsp"><i class="material-icons" style="font-size:20px;">people</i> Friends</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Features</a>
@@ -56,6 +61,7 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Pricing</a>
             </li>
+
           </ul>
         </div>
     </nav>
