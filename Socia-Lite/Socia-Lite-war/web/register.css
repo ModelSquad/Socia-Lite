@@ -1,7 +1,3 @@
-
-/* BASIC */
-/*Fixing git bugs*/
-
 html {
   background-color: #56baed;
 }
@@ -27,8 +23,6 @@ h2 {
   margin: 40px 8px 10px 8px; 
   color: #cccccc;
 }
-
-
 
 /* STRUCTURE */
 
@@ -135,7 +129,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   transform: scale(0.95);
 }
 
-input[type=text] {
+input[type=text], input[type=password], input[type=date], input[type=email] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -156,12 +150,12 @@ input[type=text] {
   border-radius: 5px 5px 5px 5px;
 }
 
-input[type=text]:focus {
+input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, input[type=email]:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
 }
 
-input[type=text]:placeholder {
+input[type=text]:placeholder, input[type=password]:placeholder, input[type=date]:placeholder, input[type=email]:placeholder {
   color: #cccccc;
 }
 
