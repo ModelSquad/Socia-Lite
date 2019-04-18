@@ -16,15 +16,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import socialite.dao.PostFacade;
 import socialite.dao.UserFacade;
 import socialite.entity.User;
 
-@WebServlet(name = "LoginServlet", urlPatterns = {"/index"})
+@WebServlet(name = "LoginServlet", urlPatterns = {"/"})
 public class LoginServlet extends HttpServlet {
 
     @EJB
     private UserFacade userFacade;
-
+    @EJB
+    private PostFacade postFacade;
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -72,11 +75,12 @@ public class LoginServlet extends HttpServlet {
         
         if(user==null || !user.getPassword().equals(password)){
             request.setAttribute("errorLogin", true);   
-            rd = request.getRequestDispatcher("/index.jsp");
+            rd = request.getRequestDispatcher("index.jsp");
         }
         else{
             session.setAttribute("user", user);
-            rd = request.getRequestDispatcher("/welcome.jsp");
+            session.setAttribute("posts", postFacade.findByUser(user));
+            rd = request.getRequestDispatcher("welcome.jsp");
         }
         
         rd.forward(request, response);
