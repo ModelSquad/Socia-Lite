@@ -1,4 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.Vector"%>
+<%@page import="socialite.entity.*"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,6 +10,9 @@
     <style>
          <%@ include file="welcome.css"%>
     </style>
+    <script>
+        <%@ include file="welcome.js"%>
+    </script>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -26,12 +31,14 @@
         <!-- Fancybox -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-<script>
-    <%@include file="welcome.js" %>
-</script>
+
 
   </head>
   <body>
+    <% 
+        User user = (User)request.getSession().getAttribute("user");
+        Vector<Post> posts = (Vector<Post>) request.getSession().getAttribute("posts");
+    %>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -66,22 +73,78 @@
       <div class="col-sm text-left feed">
           
           <!-- ADD POST -->
-          
-        <div class="jumbotron jumbotron-post">
-            <h4>Comparte tus experiencias</h4>
-            <textarea class="form-control text-area-post" placeholder="Escribe algo aquí"></textarea>
-            <div class="btn-group post-emoji post-actions" role="group">
-              <button type="button" class="btn btn-post btn-emoji">❤️</button>
-              <button type="button" class="btn btn-post btn-emoji">😉</button>
-              <button type="button" class="btn btn-post btn-emoji">😘</button>
-              <button type="button" class="btn btn-post btn-emoji">😂</button>
+        <form method="POST" action="index">
+            <div class="jumbotron jumbotron-post">
+                <h4>Comparte tus experiencias</h4>
+                <textarea name="post-text" class="form-control text-area-post" placeholder="Escribe algo aquí"></textarea>
+                <div class="btn-group post-emoji post-actions" role="group">
+                  <button type="button" class="btn btn-post btn-emoji">❤️</button>
+                  <button type="button" class="btn btn-post btn-emoji">😉</button>
+                  <button type="button" class="btn btn-post btn-emoji">😘</button>
+                  <button type="button" class="btn btn-post btn-emoji">😂</button>
+                </div>
+
+                    <div class="btn-group post-button post-actions" role="group">
+                      <input type="button" class="btn btn-post" value="Subir foto">
+                      <input type="submit" class="btn btn-post" value="Enviar">
+                    </div>
             </div>
-            <div class="btn-group post-button post-actions" role="group">
-              <button type="button" class="btn btn-post">Subir foto</button>
-              <button type="button" class="btn btn-post">Enviar</button>
+            </form>
+          
+          <% 
+            if(posts != null) {
+            for(Post post : posts) {
+          %>
+          
+          <div class="card gedf-card " style="width: 100%;">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="mr-2">
+                            <img class="rounded-circle" width="45" src="<%= 
+                                (post.getUser().getProfilePic() == null) 
+                      ? "https://cdn.clipart.email/0ad2ce5b5370f2d91ef8b465f6770e77_people-icons-3800-free-files-in-png-eps-svg-format_338-338.jpeg" 
+                      : post.getUser().getProfilePic()%>" alt="">
+                        </div>
+                        <div class="ml-2">
+                            <div class="h5 m-0"><%= post.getUser().getNickname() %></div>
+                            <div class="h7 text-muted"><%=post.getUser().getName()%></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="dropdown">
+                            <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+                                <div class="h6 dropdown-header">Opciones</div>
+                                <a class="dropdown-item" href="#">Editar</a>
+                                <a class="dropdown-item" href="#">Eliminar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-body">
+                <div class="text-muted h7 mb-2"> </div>
+
+                <p class="card-text">
+                    <%= post.getText() %>
+                </p>
+            </div>
+            <div class="card-footer">
+                <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
+                <a href="#" class="card-link"><i class="fa fa-comment"></i> Comentario </a>
+                <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Compartir </a>
             </div>
         </div>
-        
+          
+          <%
+              }
+           }
+          %>
+          
            <!-- POST -->
         
          

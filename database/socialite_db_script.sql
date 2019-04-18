@@ -93,8 +93,6 @@ CREATE TABLE IF NOT EXISTS `socialite`.`Post` (
   `likes` INT NULL,
   PRIMARY KEY (`idPost`),
   UNIQUE INDEX `idPost_UNIQUE` (`idPost` ASC) VISIBLE,
-  UNIQUE INDEX `user_UNIQUE` (`user` ASC) VISIBLE,
-  UNIQUE INDEX `visibilidad_UNIQUE` (`visibility` ASC) VISIBLE,
   CONSTRAINT `fk_Post_Visibility`
     FOREIGN KEY (`visibility`)
     REFERENCES `socialite`.`Visibility` (`idVisibility`)

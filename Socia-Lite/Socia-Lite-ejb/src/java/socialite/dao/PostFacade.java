@@ -5,10 +5,12 @@
  */
 package socialite.dao;
 
+import java.util.Vector;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import socialite.entity.Post;
+import socialite.entity.User;
 
 /**
  *
@@ -29,4 +31,8 @@ public class PostFacade extends AbstractFacade<Post> {
         super(Post.class);
     }
     
+    public Vector<Post> findByUser (User user) {
+        return (Vector<Post>) em.createNamedQuery("Post.findByUser")
+        .setParameter("user", user).getResultList();
+    }
 }

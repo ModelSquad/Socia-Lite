@@ -39,6 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
     , @NamedQuery(name = "User.findByIdUser", query = "SELECT u FROM User u WHERE u.idUser = :idUser")
     , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
+    // TODO Terminar cuando se actualice la bdd
+    // , @NamedQuery(name = "User.getAllPost", query = "
     , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
     , @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name")
     , @NamedQuery(name = "User.findBySurname", query = "SELECT u FROM User u WHERE u.surname = :surname")
