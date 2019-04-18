@@ -30,9 +30,14 @@ public class PostFacade extends AbstractFacade<Post> {
     public PostFacade() {
         super(Post.class);
     }
-    
-    public Vector<Post> findByUser (User user) {
+
+    public Vector<Post> findByUser(User user) {
         return (Vector<Post>) em.createNamedQuery("Post.findByUser")
-        .setParameter("user", user).getResultList();
+                .setParameter("user", user).getResultList();
+    }
+
+    public void deletePost(int idPost) {
+        Post post = getEntityManager().find(Post.class, idPost);
+        getEntityManager().remove(post);
     }
 }

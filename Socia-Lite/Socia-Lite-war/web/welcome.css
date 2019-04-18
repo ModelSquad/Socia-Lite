@@ -1,94 +1,94 @@
 .jumbotron-post{
-  padding-top: 25px !important;
-  height: 130px;
-  transition: 1.2s ease;
-  margin-top: 15px;
-  background-color: #4285f4 !important;
-  color: whitesmoke;
-  -webkit-box-shadow: 5px 5px 11px -1px rgba(0,0,0,0.51);
--moz-box-shadow: 5px 5px 11px -1px rgba(0,0,0,0.51);
-box-shadow: 5px 5px 11px -1px rgba(0,0,0,0.51);
+    padding-top: 25px !important;
+    height: 130px;
+    transition: 1.2s ease;
+    margin-top: 15px;
+    background-color: #4285f4 !important;
+    color: whitesmoke;
+    -webkit-box-shadow: 5px 5px 11px -1px rgba(0,0,0,0.51);
+    -moz-box-shadow: 5px 5px 11px -1px rgba(0,0,0,0.51);
+    box-shadow: 5px 5px 11px -1px rgba(0,0,0,0.51);
 }
 
 .post-emoji {
-  float: left;
+    float: left;
 }
 
 .text-area-post {
-  margin-top: 20px;
-  height: 2.3em !important;
-  resize: none;
-  transition: 2s ease-out;
+    margin-top: 20px;
+    height: 2.3em !important;
+    resize: none;
+    transition: 2s ease-out;
 }
 
 .post-button {
-  float: right;
+    float: right;
 }
 
 .jumbotron-post:hover {
-  height: 230px;
-  transition: 0.65s ease;
+    height: 230px;
+    transition: 0.65s ease;
 }
 
 .btn-group {
-  background-color: #F5F5F5;
-  border-radius: 10px;
+    background-color: #F5F5F5;
+    border-radius: 10px;
 }
 
 .btn-post:hover {
-  background-color: #FFFFFF;
+    background-color: #FFFFFF;
 }
 
 .jumbotron-post:not(:hover) > .post-actions {
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0.5s, opacity 0.3s linear;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.5s, opacity 0.3s linear;
 }
 
 .post-actions {
-  visibility: hidden;
-  opacity: 0;
-  margin-top: 20px;
+    visibility: hidden;
+    opacity: 0;
+    margin-top: 20px;
 }
 
 .jumbotron-post:hover > .post-actions {
-  visibility: visible;
-  opacity: 1;
-  transition: visibility 0s, opacity 0.7s linear;
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s, opacity 0.7s linear;
 }
 
 .jumbotron-post:hover > .text-area-post {
-  height: 5em !important;
-  transition: 0.7s;
+    height: 5em !important;
+    transition: 0.7s;
 }
 
 .jumbotron-post:not(:hover) > .text-area-post {
-  height: 2.3em !important;
-  transition: 0.7s;
+    height: 2.3em !important;
+    transition: 0.7s;
 }
 
 /* Remove the navbar's default margin-bottom and rounded borders */
-  .navbar {
+.navbar {
     margin-bottom: 0;
     border-radius: 0;
-  }
+}
 
-  .navbar-dark {
+.navbar-dark {
     background-color: #4285f4;
-  }
+}
 
-  /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-  .row.content {height: 450px}
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {height: 450px}
 
-  /* Set gray background color and 100% height */
-  .sidenav {
+/* Set gray background color and 100% height */
+.sidenav {
     padding-top: 20px;
     background-color: #f1f1f1;
     height: 100%;
-  }
+}
 
-  /* Set black background color, white text and some padding */
-  footer {
+/* Set black background color, white text and some padding */
+footer {
     background-color: #555;
     color: white;
     padding: 0px;
@@ -96,51 +96,141 @@ box-shadow: 5px 5px 11px -1px rgba(0,0,0,0.51);
     bottom: 0;
     width: 100%;
     height: 60px;
-  }
+}
 
-  /* On small screens, set height to 'auto' for sidenav and grid */
-  @media screen and (max-width: 767px) {
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
     .sidenav {
-      height: auto;
-      padding: 15px;
+        height: auto;
+        padding: 15px;
     }
     .row.content {height:auto;}
-  }
-  
-  body {
-            background-color: #eeeeee;
-            margin-bottom: 100px;
-        }
+}
 
-        .h7 {
-            font-size: 0.8rem;
-        }
+body {
+    background-color: #eeeeee;
+    margin-bottom: 100px;
+}
 
-        .gedf-wrapper {
-            margin-top: 0.97rem;
-        }
+.h7 {
+    font-size: 0.8rem;
+}
 
-        @media (min-width: 992px) {
-            .gedf-main {
-                padding-left: 4rem;
-                padding-right: 4rem;
-            }
-            .gedf-card {
-                margin-bottom: 2.77rem;
-            }
-        }
+.gedf-wrapper {
+    margin-top: 0.97rem;
+}
 
-        /**Reset Bootstrap*/
-        .dropdown-toggle::after {
-            content: none;
-            display: none;
-        }
-        .feed{
-            margin-bottom: 50px;
-        }
-        
-        .post-image{        
-            max-height: 400px;
-            width: auto;
-            object-fit: cover;
-        }
+@media (min-width: 992px) {
+    .gedf-main {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+    .gedf-card {
+        margin-bottom: 2.77rem;
+    }
+}
+
+/**Reset Bootstrap*/
+.dropdown-toggle::after {
+    content: none;
+    display: none;
+}
+.feed{
+    margin-bottom: 50px;
+}
+
+.post-image{        
+    max-height: 400px;
+    width: auto;
+    object-fit: cover;
+}
+.modal-confirm {		
+    color: #636363;
+    width: 400px;
+}
+.modal-confirm .modal-content {
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+    text-align: center;
+    font-size: 14px;
+}
+.modal-confirm .modal-header {
+    border-bottom: none;   
+    position: relative;
+}
+.modal-confirm h4 {
+    text-align: center;
+    font-size: 26px;
+    margin: 30px 0 -10px;
+}
+.modal-confirm .close {
+    position: absolute;
+    top: -5px;
+    right: -2px;
+}
+.modal-confirm .modal-body {
+    color: #999;
+}
+.modal-confirm .modal-footer {
+    border: none;
+    text-align: center;		
+    border-radius: 5px;
+    font-size: 13px;
+    padding: 10px 15px 25px 15px;
+}
+.modal-confirm .modal-footer a {
+    color: #999;
+}		
+.modal-confirm .icon-box {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    border-radius: 50%;
+    z-index: 9;
+    text-align: center;
+    border: 3px solid #f15e5e;
+}
+.modal-confirm .icon-box i {
+    color: #f15e5e;
+    font-size: 46px;
+    display: inline-block;
+    margin-top: 13px;
+}
+.modal-confirm .btn {
+    color: #fff;
+    border-radius: 4px;
+    background: #60c7c1;
+    text-decoration: none;
+    transition: all 0.4s;
+    line-height: normal;
+    min-width: 120px;
+    border: none;
+    min-height: 40px;
+    border-radius: 3px;
+    margin: 0 5px;
+    outline: none !important;
+}
+.modal-confirm .btn-info {
+    background: #c1c1c1;
+}
+.modal-confirm .btn-info:hover, .modal-confirm .btn-info:focus {
+    background: #a8a8a8;
+}
+.modal-confirm .btn-danger {
+    background: #f15e5e;
+}
+.modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+    background: #ee3535;
+}
+.trigger-btn {
+    display: inline-block;
+    margin: 100px auto;
+}
+.btn-ok{
+    color: white;
+}
+
+#delete-btn{
+    color: white;
+}
