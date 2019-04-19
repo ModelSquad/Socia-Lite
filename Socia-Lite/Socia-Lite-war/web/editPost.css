@@ -1,0 +1,61 @@
+body {
+    background-color: #828282;
+    margin-bottom: 100px;
+}
+
+.h7 {
+    font-size: 0.8rem;
+}
+
+.gedf-wrapper {
+    margin-top: 0.97rem;
+}
+
+@media (min-width: 992px) {
+    .gedf-main {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+    .gedf-card {
+        margin-bottom: 2.77rem;
+    }
+}
+
+/**Reset Bootstrap*/
+.dropdown-toggle::after {
+    content: none;
+    display: none;
+}
+.feed{
+    margin-bottom: 50px;
+}
+
+.post-image{        
+    max-height: 400px;
+    width: auto;
+    object-fit: cover;
+}
+
+#cardElem{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 750px;
+}
+
+.card{
+    box-shadow: 10px 10px 10px 5px grey;
+}
+
+#formText{
+    min-height: 150px;
+}
+
+#formTitle{
+    max-height: 40px;
+}
+
+.save-btn{
+    float:right;
+}

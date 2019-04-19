@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>SociaLite - Inicio</title>
+        <title>SociaLite - Homepage</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
@@ -113,6 +113,7 @@
                                         <div class="h7 text-muted"><%=post.getUser().getName()%> <%=post.getUser().getSurname()%></div>
                                     </div>
                                 </div>
+                                <% if (post.getUser().getIdUser().equals(user.getIdUser())) {%>
                                 <div>
                                     <div class="dropdown">
                                         <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -125,12 +126,15 @@
                                         </div>
                                     </div>
                                 </div>
+                                <%}%>
                             </div>
 
                         </div>
                         <div class="card-body">
                             <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o" aria-hidden="true"></i> <%=post.getDate()%> </div>
-
+                            <a class="card-link" href="#">
+                                <h5 class="card-title"><%=post.getTitle()%></h5>
+                            </a>
                             <p class="card-text">
                                 <%= post.getText()%>
                             </p>

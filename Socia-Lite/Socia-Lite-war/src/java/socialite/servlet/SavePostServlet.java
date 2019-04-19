@@ -10,9 +10,8 @@ import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Vector;
+import java.util.Objects;
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,22 +19,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import socialite.dao.PostFacade;
-import socialite.dao.VisibilityFacade;
 import socialite.entity.Post;
 import socialite.entity.User;
 
-/**
- *
- * @author xfja
- */
-@WebServlet(name = "AddPostServlet", urlPatterns = {"/AddPostServlet"})
-public class AddPostServlet extends HttpServlet {
+@WebServlet(name = "SavePostServlet", urlPatterns = {"/SavePostServlet"})
+public class SavePostServlet extends HttpServlet {
 
     @EJB
     private PostFacade postFacade;
-    
-    @EJB
-    private VisibilityFacade visibilityFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,18 +40,20 @@ public class AddPostServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AddPostServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AddPostServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        HttpSession session = request.getSession();
+
+        Integer idPost = Integer.parseInt(request.getParameter("id"));
+        Post post = postFacade.find(idPost);      
+        String title = (String) request.getParameter("title");
+        post.setTitle(title);
+        String textBody = (String) request.getParameter("text-body");
+        post.setText(textBody);
+        post.setDate(new Date());
+        
+        postFacade.edit(post);
+        session.setAttribute("posts", getPosts(post.getUser()));
+        response.sendRedirect(request.getContextPath()+"/welcome.jsp");
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -89,18 +82,7 @@ public class AddPostServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        User user = (User)session.getAttribute("user");
-        Post post = new Post();
-        post.setText(request.getParameter("post-text"));
-        post.setTitle("");
-        post.setLikes(0);
-        post.setDate(new Date());
-        post.setUser(user);
-        post.setVisibility(visibilityFacade.find(1));
-        postFacade.create(post);
-        session.setAttribute("posts", getPosts(user));
-        response.sendRedirect(request.getContextPath()+"/welcome.jsp");
+        processRequest(request, response);
     }
 
     /**
@@ -112,8 +94,8 @@ public class AddPostServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
-        private List<Post> getPosts(User user) {
+
+            private List<Post> getPosts(User user) {
         List<Post> posts = postFacade.findByUser(user);
         List<User> friends = user.getUserList();
         friends.forEach((friend) -> {
@@ -128,5 +110,4 @@ public class AddPostServlet extends HttpServlet {
 
         return posts;
     }
-
 }
