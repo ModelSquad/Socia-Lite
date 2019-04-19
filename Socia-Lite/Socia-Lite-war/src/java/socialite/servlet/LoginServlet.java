@@ -80,14 +80,15 @@ public class LoginServlet extends HttpServlet {
         if (user == null || !user.getPassword().equals(password)) {
             request.setAttribute("errorLogin", true);
             rd = request.getRequestDispatcher("index.jsp");
+            rd.forward(request, response);
         } else {
             session.setAttribute("user", user);
             /* GET SELF AND FRIENDS POST ORDERED BY DATE */
             session.setAttribute("posts", getPosts(user));
-            rd = request.getRequestDispatcher("welcome.jsp");
+            response.sendRedirect(request.getContextPath() + "/welcome.jsp");
         }
 
-        rd.forward(request, response);
+        
     }
 
     /**

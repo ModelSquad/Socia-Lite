@@ -89,8 +89,8 @@ public class AddPostServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if(request.getParameter("post-text") != null) {
-            HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
+        if(session.getAttribute("user") != null && request.getParameter("post-text") != null) {
             User user = (User)session.getAttribute("user");
             Post post = new Post();
             post.setText(request.getParameter("post-text"));

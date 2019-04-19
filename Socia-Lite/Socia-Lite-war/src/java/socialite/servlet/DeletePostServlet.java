@@ -28,7 +28,7 @@ public class DeletePostServlet extends HttpServlet {
 
     @EJB
     private PostFacade postFacade;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,18 +42,19 @@ public class DeletePostServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        
-        Integer idPost = Integer.parseInt(request.getParameter("id"));
-        List<Post> postList = (List<Post>)session.getAttribute("posts");
-        for(Post p : postList){
-            if(Objects.equals(p.getIdPost(), idPost)){
-                postList.remove(p);
-                break;
+        if (session.getAttribute("user") != null && session.getAttribute("id")!=null) {
+            Integer idPost = Integer.parseInt(request.getParameter("id"));
+            List<Post> postList = (List<Post>) session.getAttribute("posts");
+            for (Post p : postList) {
+                if (Objects.equals(p.getIdPost(), idPost)) {
+                    postList.remove(p);
+                    break;
+                }
             }
+
+            postFacade.deletePost(idPost);
         }
-        
-        postFacade.deletePost(idPost);
-        response.sendRedirect(request.getContextPath()+"/welcome.jsp"); 
+        response.sendRedirect(request.getContextPath() + "/welcome.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

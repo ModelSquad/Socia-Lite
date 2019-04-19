@@ -41,18 +41,19 @@ public class SavePostServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        if (session.getAttribute("user") != null && request.getParameter("id")!=null) {
+            Integer idPost = Integer.parseInt(request.getParameter("id"));
+            Post post = postFacade.find(idPost);
+            String title = (String) request.getParameter("title");
+            post.setTitle(title);
+            String textBody = (String) request.getParameter("text-body");
+            post.setText(textBody);
+            post.setDate(new Date());
 
-        Integer idPost = Integer.parseInt(request.getParameter("id"));
-        Post post = postFacade.find(idPost);      
-        String title = (String) request.getParameter("title");
-        post.setTitle(title);
-        String textBody = (String) request.getParameter("text-body");
-        post.setText(textBody);
-        post.setDate(new Date());
-        
-        postFacade.edit(post);
-        session.setAttribute("posts", getPosts(post.getUser()));
-        response.sendRedirect(request.getContextPath()+"/welcome.jsp");
+            postFacade.edit(post);
+            session.setAttribute("posts", getPosts(post.getUser()));
+        }
+        response.sendRedirect(request.getContextPath() + "/welcome.jsp");
 
     }
 
@@ -95,7 +96,7 @@ public class SavePostServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-            private List<Post> getPosts(User user) {
+    private List<Post> getPosts(User user) {
         List<Post> posts = postFacade.findByUser(user);
         List<User> friends = user.getUserList();
         friends.forEach((friend) -> {

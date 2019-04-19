@@ -1,3 +1,4 @@
+<%@page import="socialite.entity.Post"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.Vector"%>
 <%@page import="socialite.entity.*"%>
@@ -24,21 +25,27 @@
         crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
-        
+
         <!-- Fancybox -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
         <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-            
+
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        
+
         <script>
             <%@ include file="welcome.js"%>
         </script>
     </head>
     <body>
         <%
+            String currentPath = request.getContextPath();
+            Vector< Post> posts = null;
             User user = (User) request.getSession().getAttribute("user");
-            Vector<Post> posts = (Vector<Post>) request.getSession().getAttribute("posts");
+            if (user == null) {
+                response.sendRedirect(currentPath);
+            } else {
+                posts = (Vector<Post>) request.getSession().getAttribute("posts");
+            }
         %>
         <nav class="navbar navbar-expand-lg navbar-dark">
             <a class="navbar-brand" href="#">Socia-Lite</a>
@@ -84,7 +91,7 @@
                                 <button type="button" class="btn btn-post btn-emoji">😘</button>
                                 <button type="button" class="btn btn-post btn-emoji">😂</button>
                             </div>
-                            
+
                             <div class="btn-group post-button post-actions" role="group">
                                 <label class="btn btn-post">
                                     Upload picture <input type="file" id="img-upload" hidden multiple>
@@ -395,9 +402,9 @@
 
 <!-- SCRIPT DELETE POST WARNING -->
 <script>
-            $('#confirm-delete').on('show.bs.modal', function (e) {
-                $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+    $('#confirm-delete').on('show.bs.modal', function (e) {
+        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
 
-                $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
-            });
+        $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
+    });
 </script>

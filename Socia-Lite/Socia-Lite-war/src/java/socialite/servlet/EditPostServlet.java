@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import socialite.dao.PostFacade;
 import socialite.entity.Post;
 
@@ -36,11 +37,16 @@ public class EditPostServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        if(session.getAttribute("user")!=null && request.getParameter("id") != null){
         Integer idPost = Integer.parseInt(request.getParameter("id"));
         Post post = postFacade.find(idPost);
         request.setAttribute("post", post);
         RequestDispatcher rd = request.getRequestDispatcher("/editPost.jsp");
-        rd.forward(request, response);  
+        rd.forward(request, response);}
+        else{
+            response.sendRedirect(request.getContextPath());
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
