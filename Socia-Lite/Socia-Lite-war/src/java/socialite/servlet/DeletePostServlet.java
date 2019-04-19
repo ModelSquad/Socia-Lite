@@ -53,9 +53,7 @@ public class DeletePostServlet extends HttpServlet {
         }
         
         postFacade.deletePost(idPost);
-        response.sendRedirect(request.getContextPath()+"/welcome.jsp");
-        
-        
+        response.sendRedirect(request.getContextPath()+"/welcome.jsp"); 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

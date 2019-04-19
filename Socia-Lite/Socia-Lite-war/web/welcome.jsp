@@ -10,9 +10,6 @@
         <style>
             <%@ include file="welcome.css"%>
         </style>
-        <script>
-            <%@ include file="welcome.js"%>
-        </script>
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -27,15 +24,16 @@
         crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
-
+        
         <!-- Fancybox -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
         <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-
+            
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
-
-
+        
+        <script>
+            <%@ include file="welcome.js"%>
+        </script>
     </head>
     <body>
         <%
@@ -43,7 +41,7 @@
             Vector<Post> posts = (Vector<Post>) request.getSession().getAttribute("posts");
         %>
         <nav class="navbar navbar-expand-lg navbar-dark">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="#">Socia-Lite</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -78,18 +76,27 @@
                     <!-- ADD POST -->
                     <form method="POST" action="AddPostServlet">
                         <div class="jumbotron jumbotron-post">
-                            <h4>Comparte tus experiencias</h4>
-                            <textarea name="post-text" class="form-control text-area-post" placeholder="Escribe algo aquí"></textarea>
+                            <h4>Share your experiences</h4>
+                            <textarea name="post-text" class="form-control text-area-post" placeholder="Write something here..."></textarea>
                             <div class="btn-group post-emoji post-actions" role="group">
                                 <button type="button" class="btn btn-post btn-emoji">❤️</button>
                                 <button type="button" class="btn btn-post btn-emoji">😉</button>
                                 <button type="button" class="btn btn-post btn-emoji">😘</button>
                                 <button type="button" class="btn btn-post btn-emoji">😂</button>
                             </div>
-
+                            
                             <div class="btn-group post-button post-actions" role="group">
-                                <input type="button" class="btn btn-post" value="Subir foto">
-                                <input type="submit" class="btn btn-post" value="Enviar">
+                                <label class="btn btn-post">
+                                    Upload picture <input type="file" id="img-upload" hidden multiple>
+                                </label>
+                                <input type="submit" class="btn btn-post" value="Send">
+                            </div>
+                            <div class="row post-row">
+                                <img id="img-0" class="img-preview" src="https://zenit.org/wp-content/uploads/2018/05/no-image-icon.png">
+                                <img id="img-1" class="img-preview" src="https://zenit.org/wp-content/uploads/2018/05/no-image-icon.png">
+                                <img id="img-2" class="img-preview" src="https://zenit.org/wp-content/uploads/2018/05/no-image-icon.png">
+                                <img id="img-3" class="img-preview" src="https://zenit.org/wp-content/uploads/2018/05/no-image-icon.png">
+                                <img id="img-4" class="img-preview" src="https://zenit.org/wp-content/uploads/2018/05/no-image-icon.png">
                             </div>
                         </div>
                     </form>

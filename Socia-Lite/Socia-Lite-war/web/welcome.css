@@ -1,3 +1,38 @@
+.img-preview {
+    height: 100px;
+    width: 100px;
+    position: relative;
+    margin-left: 35px;
+    border-color: whitesmoke;
+    border-width: 1px;
+    border-style: solid;
+    -webkit-box-shadow: 7px 10px 25px -11px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 10px 25px -11px rgba(0,0,0,0.75);
+    box-shadow: 7px 10px 25px -11px rgba(0,0,0,0.75);
+    visibility: hidden;
+}
+
+.jumbotron-post:hover > .post-row {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s, opacity 0.7s linear;
+}
+
+.jumbotron-post:not(:hover) > .post-row {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.3s linear;
+}
+
+.post-row {
+    margin-top: 75px;
+    position: relative;
+    height: 200px;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+}
+
 .jumbotron-post{
     padding-top: 25px !important;
     height: 130px;
@@ -36,7 +71,14 @@
 }
 
 .btn-post:hover {
-    background-color: #FFFFFF;
+    background-color: #FFFFFF !important;
+    color: black !important;
+}
+
+.btn-post {
+    background-color: #F5F5F5 !important;
+    color: gray !important;
+    margin: 0px !important;
 }
 
 .jumbotron-post:not(:hover) > .post-actions {

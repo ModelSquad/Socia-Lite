@@ -89,17 +89,20 @@ public class AddPostServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        User user = (User)session.getAttribute("user");
-        Post post = new Post();
-        post.setText(request.getParameter("post-text"));
-        post.setTitle("");
-        post.setLikes(0);
-        post.setDate(new Date());
-        post.setUser(user);
-        post.setVisibility(visibilityFacade.find(1));
-        postFacade.create(post);
-        session.setAttribute("posts", getPosts(user));
+        if(request.getParameter("post-text") != null) {
+            HttpSession session = request.getSession();
+            User user = (User)session.getAttribute("user");
+            Post post = new Post();
+            post.setText(request.getParameter("post-text"));
+            post.setTitle("");
+            post.setLikes(0);
+            post.setDate(new Date());
+            post.setUser(user);
+            post.setVisibility(visibilityFacade.find(1));
+            postFacade.create(post);
+            session.setAttribute("posts", getPosts(user));
+            System.out.println(request.getParameter("post-text"));
+        } 
         response.sendRedirect(request.getContextPath()+"/welcome.jsp");
     }
 
