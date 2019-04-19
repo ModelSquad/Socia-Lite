@@ -1,0 +1,110 @@
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+.navbar-dark {
+    background-color: #4285f4;
+}
+
+  /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {height: 450px}
+
+  /* Set gray background color and 100% height */
+.sidenav {
+    padding-top: 20px;
+    background-color: #f1f1f1;
+    height: 100%;
+}
+
+  /* Set black background color, white text and some padding */
+footer {
+    background-color: #555;
+    color: white;
+    padding: 0px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+}
+
+  /* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+    .sidenav {
+      height: auto;
+      padding: 15px;
+    }
+    .row.content {height:auto;}
+}
+
+body {
+            background-color: #eeeeee;
+            margin-bottom: 100px;
+}
+
+.h7 {
+            font-size: 0.8rem;
+}
+
+.gedf-wrapper {
+            margin-top: 0.97rem;
+}
+
+@media (min-width: 992px) {
+    .gedf-main {
+                padding-left: 4rem;
+                padding-right: 4rem;
+    }
+    .gedf-card {
+                margin-bottom: 2.77rem;
+                margin-top: 2.77em;
+
+    }
+}
+
+/**Reset Bootstrap*/
+.dropdown-toggle::after {
+            content: none;
+            display: none;
+}
+.feed{
+            margin-bottom: 50px;
+}
+
+.post-image{        
+            max-height: 400px;
+            width: auto;
+            object-fit: cover;
+}
+
+
+.btn-selection {
+  margin-legt: 2rem;
+  margin-right: 3rem;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: 13px;
+  letter-spacing: 1px;
+  line-height: 15px;
+  border: 2px solid #FFF;
+  transition: all 0.3s ease 0s;
+}
+/* Boostrap Buttons Styling */
+.btn-default {
+  color: #FFF; 
+  background: #4285f4;
+}
+
+.btn-default:hover {
+  color: #4285f4;
+  background: #FFF;
+  border: 2px solid #4285f4;
+}
+
+.btn-outline-selected {
+  color: #4285f4;
+  background: #FFF;
+  border: 2px solid #4285f4;
+}
+        

@@ -4,6 +4,7 @@
     Author     : cherra
 --%>
 
+<%@page import="java.util.List"%>
 <%@page import="socialite.entity.*"%>
 <%@page import="java.util.Vector"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,7 +15,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-         <%@ include file="welcome.css"%>
+         <%@ include file="friends.css"%>
     </style>
     <script>
         <%@ include file="welcome.js"%>
@@ -39,14 +40,16 @@
 
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 <!-- Icons -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">    
 
   </head>
     <body>
          <% 
         User user = (User)request.getSession().getAttribute("user");
-        Vector<User> friends = (Vector<User>) request.getSession().getAttribute("friends");
+        List<User> friends =  (List<User>)request.getSession().getAttribute("friends");
+        
+        // Receive any request
+        List<FriendshipRequest> requests = user.getFriendshipRequestList1();
     %>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="#">Navbar</a>
@@ -74,8 +77,7 @@
         </div>
     </nav>
     
-    </div>
-
+    
     <div class="container-fluid text-center">
         <div class="row content">
             <div class="col-sm-2 sidenav">
@@ -83,7 +85,109 @@
                 <p><a href="#">Link</a></p>
                 <p><a href="#">Link</a></p>
             </div>
+
             <div class="col-sm text-left feed">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-selection btn-outline-selected">My friends</button>
+                    <button type="button" class="btn btn-selection btn-default">Find friends</button>
+                    <button type="button" class="btn btn-selection btn-default">Friendship requests</button>
+                </div>
+            <div class="card gedf-card mt-2" style="width: 100%;">     
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="m-2">
+                            <img class="rounded-circle" width="45" src="https://avatars0.githubusercontent.com/u/33965662?s=460&v=4" alt="">
+                        </div>
+                        <div class="ml-2">
+                            <div class="h5 m-0"><a href="#">@xFJA</a></div>
+                            <div class="h7 text-muted"> Francisco Jiménez Aguilera </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="dropdown">
+                            <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+                                <div class="h6 dropdown-header">Options</div>
+                                <a class="dropdown-item" href="#">See profile</a>
+                                <a class="dropdown-item" href="#">Delete from friends</a>
+                                <a class="dropdown-item" href="#">Block</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="card gedf-card mt-2" style="width: 100%;">     
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="m-2">
+                            <img class="rounded-circle" width="45" src="<%= 
+                                (user.getProfilePic() == null) 
+                      ? "https://cdn.clipart.email/0ad2ce5b5370f2d91ef8b465f6770e77_people-icons-3800-free-files-in-png-eps-svg-format_338-338.jpeg" 
+                      : user.getProfilePic()%>" alt="">
+                        </div>
+                        <div class="ml-2">
+                            <div class="h5 m-0"><a href="#"><%="@"+user.getNickname()%></a></div>
+                            <div class="h7 text-muted"><%=user.getName() +" "+user.getSurname()%></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="dropdown">
+                            <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+                                <div class="h6 dropdown-header">Options</div>
+                                <a class="dropdown-item" href="#">See profile</a>
+                                <a class="dropdown-item" href="#">Delete from friends</a>
+                                <a class="dropdown-item" href="#">Block</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% System.out.print(friends.size());
+                if(friends != null){
+                for(User friend: friends){
+                %>
+                <div class="card gedf-card mt-2" style="width: 100%;">     
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="m-2">
+                            <img class="rounded-circle" width="45" src="<%= 
+                                (friend.getProfilePic() == null) 
+                      ? "https://cdn.clipart.email/0ad2ce5b5370f2d91ef8b465f6770e77_people-icons-3800-free-files-in-png-eps-svg-format_338-338.jpeg" 
+                      : friend.getProfilePic()%>" alt="">
+                        </div>
+                        <div class="ml-2">
+                            <div class="h5 m-0"><a href="#"><%=friend.getNickname()%></a></div>
+                            <div class="h7 text-muted"><%=friend.getName() +" "+friend.getSurname()%></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="dropdown">
+                            <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+                                <div class="h6 dropdown-header">Options</div>
+                                <a class="dropdown-item" href="#">See profile</a>
+                                <a class="dropdown-item" href="#">Delete from friends</a>
+                                <a class="dropdown-item" href="#">Block</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                 <%     
+                    };
+                } else {
+                    System.err.println("No hay peñita");
+                }
+
+                %>
+            </div>
                 <div class="col-sm-2 sidenav">
                     <div class="well">
                     <p>ADS</p>
@@ -92,7 +196,6 @@
                     <p>ADS</p>
                     </div>
                 </div>
-            </div>
         </div> 
     </div>
     </body>
