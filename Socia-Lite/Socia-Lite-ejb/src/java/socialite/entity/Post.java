@@ -21,7 +21,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Sevi
+ * @author cherra
  */
 @Entity
 @Table(name = "Post")
@@ -43,8 +42,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Post.findByDate", query = "SELECT p FROM Post p WHERE p.date = :date")
     , @NamedQuery(name = "Post.findByTitle", query = "SELECT p FROM Post p WHERE p.title = :title")
     , @NamedQuery(name = "Post.findByText", query = "SELECT p FROM Post p WHERE p.text = :text")
-    , @NamedQuery(name = "Post.findByUser", query = "SELECT p FROM Post p WHERE p.user = :user")
-    , @NamedQuery(name = "Post.findByLikes", query = "SELECT p FROM Post p WHERE p.likes = :likes")})
+    , @NamedQuery(name = "Post.findByLikes", query = "SELECT p FROM Post p WHERE p.likes = :likes")
+    , @NamedQuery(name = "Post.findByUser", query = "SELECT p FROM Post p WHERE p.user = :user")})
 public class Post implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -67,11 +66,10 @@ public class Post implements Serializable {
     @Column(name = "likes")
     private Integer likes;
     @JoinColumn(name = "user", referencedColumnName = "idUser")
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private User user;
     @JoinColumns({
         @JoinColumn(name = "visibility", referencedColumnName = "idVisibility")
-        , @JoinColumn(name = "visibility", referencedColumnName = "idVisibility")
         , @JoinColumn(name = "visibility", referencedColumnName = "idVisibility")})
     @ManyToOne(optional = false)
     private Visibility visibility;

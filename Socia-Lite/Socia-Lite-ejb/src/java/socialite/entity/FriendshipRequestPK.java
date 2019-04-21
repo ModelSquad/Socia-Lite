@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author Sevi
+ * @author cherra
  */
 @Embeddable
 public class FriendshipRequestPK implements Serializable {

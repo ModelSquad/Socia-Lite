@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Sevi
+ * @author cherra
  */
 @Entity
 @Table(name = "Media")
@@ -48,7 +48,6 @@ public class Media implements Serializable {
     private String mediaUrl;
     @JoinColumns({
         @JoinColumn(name = "post", referencedColumnName = "idPost")
-        , @JoinColumn(name = "post", referencedColumnName = "idPost")
         , @JoinColumn(name = "post", referencedColumnName = "idPost")})
     @ManyToOne(optional = false)
     private Post post;

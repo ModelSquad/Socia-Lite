@@ -4,8 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/cherra/tercero/segundoCuatrimestre/aplicacionesWeb/Socia-Lite/Socia-Lite/Socia-Lite-war/web/friends.jsp</file>
-            <file>file:/home/cherra/tercero/segundoCuatrimestre/aplicacionesWeb/Socia-Lite/Socia-Lite/Socia-Lite-war/src/java/socialite/servlet/IndexServlet.java</file>
-            <file>file:/home/cherra/tercero/segundoCuatrimestre/aplicacionesWeb/Socia-Lite/Socia-Lite/Socia-Lite-war/src/java/socialite/servlet/LoginServlet.java</file>
+            <file>file:/home/cherra/tercero/segundoCuatrimestre/aplicacionesWeb/Socia-Lite/Socia-Lite/Socia-Lite-war/src/java/socialite/servlet/DenyFriendServlet.java</file>
+            <file>file:/home/cherra/tercero/segundoCuatrimestre/aplicacionesWeb/Socia-Lite/Socia-Lite/Socia-Lite-war/src/java/socialite/servlet/AceptFriendServlet.java</file>
+            <file>file:/home/cherra/tercero/segundoCuatrimestre/aplicacionesWeb/Socia-Lite/Socia-Lite/Socia-Lite-war/src/java/socialite/servlet/DeleteFriendServlet.java</file>
         </group>
     </open-files>
 </project-private>

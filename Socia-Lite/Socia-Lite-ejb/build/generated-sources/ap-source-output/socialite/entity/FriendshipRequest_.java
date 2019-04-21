@@ -7,7 +7,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import socialite.entity.FriendshipRequestPK;
 import socialite.entity.User;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-04-10T17:52:43")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-04-21T13:48:38")
 @StaticMetamodel(FriendshipRequest.class)
 public class FriendshipRequest_ { 
 

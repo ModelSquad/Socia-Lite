@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Sevi
+ * @author cherra
  */
 @Entity
 @Table(name = "FriendshipRequest")

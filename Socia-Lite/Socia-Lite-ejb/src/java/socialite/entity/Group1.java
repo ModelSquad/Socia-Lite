@@ -6,28 +6,26 @@
 package socialite.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Sevi
+ * @author cherra
  */
 @Entity
 @Table(name = "Group1")
@@ -57,18 +55,11 @@ public class Group1 implements Serializable {
     @Size(max = 100)
     @Column(name = "profilePic")
     private String profilePic;
-    @JoinTable(name = "UserGroup", joinColumns = {
-        @JoinColumn(name = "group", referencedColumnName = "idGroup")
-        , @JoinColumn(name = "group", referencedColumnName = "idGroup")
-        , @JoinColumn(name = "group", referencedColumnName = "idGroup")}, inverseJoinColumns = {
-        @JoinColumn(name = "user", referencedColumnName = "idUser")
-        , @JoinColumn(name = "user", referencedColumnName = "idUser")
-        , @JoinColumn(name = "user", referencedColumnName = "idUser")})
-    @ManyToMany
-    private List<User> userList;
     @JoinColumn(name = "admin", referencedColumnName = "idUser")
     @ManyToOne(optional = false)
     private User admin;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "group1")
+    private UserGroup userGroup;
 
     public Group1() {
     }
@@ -114,21 +105,20 @@ public class Group1 implements Serializable {
         this.profilePic = profilePic;
     }
 
-    @XmlTransient
-    public List<User> getUserList() {
-        return userList;
-    }
-
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
-    }
-
     public User getAdmin() {
         return admin;
     }
 
     public void setAdmin(User admin) {
         this.admin = admin;
+    }
+
+    public UserGroup getUserGroup() {
+        return userGroup;
+    }
+
+    public void setUserGroup(UserGroup userGroup) {
+        this.userGroup = userGroup;
     }
 
     @Override

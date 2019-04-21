@@ -108,9 +108,17 @@ body {
   border: 2px solid #4285f4;
 }
 
+
+div.mdl-layout__drawer > nav.mdl-navigation > a.mdl-navigation__link {
+    display: inline-flex;
+    vertical-align: middle;
+}
+
 .material-icons{
      display: inline-flex;
     align-items: center;
     justify-content: center;
     vertical-align: middle;    
 }
+
+     

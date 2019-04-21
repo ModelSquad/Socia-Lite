@@ -9,29 +9,25 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import socialite.dao.*;
+import socialite.dao.FriendshipRequestFacade;
 import socialite.entity.*;
 
 /**
  *
  * @author cherra
  */
-@WebServlet(name = "friendsServlet", urlPatterns = {"/friendsServlet"})
-public class friendsServlet extends HttpServlet {
-    
-    @EJB
-    private UserFacade userFacade;
-    
+@WebServlet(name = "AceptFriendServlet", urlPatterns = {"/AceptFriendServlet"})
+public class AceptFriendshipRequestServlet extends HttpServlet {
+
     @EJB
     private FriendshipRequestFacade friendshipRequestFacade;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,17 +40,19 @@ public class friendsServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet friendsServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet friendsServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        FriendshipRequest friendshipRequest = (FriendshipRequest) session.getAttribute("friendshipRequest");
+        if(user != null && friendshipRequest != null){
+            User friendshipSender = friendshipRequest.getUser();
+            List<User> amigos = user.getUserList();
+            List<User> amigos1 = user.getUserList1();
+            amigos.add(friendshipSender);
+            amigos1.add(friendshipSender);
+            friendshipRequestFacade.remove(friendshipRequest);
+            session.removeAttribute("friendshipRequest");
+        } else {
+            response.sendRedirect("login.jsp");
         }
     }
 
@@ -70,17 +68,7 @@ public class friendsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session= request.getSession();
-        RequestDispatcher rd;
-        User user = (User)session.getAttribute("user");
-        if(user != null){
-            // Arreglar esto
-            session.setAttribute("friends", userFacade.findAll());
-            List<FriendshipRequest> friendshipRequests = friendshipRequestFacade.findAll();
-            session.setAttribute("friendshipRequests", friendshipRequests);
-            if()
-            
-        }
+        processRequest(request, response);
     }
 
     /**

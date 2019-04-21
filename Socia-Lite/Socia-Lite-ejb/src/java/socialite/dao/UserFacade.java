@@ -6,13 +6,15 @@
 package socialite.dao;
 
 import java.util.Iterator;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import socialite.entity.Post;
 import socialite.entity.User;
 
+/**
+ *
+ * @author cherra
+ */
 @Stateless
 public class UserFacade extends AbstractFacade<User> {
 
@@ -32,5 +34,10 @@ public class UserFacade extends AbstractFacade<User> {
         Iterator it = em.createNamedQuery("User.findByEmail")
         .setParameter("email", email).getResultList().iterator();
         return (it.hasNext()) ? (User)it.next() : null;
-    }    
+    }  
+    public User findByIdUser (int id) {
+        Iterator it = em.createNamedQuery("User.findByEmail")
+        .setParameter("idUser", id).getResultList().iterator();
+        return (it.hasNext()) ? (User)it.next() : null;
+    } 
 }

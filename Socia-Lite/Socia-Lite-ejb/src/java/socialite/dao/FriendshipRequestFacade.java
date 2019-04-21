@@ -12,7 +12,7 @@ import socialite.entity.FriendshipRequest;
 
 /**
  *
- * @author Sevi
+ * @author cherra
  */
 @Stateless
 public class FriendshipRequestFacade extends AbstractFacade<FriendshipRequest> {

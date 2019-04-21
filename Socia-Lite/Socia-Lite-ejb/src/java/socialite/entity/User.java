@@ -15,6 +15,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -30,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Sevi
+ * @author cherra
  */
 @Entity
 @Table(name = "User")
@@ -39,8 +41,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
     , @NamedQuery(name = "User.findByIdUser", query = "SELECT u FROM User u WHERE u.idUser = :idUser")
     , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
-    // TODO Terminar cuando se actualice la bdd
-    // , @NamedQuery(name = "User.getAllPost", query = "
     , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
     , @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name")
     , @NamedQuery(name = "User.findBySurname", query = "SELECT u FROM User u WHERE u.surname = :surname")
@@ -107,16 +107,24 @@ public class User implements Serializable {
     @Size(max = 100)
     @Column(name = "profilePic")
     private String profilePic;
+    @JoinTable(name = "UserFriend", joinColumns = {
+        @JoinColumn(name = "idFriend", referencedColumnName = "idUser")}, inverseJoinColumns = {
+        @JoinColumn(name = "idUser", referencedColumnName = "idUser")})
+    @ManyToMany
+    private List<User> userList;
     @ManyToMany(mappedBy = "userList")
-    private List<Group1> group1List;
+    private List<User> userList1;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "admin")
-    private List<Group1> group1List1;
+    private List<Group1> group1List;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<FriendshipRequest> friendshipRequestList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1")
     private List<FriendshipRequest> friendshipRequestList1;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-    private Post post;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Post> postList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user1")
+    private UserGroup userGroup;
 
     public User() {
     }
@@ -239,21 +247,30 @@ public class User implements Serializable {
     }
 
     @XmlTransient
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
+
+    @XmlTransient
+    public List<User> getUserList1() {
+        return userList1;
+    }
+
+    public void setUserList1(List<User> userList1) {
+        this.userList1 = userList1;
+    }
+
+    @XmlTransient
     public List<Group1> getGroup1List() {
         return group1List;
     }
 
     public void setGroup1List(List<Group1> group1List) {
         this.group1List = group1List;
-    }
-
-    @XmlTransient
-    public List<Group1> getGroup1List1() {
-        return group1List1;
-    }
-
-    public void setGroup1List1(List<Group1> group1List1) {
-        this.group1List1 = group1List1;
     }
 
     @XmlTransient
@@ -274,12 +291,21 @@ public class User implements Serializable {
         this.friendshipRequestList1 = friendshipRequestList1;
     }
 
-    public Post getPost() {
-        return post;
+    @XmlTransient
+    public List<Post> getPostList() {
+        return postList;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setPostList(List<Post> postList) {
+        this.postList = postList;
+    }
+
+    public UserGroup getUserGroup() {
+        return userGroup;
+    }
+
+    public void setUserGroup(UserGroup userGroup) {
+        this.userGroup = userGroup;
     }
 
     @Override
@@ -297,6 +323,10 @@ public class User implements Serializable {
         }
         User other = (User) object;
         if ((this.idUser == null && other.idUser != null) || (this.idUser != null && !this.idUser.equals(other.idUser))) {
+            return false;
+        }
+        
+        if((this.idUser != other.idUser)){
             return false;
         }
         return true;
