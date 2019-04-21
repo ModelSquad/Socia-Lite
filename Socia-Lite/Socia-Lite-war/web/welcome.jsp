@@ -32,6 +32,9 @@
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
+        <!-- Logout -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        
         <script>
             <%@ include file="welcome.js"%>
         </script>
@@ -63,6 +66,14 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Socia-Lite-war/user.jsp">My profile</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav logout">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Socia-Lite-war/SignoutServlet"><i class="fas fa-sign-out-alt"></i> Sign out</a>
                     </li>
                 </ul>
             </div>

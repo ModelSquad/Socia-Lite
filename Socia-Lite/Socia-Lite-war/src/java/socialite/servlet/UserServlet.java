@@ -41,6 +41,8 @@ public class UserServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        String name = request.getParameter("name");
+        String surname = request.getParameter("surname");
         String birthdate = request.getParameter("birthdate");
         String birthplace = request.getParameter("birthplace");
         String birthplaceDelete = request.getParameter("birthplaceDelete");
@@ -51,7 +53,12 @@ public class UserServlet extends HttpServlet {
         String website = request.getParameter("website");
         String websiteDelete = request.getParameter("websiteDelete");
         User user = (User) request.getSession().getAttribute("user");
-        if(birthdate!=null){
+        
+        if(name!=null){
+            user.setName(name);
+        }else if(surname!=null){
+            user.setSurname(surname);
+        }else if(birthdate!=null){
             try {  
                 user.setBirthDate(new SimpleDateFormat("yyyy-MM-dd").parse(birthdate));
             } catch (ParseException ex) {

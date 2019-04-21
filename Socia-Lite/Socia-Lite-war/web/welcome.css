@@ -276,3 +276,7 @@ body {
 #delete-btn{
     color: white;
 }
+
+.logout {
+    margin-left: 78%;
+}
