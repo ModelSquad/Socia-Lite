@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.Vector"%>
 <%@page import="socialite.entity.*"%>
@@ -40,6 +41,7 @@
     <% 
         User user = (User)request.getSession().getAttribute("user");
         Vector<Post> posts = (Vector<Post>) request.getSession().getAttribute("posts");
+        List<User> friends = user.getUserList();
     %>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="#">Navbar</a>
@@ -61,8 +63,8 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Pricing</a>
             </li>
-
           </ul>
+
         </div>
     </nav>
 
@@ -72,8 +74,35 @@
         <p><a href="#">Link</a></p>
         <p><a href="#">Link</a></p>
         <p><a href="#">Link</a></p>
-      </div>
-        
+        <div class="row content">
+        <div class="panel panel-primary friend-panel m-2">
+            <div class="panel-heading">Friends</div>
+            <div class="panel-body friend-content" style="overflow-y: scroll; ">
+                <div class="card m-2">
+                    <div ml-2>
+                    <img class="rounded-circle ml-2 mt-2" width="30" src="https://avatars0.githubusercontent.com/u/33965662?s=460&v=4" alt=""> 
+                    </div>
+                    <div>@XFJA</div>
+                </div>
+                <%if(friends != null && friends.size()>0){
+                    for(User friend : friends){  
+                %>
+                <div class="card m-2">
+                    <img class="rounded-circle" width="30" src="<%= 
+                                (friend.getProfilePic() == null) 
+                      ? "https://cdn.clipart.email/0ad2ce5b5370f2d91ef8b465f6770e77_people-icons-3800-free-files-in-png-eps-svg-format_338-338.jpeg" 
+                      : friend.getProfilePic()%>" alt=""> 
+                    <div><%=friend.getNickname()%></div>
+                </div>
+                <%  }
+                  }%>
+                
+                
+                
+            </div>
+        </div>  
+    </div>
+      </div>      
       
       
       <div class="col-sm text-left feed">
@@ -361,6 +390,19 @@
     <footer class="container-fluid text-center">
       <p>Footer Text</p>
     </footer>
+<script>
+window.onscroll = function() {myFunction()};
 
+var header = document.getElementById("myHeader");
+var sticky = header.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset > sticky) {
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
+  }
+}
+</script>
   </body>
 </html>

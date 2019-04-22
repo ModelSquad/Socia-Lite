@@ -68,27 +68,27 @@ box-shadow: 5px 5px 11px -1px rgba(0,0,0,0.51);
 }
 
 /* Remove the navbar's default margin-bottom and rounded borders */
-  .navbar {
-    margin-bottom: 0;
-    border-radius: 0;
-  }
+.navbar {
+margin-bottom: 0;
+border-radius: 0;
+}
 
-  .navbar-dark {
-    background-color: #4285f4;
-  }
+.navbar-dark {
+background-color: #4285f4;
+}
 
-  /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-  .row.content {height: 450px}
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {height: 450px}
 
-  /* Set gray background color and 100% height */
-  .sidenav {
-    padding-top: 20px;
-    background-color: #f1f1f1;
-    height: 100%;
-  }
+/* Set gray background color and 100% height */
+.sidenav {
+padding-top: 20px;
+background-color: #f1f1f1;
+height: 90vh;
+}
 
   /* Set black background color, white text and some padding */
-  footer {
+footer {
     background-color: #555;
     color: white;
     padding: 0px;
@@ -96,51 +96,96 @@ box-shadow: 5px 5px 11px -1px rgba(0,0,0,0.51);
     bottom: 0;
     width: 100%;
     height: 60px;
-  }
+}
 
   /* On small screens, set height to 'auto' for sidenav and grid */
-  @media screen and (max-width: 767px) {
+@media screen and (max-width: 767px) {
     .sidenav {
       height: auto;
       padding: 15px;
     }
     .row.content {height:auto;}
-  }
+}
   
-  body {
-            background-color: #eeeeee;
-            margin-bottom: 100px;
-        }
+body {
+          background-color: #eeeeee;
+          margin-bottom: 100px;
+      }
 
-        .h7 {
-            font-size: 0.8rem;
-        }
+.h7 {
+    font-size: 0.8rem;
+}
 
-        .gedf-wrapper {
-            margin-top: 0.97rem;
-        }
+.gedf-wrapper {
+    margin-top: 0.97rem;
+}
 
-        @media (min-width: 992px) {
-            .gedf-main {
-                padding-left: 4rem;
-                padding-right: 4rem;
-            }
-            .gedf-card {
-                margin-bottom: 2.77rem;
-            }
-        }
+@media (min-width: 992px) {
+    .gedf-main {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+    .gedf-card {
+        margin-bottom: 2.77rem;
+    }
+}
 
-        /**Reset Bootstrap*/
-        .dropdown-toggle::after {
-            content: none;
-            display: none;
-        }
-        .feed{
-            margin-bottom: 50px;
-        }
+/**Reset Bootstrap*/
+.dropdown-toggle::after {
+    content: none;
+    display: none;
+}
+.feed{
+    margin-bottom: 50px;
+}
+
+.post-image{        
+    max-height: 400px;
+    width: auto;
+    object-fit: cover;
+}
         
-        .post-image{        
-            max-height: 400px;
-            width: auto;
-            object-fit: cover;
-        }
+.material-icons{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;    
+}
+
+.friend-panel{
+    text-align: center;
+    justify-content: center;
+    padding-top: 0px;
+    background-color: #FFF;
+    height: 70vh;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.friend-content{
+    height:65.4vh;
+}
+
+.panel-heading{
+    padding: 10px 16px;
+    background: #4285f4;
+    color: #f1f1f1;
+}
+
+
+/* Page content */
+.content {
+  padding: 16px;
+}
+
+/* The sticky class is added to the header with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+  padding-top: 102px;
+}

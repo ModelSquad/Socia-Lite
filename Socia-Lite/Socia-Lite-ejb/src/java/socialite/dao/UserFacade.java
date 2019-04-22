@@ -35,8 +35,8 @@ public class UserFacade extends AbstractFacade<User> {
         .setParameter("email", email).getResultList().iterator();
         return (it.hasNext()) ? (User)it.next() : null;
     }  
-    public User findByIdUser (int id) {
-        Iterator it = em.createNamedQuery("User.findByEmail")
+    public User findByIdUser (Integer id) {
+        Iterator it = em.createNamedQuery("User.findByIdUser")
         .setParameter("idUser", id).getResultList().iterator();
         return (it.hasNext()) ? (User)it.next() : null;
     } 
