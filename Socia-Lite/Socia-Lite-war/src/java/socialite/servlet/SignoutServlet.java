@@ -36,9 +36,8 @@ public class SignoutServlet extends HttpServlet {
             response.setContentType("text/html;charset=UTF-8");
 
             request.getSession().invalidate();  
-           
-            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/IndexServlet");
-            rd.forward(request, response);
+            
+            response.sendRedirect(request.getContextPath());
 
     }
 

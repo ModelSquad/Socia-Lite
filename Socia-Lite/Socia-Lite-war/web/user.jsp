@@ -38,7 +38,7 @@
         <%
             User user = (User) request.getSession().getAttribute("user");
         %>
-        <nav class="navbar navbar-expand-lg navbar-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
             <a class="navbar-brand" href="#">Socia-Lite</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,9 +59,9 @@
                         <a class="nav-link" href="#">My profile <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
-                <ul class="navbar-nav logout">
+                <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/Socia-Lite-war/SignoutServlet"><i class="fas fa-sign-out-alt"></i> Sign out</a>
+                        <a class="nav-link" href="/Socia-Lite-war/SignoutServlet"><i class="fa fa-sign-out"></i> Sign out</a>
                     </li>
                 </ul>
             </div>
@@ -121,7 +121,7 @@
                                 <div class="card-body esurname" style="display:none">
                                     <form action="UserServlet" method="post">
                                         <h4>Edit your surname</h4>
-                                        <input type="text" name="name">
+                                        <input type="text" name="surname">
                                         <input type="submit" name="submit" value="Edit" class="btn btn-outline-secondary btn-sm">  
                                     </form>
                                 </div>

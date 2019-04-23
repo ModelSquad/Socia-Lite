@@ -179,6 +179,7 @@ body {
 }
 .feed{
     margin-bottom: 50px;
+    margin-top: 80px;
 }
 
 .post-image{        
@@ -275,8 +276,4 @@ body {
 
 #delete-btn{
     color: white;
-}
-
-.logout {
-    margin-left: 78%;
 }

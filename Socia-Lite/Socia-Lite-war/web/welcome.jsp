@@ -32,9 +32,6 @@
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-        <!-- Logout -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-        
         <script>
             <%@ include file="welcome.js"%>
         </script>
@@ -50,7 +47,7 @@
                 posts = (Vector<Post>) request.getSession().getAttribute("posts");
             }
         %>
-        <nav class="navbar navbar-expand-lg navbar-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
             <a class="navbar-brand" href="#">Socia-Lite</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,9 +68,9 @@
                         <a class="nav-link" href="/Socia-Lite-war/user.jsp">My profile</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav logout">
+                <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/Socia-Lite-war/SignoutServlet"><i class="fas fa-sign-out-alt"></i> Sign out</a>
+                        <a class="nav-link" href="/Socia-Lite-war/SignoutServlet"><i class="fa fa-sign-out"></i> Sign out</a>
                     </li>
                 </ul>
             </div>

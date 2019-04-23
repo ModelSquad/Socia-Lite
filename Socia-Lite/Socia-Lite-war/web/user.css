@@ -69,7 +69,7 @@
 
 /* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {
-    margin-bottom: 0;
+    margin-bottom: 0px;
     border-radius: 0;
 }
 
@@ -137,6 +137,7 @@ body {
 }
 .feed{
     margin-bottom: 50px;
+    margin-top: 100px;
 }
 
 .post-image{        
@@ -469,9 +470,5 @@ body {
 }
  .elements-page-btn .btn {
      margin: 6px 3px;
-}
-
-.logout {
-    margin-left: 78%;
 }
 
