@@ -8,14 +8,14 @@ package socialite.dao;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import socialite.entity.UserGroup;
+import socialite.entity.Association;
 
 /**
  *
  * @author cherra
  */
 @Stateless
-public class UserGroupFacade extends AbstractFacade<UserGroup> {
+public class AssociationFacade extends AbstractFacade<Association> {
 
     @PersistenceContext(unitName = "Socia-Lite-ejbPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class UserGroupFacade extends AbstractFacade<UserGroup> {
         return em;
     }
 
-    public UserGroupFacade() {
-        super(UserGroup.class);
+    public AssociationFacade() {
+        super(Association.class);
     }
     
 }

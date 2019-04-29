@@ -22,7 +22,7 @@ import socialite.entity.User;
  *
  * @author cherra
  */
-@WebServlet(name = "deleteFriendServlet", urlPatterns = {"/deleteFriendServlet"})
+@WebServlet(name = "DeleteFriendServlet", urlPatterns = {"/DeleteFriendServlet"})
 public class DeleteFriendServlet extends HttpServlet {
 
     @EJB
@@ -43,14 +43,18 @@ public class DeleteFriendServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         User currentUser = (User)session.getAttribute("user");
-        //int id = (int)session.getAttribute("friendDelete");
-        User deleteFriend = userFacade.findByIdUser(2);
+        
         if(currentUser != null){
-            List<User> friends1 = currentUser.getUserList();
-            friends1.remove(deleteFriend);
-            List<User> friends2 = deleteFriend.getUserList();
-            friends2.remove(currentUser);
-            response.sendRedirect(request.getContextPath());
+            String deleteFriend = (String)request.getParameter("idFriend");
+            Integer idFriend = new Integer(deleteFriend);
+            User friend = userFacade.findByIdUser(idFriend);
+            if(friend != null){
+                List<User> friends1 = currentUser.getUserList();
+                friends1.remove(friend);
+                List<User> friends2 = friend.getUserList();
+                friends2.remove(currentUser);
+            }
+            response.sendRedirect(request.getContextPath()+"/friends.jsp");
         } else {
             response.sendRedirect("index.jsp");
         }

@@ -100,49 +100,31 @@
                         <%};
                         %></a>
                 </div>
+            <% 
+                if(friends != null){
+                for(User friend: friends){
+                    
+                %>
             <div class="card gedf-card mt-2" style="width: 100%;">     
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="m-2">
-                            <img class="rounded-circle" width="45" src="https://avatars0.githubusercontent.com/u/33965662?s=460&v=4" alt="">
+                            <img class="rounded-circle" width="45" src="<%=(friend.getProfilePic() == null) 
+                      ? "https://cdn.clipart.email/0ad2ce5b5370f2d91ef8b465f6770e77_people-icons-3800-free-files-in-png-eps-svg-format_338-338.jpeg" 
+                      : friend.getProfilePic() %>" alt="">
                         </div>
                         <div class="ml-2">
-                            <div class="h5 m-0"><a href="#">@xFJA</a></div>
-                            <div class="h7 text-muted"> Francisco Jiménez Aguilera </div>
+                            <div class="h5 m-0"><a href="#"><%=friend.getNickname()%></a></div>
+                            <div class="h7 text-muted"><%=friend.getName()%></div>
                         </div>
                     </div>
                     <div>
                         <div class="btn-group btn-group-justified m-2 mr-4" >
                             <a class="btn btn-xs btn-primary" data-href="#" data-target="#" ><i class="material-icons" style="font-size:20px;">remove_red_eye</i>See profile</a>
-                            <a class="btn btn-xs btn-danger trigger-btn" data-href="deleteFriendServlet?friendDelete=2" data-target="#confirm-delete" data-toggle="modal"><i class="material-icons" style="font-size:20px;">clear</i>Delete</a>
+                            <a class="btn btn-xs btn-danger trigger-btn" data-href="DeleteFriendServlet?idFriend=<%=friend.getIdUser()%>" data-target="#confirm-delete" data-toggle="modal"><i class="material-icons" style="font-size:20px;">clear</i>Delete</a>
                         </div>
                     </div>
                 </div> 
-            </div>
-            <% 
-                if(friends != null){
-                for(User friend: friends){
-                %>
-                <div class="card gedf-card mt-2" style="width: 100%;">     
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="m-2">
-                            <img class="rounded-circle" width="45" src="<%= 
-                                (friend.getProfilePic() == null) 
-                      ? "https://cdn.clipart.email/0ad2ce5b5370f2d91ef8b465f6770e77_people-icons-3800-free-files-in-png-eps-svg-format_338-338.jpeg" 
-                      : friend.getProfilePic()%>" alt="">
-                        </div>
-                        <div class="ml-2">
-                            <div class="h5 m-0"><a href="#"><%=friend.getNickname()%></a></div>
-                            <div class="h7 text-muted"><%=friend.getName() +" "+friend.getSurname()%></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="dropdown">
-                            <a class="btn btn-raised btn-s" data-href="DeleteFriendServlet?deleteFriend=<%=friend.getIdUser()%>" data-target="#confirm-delete" class="trigger-btn" data-toggle="modal">Delete from friends</a>
-                        </div>
-                    </div>
-                </div>
             </div>
                  <%     
                     };
@@ -181,7 +163,7 @@
     </body>
 </html>
 
-<!-- SCRIPT DELETE POST WARNING -->
+<!-- SCRIPT DELETE FRIEND WARNING -->
 <script>
     $('#confirm-delete').on('show.bs.modal', function (e) {
         $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));

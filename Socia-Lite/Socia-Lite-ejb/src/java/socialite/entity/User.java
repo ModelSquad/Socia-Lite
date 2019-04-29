@@ -21,7 +21,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -114,17 +113,16 @@ public class User implements Serializable {
     private List<User> userList;
     @ManyToMany(mappedBy = "userList")
     private List<User> userList1;
-    
+    @ManyToMany(mappedBy = "userList")
+    private List<Association> associationList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "admin")
-    private List<Group1> group1List;
+    private List<Association> associationList1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<FriendshipRequest> friendshipRequestList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1")
     private List<FriendshipRequest> friendshipRequestList1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Post> postList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user1")
-    private UserGroup userGroup;
 
     public User() {
     }
@@ -265,12 +263,21 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public List<Group1> getGroup1List() {
-        return group1List;
+    public List<Association> getAssociationList() {
+        return associationList;
     }
 
-    public void setGroup1List(List<Group1> group1List) {
-        this.group1List = group1List;
+    public void setAssociationList(List<Association> associationList) {
+        this.associationList = associationList;
+    }
+
+    @XmlTransient
+    public List<Association> getAssociationList1() {
+        return associationList1;
+    }
+
+    public void setAssociationList1(List<Association> associationList1) {
+        this.associationList1 = associationList1;
     }
 
     @XmlTransient
@@ -300,14 +307,6 @@ public class User implements Serializable {
         this.postList = postList;
     }
 
-    public UserGroup getUserGroup() {
-        return userGroup;
-    }
-
-    public void setUserGroup(UserGroup userGroup) {
-        this.userGroup = userGroup;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -323,10 +322,6 @@ public class User implements Serializable {
         }
         User other = (User) object;
         if ((this.idUser == null && other.idUser != null) || (this.idUser != null && !this.idUser.equals(other.idUser))) {
-            return false;
-        }
-        
-        if((this.idUser != other.idUser)){
             return false;
         }
         return true;

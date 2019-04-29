@@ -4,11 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/cherra/tercero/segundoCuatrimestre/aplicacionesWeb/Socia-Lite/Socia-Lite/Socia-Lite-war/web/friends.jsp</file>
-            <file>file:/home/cherra/tercero/segundoCuatrimestre/aplicacionesWeb/Socia-Lite/Socia-Lite/Socia-Lite-war/web/friendshipRequest.css</file>
             <file>file:/home/cherra/tercero/segundoCuatrimestre/aplicacionesWeb/Socia-Lite/Socia-Lite/Socia-Lite-war/web/welcome.css</file>
-            <file>file:/home/cherra/tercero/segundoCuatrimestre/aplicacionesWeb/Socia-Lite/Socia-Lite/Socia-Lite-war/web/friends.css</file>
-            <file>file:/home/cherra/tercero/segundoCuatrimestre/aplicacionesWeb/Socia-Lite/Socia-Lite/Socia-Lite-war/src/java/socialite/servlet/AceptFriendshipRequestServlet.java</file>
-            <file>file:/home/cherra/tercero/segundoCuatrimestre/aplicacionesWeb/Socia-Lite/Socia-Lite/Socia-Lite-war/src/java/socialite/servlet/DenyFriendshipRequestServlet.java</file>
+            <file>file:/home/cherra/tercero/segundoCuatrimestre/aplicacionesWeb/Socia-Lite/Socia-Lite/Socia-Lite-war/web/friendshipRequest.jsp</file>
+            <file>file:/home/cherra/tercero/segundoCuatrimestre/aplicacionesWeb/Socia-Lite/Socia-Lite/Socia-Lite-war/web/welcome.jsp</file>
             <file>file:/home/cherra/tercero/segundoCuatrimestre/aplicacionesWeb/Socia-Lite/Socia-Lite/Socia-Lite-war/src/java/socialite/servlet/DeleteFriendServlet.java</file>
         </group>
     </open-files>
