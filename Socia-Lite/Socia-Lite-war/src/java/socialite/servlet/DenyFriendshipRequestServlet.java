@@ -7,6 +7,7 @@ package socialite.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import socialite.dao.FriendshipRequestFacade;
+import socialite.dao.UserFacade;
 import socialite.entity.FriendshipRequest;
 import socialite.entity.User;
 
@@ -26,7 +28,12 @@ import socialite.entity.User;
 public class DenyFriendshipRequestServlet extends HttpServlet {
 
     @EJB
+    private UserFacade userFacade;
+
+    @EJB
     private FriendshipRequestFacade friendshipRequestFacade;
+    
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +50,20 @@ public class DenyFriendshipRequestServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         if(user != null){
-            FriendshipRequest friendshipRequest = (FriendshipRequest)session.getAttribute("friendshipRequest");
+            Integer friendshipRequestId = new Integer(request.getParameter("friendshipRequest"));
+            FriendshipRequest friendshipRequest = friendshipRequestFacade.findByFriendshipRequestId(friendshipRequestId);
+            User userSender = friendshipRequest.getUserSender();
+            List<FriendshipRequest> fr = user.getFriendshipRequestList();
+            List<FriendshipRequest> frSender = userSender.getFriendshipRequestList1();
+            fr.remove(friendshipRequest);
+            frSender.remove(friendshipRequest);
+            user.setFriendshipRequestList(fr);
+            userSender.setFriendshipRequestList1(frSender);
             friendshipRequestFacade.remove(friendshipRequest);
-            session.removeAttribute("friendshipRequest");
-            response.sendRedirect(request.getContextPath()+"friendshipRequest.jsp");
+            userFacade.edit(user);
+            userFacade.edit(userSender);
+            
+            response.sendRedirect("friendshipRequest.jsp");
         } else {
             response.sendRedirect("login.jsp");
         }

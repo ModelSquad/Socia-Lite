@@ -12,6 +12,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+  <a href="friends.jsp"></a>
     <title>SociaLite - Friends</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -51,7 +52,7 @@
         List<User> friends= new ArrayList<User>();
         if(user != null){
             friends= user.getUserList();
-            requests = user.getFriendshipRequestList1();
+            requests = user.getFriendshipRequestList();
         }
 
     %>
@@ -93,7 +94,7 @@
             <div class="col-sm text-left feed">
                 <div class="btn-group" role="group">
                     <a href="friends.jsp" class="btn btn-selection btn-selected">My friends</a>
-                    <a href="#" class="btn btn-selection btn-default">Find friends</a>
+                    <a href="FindFriendsServlet" class="btn btn-selection btn-default">Find friends</a>
                     <a href="friendshipRequest.jsp" class="btn btn-selection btn-default">Friendship Request <%
                         if(requests != null && requests.size() > 0){%>
                         <span class="badge badge-danger"><%=requests.size()%></span>
@@ -128,6 +129,11 @@
             </div>
                  <%     
                     };
+                } else {
+                   %>
+                   <p>No tienes amigos, lo siento.</p>
+                   <p>Puedes conocer gente nueva en la pestaña find Friends</p>
+                   <%
                 }
                 %>
               <div id="confirm-delete" class="modal fade">

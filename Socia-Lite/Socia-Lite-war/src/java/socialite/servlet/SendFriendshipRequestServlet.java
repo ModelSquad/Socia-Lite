@@ -7,6 +7,7 @@ package socialite.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -15,19 +16,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import socialite.dao.FriendshipRequestFacade;
 import socialite.dao.UserFacade;
+import socialite.entity.FriendshipRequest;
 import socialite.entity.User;
 
 /**
  *
  * @author cherra
  */
-@WebServlet(name = "DeleteFriendServlet", urlPatterns = {"/DeleteFriendServlet"})
-public class DeleteFriendServlet extends HttpServlet {
+@WebServlet(name = "SendFriendshipRequestServlet", urlPatterns = {"/SendFriendshipRequestServlet"})
+public class SendFriendshipRequestServlet extends HttpServlet {
 
     @EJB
     private UserFacade userFacade;
 
+    @EJB
+    private FriendshipRequestFacade friendshipRequestFacade;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,35 +45,31 @@ public class DeleteFriendServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        User currentUser = (User)session.getAttribute("user");
-        
-        if(currentUser != null){
-            String deleteFriend = (String)request.getParameter("idFriend");
-            Integer idFriend = new Integer(deleteFriend);
-            User friend = userFacade.findByIdUser(idFriend);
-            if(friend != null){
-                List<User> friends1 = currentUser.getUserList();
-                friends1.remove(friend);
-                currentUser.setUserList(friends1);
-                List<User> friends2 = currentUser.getUserList1();
-                friends2.remove(friend); 
-                currentUser.setUserList1(friends2);
-                List<User> friends3 = friend.getUserList();
-                friends3.remove(currentUser);
-                friend.setUserList(friends3);
-                List<User> friends4 = friend.getUserList1();
-                friends4.remove(currentUser);
-                friend.setUserList1(friends4);
-                userFacade.edit(currentUser);
-                userFacade.edit(friend);
-            }
-            response.sendRedirect(request.getContextPath()+"/friends.jsp");
+        User user = (User)session.getAttribute("user");
+        if(user != null){
+            Integer idFriendRequest = new Integer(request.getParameter("idFriendRequest"));
+            User friendRequested = userFacade.findByIdUser(idFriendRequest);
+            FriendshipRequest friendshipRequest = new FriendshipRequest();
+            friendshipRequest.setUserSender(user);
+            friendshipRequest.setUserReceiver(friendRequested);
+            friendshipRequest.setDateTime(new Date(System.currentTimeMillis()));
+            List<FriendshipRequest> fr = user.getFriendshipRequestList1();
+            fr.add(friendshipRequest);
+            user.setFriendshipRequestList1(fr);
+            List<FriendshipRequest> frRequested = friendRequested.getFriendshipRequestList();
+            frRequested.add(friendshipRequest);
+            friendRequested.setFriendshipRequestList1(frRequested);
+            
+            friendshipRequestFacade.create(friendshipRequest);
+            userFacade.edit(user);
+            userFacade.edit(friendRequested);
+            response.sendRedirect("FindFriendsServlet");
         } else {
             response.sendRedirect("index.jsp");
         }
-
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -22,13 +22,13 @@ import socialite.entity.User;
  *
  * @author cherra
  */
-@WebServlet(name = "DeleteFriendServlet", urlPatterns = {"/DeleteFriendServlet"})
-public class DeleteFriendServlet extends HttpServlet {
+@WebServlet(name = "FindFriendsServlet", urlPatterns = {"/FindFriendsServlet"})
+public class FindFriendsServlet extends HttpServlet {
 
     @EJB
     private UserFacade userFacade;
-
     
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,35 +40,16 @@ public class DeleteFriendServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        User currentUser = (User)session.getAttribute("user");
-        
-        if(currentUser != null){
-            String deleteFriend = (String)request.getParameter("idFriend");
-            Integer idFriend = new Integer(deleteFriend);
-            User friend = userFacade.findByIdUser(idFriend);
-            if(friend != null){
-                List<User> friends1 = currentUser.getUserList();
-                friends1.remove(friend);
-                currentUser.setUserList(friends1);
-                List<User> friends2 = currentUser.getUserList1();
-                friends2.remove(friend); 
-                currentUser.setUserList1(friends2);
-                List<User> friends3 = friend.getUserList();
-                friends3.remove(currentUser);
-                friend.setUserList(friends3);
-                List<User> friends4 = friend.getUserList1();
-                friends4.remove(currentUser);
-                friend.setUserList1(friends4);
-                userFacade.edit(currentUser);
-                userFacade.edit(friend);
-            }
-            response.sendRedirect(request.getContextPath()+"/friends.jsp");
+        User user = (User)session.getAttribute("user");
+        if(user != null){
+            List<User> notFriends = userFacade.findNotFriends(user);
+            session.setAttribute("notFriends", notFriends);
+            response.sendRedirect("findFriends.jsp");
         } else {
             response.sendRedirect("index.jsp");
         }
-
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

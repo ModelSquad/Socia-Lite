@@ -16,17 +16,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import socialite.dao.FriendshipRequestFacade;
+import socialite.dao.UserFacade;
 import socialite.entity.*;
 
 /**
  *
  * @author cherra
  */
-@WebServlet(name = "AceptFriendServlet", urlPatterns = {"/AceptFriendServlet"})
+@WebServlet(name = "AceptFriendshipRequestServlet", urlPatterns = {"/AceptFriendshipRequestServlet"})
 public class AceptFriendshipRequestServlet extends HttpServlet {
 
     @EJB
+    private UserFacade userFacade;
+
+    @EJB
     private FriendshipRequestFacade friendshipRequestFacade;
+    
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,15 +48,32 @@ public class AceptFriendshipRequestServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        FriendshipRequest friendshipRequest = (FriendshipRequest) session.getAttribute("friendshipRequest");
-        if(user != null && friendshipRequest != null){
-            User friendshipSender = friendshipRequest.getUser();
+        if(user != null){
+            Integer friendshipRequestId = new Integer(request.getParameter("friendshipRequest"));
+            FriendshipRequest friendshipRequest = friendshipRequestFacade.findByFriendshipRequestId(friendshipRequestId);
             List<User> amigos = user.getUserList();
             List<User> amigos1 = user.getUserList1();
-            amigos.add(friendshipSender);
-            amigos1.add(friendshipSender);
+            User newFriend = friendshipRequest.getUserSender();
+            List<User> amigos2 = newFriend.getUserList();
+            List<User> amigos3 = newFriend.getUserList1();
+            amigos.add(newFriend);
+            amigos1.add(newFriend);
+            user.setUserList(amigos);
+            user.setUserList1(amigos1);
+            amigos2.add(user);
+            amigos3.add(user);
+            newFriend.setUserList(amigos2);
+            newFriend.setUserList1(amigos3);
+            List<FriendshipRequest> fr = user.getFriendshipRequestList();
+            List<FriendshipRequest> frSender = newFriend.getFriendshipRequestList1();
+            fr.remove(friendshipRequest);
+            user.setFriendshipRequestList(fr);
+            frSender.remove(friendshipRequest);
+            newFriend.setFriendshipRequestList1(frSender);
             friendshipRequestFacade.remove(friendshipRequest);
-            session.removeAttribute("friendshipRequest");
+            userFacade.edit(user);
+            userFacade.edit(newFriend);
+            response.sendRedirect("friendshipRequest.jsp");
         } else {
             response.sendRedirect("login.jsp");
         }

@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Association.findAll", query = "SELECT a FROM Association a")
-    , @NamedQuery(name = "Association.findByIdGroup", query = "SELECT a FROM Association a WHERE a.idGroup = :idGroup")
+    , @NamedQuery(name = "Association.findByIdAssociation", query = "SELECT a FROM Association a WHERE a.idAssociation = :idAssociation")
     , @NamedQuery(name = "Association.findByName", query = "SELECT a FROM Association a WHERE a.name = :name")
     , @NamedQuery(name = "Association.findByDescription", query = "SELECT a FROM Association a WHERE a.description = :description")
     , @NamedQuery(name = "Association.findByProfilePic", query = "SELECT a FROM Association a WHERE a.profilePic = :profilePic")})
@@ -44,8 +44,8 @@ public class Association implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idGroup")
-    private Integer idGroup;
+    @Column(name = "idAssociation")
+    private Integer idAssociation;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -58,7 +58,7 @@ public class Association implements Serializable {
     @Column(name = "profilePic")
     private String profilePic;
     @JoinTable(name = "UserAssociation", joinColumns = {
-        @JoinColumn(name = "group", referencedColumnName = "idGroup")}, inverseJoinColumns = {
+        @JoinColumn(name = "association", referencedColumnName = "idAssociation")}, inverseJoinColumns = {
         @JoinColumn(name = "user", referencedColumnName = "idUser")})
     @ManyToMany
     private List<User> userList;
@@ -69,21 +69,21 @@ public class Association implements Serializable {
     public Association() {
     }
 
-    public Association(Integer idGroup) {
-        this.idGroup = idGroup;
+    public Association(Integer idAssociation) {
+        this.idAssociation = idAssociation;
     }
 
-    public Association(Integer idGroup, String name) {
-        this.idGroup = idGroup;
+    public Association(Integer idAssociation, String name) {
+        this.idAssociation = idAssociation;
         this.name = name;
     }
 
-    public Integer getIdGroup() {
-        return idGroup;
+    public Integer getIdAssociation() {
+        return idAssociation;
     }
 
-    public void setIdGroup(Integer idGroup) {
-        this.idGroup = idGroup;
+    public void setIdAssociation(Integer idAssociation) {
+        this.idAssociation = idAssociation;
     }
 
     public String getName() {
@@ -130,7 +130,7 @@ public class Association implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idGroup != null ? idGroup.hashCode() : 0);
+        hash += (idAssociation != null ? idAssociation.hashCode() : 0);
         return hash;
     }
 
@@ -141,7 +141,7 @@ public class Association implements Serializable {
             return false;
         }
         Association other = (Association) object;
-        if ((this.idGroup == null && other.idGroup != null) || (this.idGroup != null && !this.idGroup.equals(other.idGroup))) {
+        if ((this.idAssociation == null && other.idAssociation != null) || (this.idAssociation != null && !this.idAssociation.equals(other.idAssociation))) {
             return false;
         }
         return true;
@@ -149,7 +149,7 @@ public class Association implements Serializable {
 
     @Override
     public String toString() {
-        return "socialite.entity.Association[ idGroup=" + idGroup + " ]";
+        return "socialite.entity.Association[ idAssociation=" + idAssociation + " ]";
     }
     
 }

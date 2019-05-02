@@ -80,7 +80,9 @@ public class User implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "surname")
     private String surname;
-    @Size(max = 45)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "nickname")
     private String nickname;
     @Basic(optional = false)
@@ -117,9 +119,9 @@ public class User implements Serializable {
     private List<Association> associationList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "admin")
     private List<Association> associationList1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userReceiver")
     private List<FriendshipRequest> friendshipRequestList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userSender")
     private List<FriendshipRequest> friendshipRequestList1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Post> postList;
@@ -131,12 +133,13 @@ public class User implements Serializable {
         this.idUser = idUser;
     }
 
-    public User(Integer idUser, String email, String password, String name, String surname, Date birthDate) {
+    public User(Integer idUser, String email, String password, String name, String surname, String nickname, Date birthDate) {
         this.idUser = idUser;
         this.email = email;
         this.password = password;
         this.name = name;
         this.surname = surname;
+        this.nickname = nickname;
         this.birthDate = birthDate;
     }
 

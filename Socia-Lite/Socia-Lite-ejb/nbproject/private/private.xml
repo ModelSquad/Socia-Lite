@@ -8,6 +8,8 @@
             <file>file:/home/cherra/tercero/segundoCuatrimestre/aplicacionesWeb/Socia-Lite/Socia-Lite/Socia-Lite-ejb/src/java/socialite/entity/User.java</file>
             <file>file:/home/cherra/tercero/segundoCuatrimestre/aplicacionesWeb/Socia-Lite/Socia-Lite/Socia-Lite-ejb/src/java/socialite/dao/UserFacade.java</file>
             <file>file:/home/cherra/tercero/segundoCuatrimestre/aplicacionesWeb/Socia-Lite/Socia-Lite/Socia-Lite-ejb/src/java/socialite/dao/PostFacade.java</file>
+            <file>file:/home/cherra/tercero/segundoCuatrimestre/aplicacionesWeb/Socia-Lite/Socia-Lite/Socia-Lite-ejb/src/java/socialite/entity/FriendshipRequest.java</file>
+            <file>file:/home/cherra/tercero/segundoCuatrimestre/aplicacionesWeb/Socia-Lite/Socia-Lite/Socia-Lite-ejb/src/java/socialite/dao/FriendshipRequestFacade.java</file>
         </group>
     </open-files>
 </project-private>

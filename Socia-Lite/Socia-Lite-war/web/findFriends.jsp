@@ -45,12 +45,16 @@
   </head>
     <body>
          <% 
+             
         User user = (User)request.getSession().getAttribute("user");
-        List<FriendshipRequest> requests = null;
+        List<User> notFriends = null;
+        List<FriendshipRequest> requests= null;
         // Receive any request
         if(user != null){
-            requests = user.getFriendshipRequestList();
-        }
+          notFriends =(List<User>) session.getAttribute("notFriends");
+          requests = user.getFriendshipRequestList();
+        } 
+         
     %>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="#">Navbar</a>
@@ -90,43 +94,44 @@
             <div class="col-sm text-left feed">
                 <div class="btn-group" role="group">
                     <a href="friends.jsp" class="btn btn-selection btn-default">My friends</a>
-                    <a href="FindFriendsServlet" class="btn btn-selection btn-default">Find friends</a>
-                    <a href="friendshipRequest.jsp" class="btn btn-selection btn-selected">Friendship Request</a>
+                    <a href="FindFriendsServlet" class="btn btn-selection btn-selected">Find friends</a>
+                    <a href="friendshipRequest.jsp" class="btn btn-selection btn-default">Friendship Request <%
+                        if(requests != null && requests.size() > 0){%>
+                        <span class="badge badge-danger"><%=requests.size()%></span>
+                        <%};
+                        %></a>
                 </div> 
             <% 
-                if(requests != null){
-                for(FriendshipRequest friendRequest : requests){
-                    User friend = friendRequest.getUserSender();
-                    if(friend.getIdUser() != user.getIdUser()){
+                if(notFriends != null){
+                for(User notFriend : notFriends){
+                    
                 %>
                 <div class="card gedf-card mt-2" style="width: 100%;">     
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="m-2">
                             <img class="rounded-circle" width="45" src="<%= 
-                                (friend.getProfilePic() == null) 
+                                (notFriend.getProfilePic() == null) 
                       ? "https://cdn.clipart.email/0ad2ce5b5370f2d91ef8b465f6770e77_people-icons-3800-free-files-in-png-eps-svg-format_338-338.jpeg" 
-                      : friend.getProfilePic()%>" alt="">
+                      : notFriend.getProfilePic()%>" alt="">
                         </div>
                         <div class="ml-2">
-                            <div class="h5 m-0"><a href="#"><%=friend.getNickname()%></a></div>
-                            <div class="h7 text-muted"><%=friend.getName() +" "+friend.getSurname()%></div>
+                            <div class="h5 m-0"><a href="#"><%=notFriend.getNickname()%></a></div>
+                            <div class="h7 text-muted"><%=notFriend.getName() +" "+notFriend.getSurname()%></div>
                         </div>
                     </div>
                     <div>
                         <div class="btn-group btn-group-justified m-2 mr-4" >
-                            <a href="AceptFriendshipRequestServlet?friendshipRequest=<%=friendRequest.getFriendshipRequestId()%>" class="btn btn-xs btn-primary"><i class="material-icons" style="font-size:20px;">done</i></span> Acept</a>
-                            <a href="DenyFriendshipRequestServlet?friendshipRequest=<%=friendRequest.getFriendshipRequestId()%>" class="btn btn-xs btn-danger "><i class="material-icons" style="font-size:20px;">clear</i> Deny   </a>
+                            <a href="SendFriendshipRequestServlet?idFriendRequest=<%=notFriend.getIdUser()%>" class="btn btn-xs btn-primary"><i class="material-icons" style="font-size:20px;">done</i></span> Request friends</a>
                         </div>
                     </div>
                 </div>
             </div>
                  <%
-                        }
-                    };
+                   };
                 } else {
                    %>
-                   <p>No tienes peticiones de amistad actualmente</p>
+                   <p>Eres amigo de todos los usuarios de la plataforma</p>
                    <%
                 }
 
