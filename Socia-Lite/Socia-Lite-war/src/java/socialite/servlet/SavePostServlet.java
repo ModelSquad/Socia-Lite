@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,11 +50,13 @@ public class SavePostServlet extends HttpServlet {
             String textBody = (String) request.getParameter("text-body");
             post.setText(textBody);
             post.setDate(new Date());
-
             postFacade.edit(post);
-            session.setAttribute("posts", getPosts(post.getUser()));
+            RequestDispatcher rd = request.getRequestDispatcher("/PostServlet");
+            rd.forward(request, response);
+        }else{
+             response.sendRedirect(request.getContextPath() + "/welcome.jsp"); //should return error in future versions
         }
-        response.sendRedirect(request.getContextPath() + "/welcome.jsp");
+       
 
     }
 
@@ -96,19 +99,4 @@ public class SavePostServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private List<Post> getPosts(User user) {
-        List<Post> posts = postFacade.findByUser(user);
-        List<User> friends = user.getUserList();
-        friends.forEach((friend) -> {
-            posts.addAll(postFacade.findByUser(friend));
-        });
-        Collections.sort(posts, (Post p1, Post p2) -> {
-            if (p1.getDate() == null || p2.getDate() == null) {
-                return 0;
-            }
-            return p2.getDate().compareTo(p1.getDate());
-        });
-
-        return posts;
-    }
 }

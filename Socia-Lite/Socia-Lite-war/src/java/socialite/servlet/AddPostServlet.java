@@ -100,10 +100,11 @@ public class AddPostServlet extends HttpServlet {
             post.setUser(user);
             post.setVisibility(visibilityFacade.find(1));
             postFacade.create(post);
-            session.setAttribute("posts", getPosts(user));
-            System.out.println(request.getParameter("post-text"));
+            RequestDispatcher rd = request.getRequestDispatcher("PostServlet");
+            rd.forward(request, response);
+        }else{
+          response.sendRedirect(request.getContextPath()+"/login.jsp");  
         } 
-        response.sendRedirect(request.getContextPath()+"/welcome.jsp");
     }
 
     /**
@@ -116,20 +117,5 @@ public class AddPostServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
     
-        private List<Post> getPosts(User user) {
-        List<Post> posts = postFacade.findByUser(user);
-        List<User> friends = user.getUserList();
-        friends.forEach((friend) -> {
-            posts.addAll(postFacade.findByUser(friend));
-        });
-        Collections.sort(posts, (Post p1, Post p2) -> {
-            if (p1.getDate() == null || p2.getDate() == null) {
-                return 0;
-            }
-            return p2.getDate().compareTo(p1.getDate());
-        });
-
-        return posts;
-    }
 
 }

@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="socialite.entity.Post"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.Vector"%>
@@ -39,12 +40,15 @@
     <body>
         <%
             String currentPath = request.getContextPath();
-            Vector< Post> posts = null;
+            List< Post> posts = null;
             User user = (User) request.getSession().getAttribute("user");
             if (user == null) {
                 response.sendRedirect(currentPath);
             } else {
-                posts = (Vector<Post>) request.getSession().getAttribute("posts");
+                posts = (List<Post>) request.getAttribute("posts");
+            }
+            if(posts==null){
+                response.sendRedirect(currentPath + "/PostServlet");
             }
         %>
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
@@ -89,7 +93,7 @@
                 <div class="col-sm text-left feed">
 
                     <!-- ADD POST -->
-                    <form method="POST" action="AddPostServlet">
+                    <form method="POST" action="<%=request.getContextPath()%>/AddPostServlet">
                         <div class="jumbotron jumbotron-post">
                             <h4>Share your experiences</h4>
                             <textarea name="post-text" class="form-control text-area-post" placeholder="Write something here..."></textarea>
@@ -143,8 +147,8 @@
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
                                             <div class="h6 dropdown-header">Options</div>
-                                            <a class="dropdown-item" data-href="DeletePostServlet?id=<%=post.getIdPost()%>" data-target="#confirm-delete" class="trigger-btn" data-toggle="modal">Delete</a>
-                                            <a class="dropdown-item" href="EditPostServlet?id=<%=post.getIdPost()%>">Edit</a>
+                                            <a class="dropdown-item" data-href="<%=request.getContextPath()%>/DeletePostServlet?id=<%=post.getIdPost()%>" data-target="#confirm-delete" class="trigger-btn" data-toggle="modal">Delete</a>
+                                            <a class="dropdown-item" href="<%=request.getContextPath()%>/EditPostServlet?id=<%=post.getIdPost()%>">Edit</a>
                                         </div>
                                     </div>
                                 </div>

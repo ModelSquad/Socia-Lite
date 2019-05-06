@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package socialite.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,36 +13,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import socialite.dao.PostFacade;
-import socialite.entity.Post;
+import socialite.dao.UserFacade;
+import socialite.entity.User;
 
-/**
- *
- * @author xfja
- */
-@WebServlet(name = "DeletePostServlet", urlPatterns = {"/DeletePostServlet"})
-public class DeletePostServlet extends HttpServlet {
+@WebServlet(name = "PostServlet", urlPatterns = {"/PostServlet"})
+public class PostServlet extends HttpServlet {
 
     @EJB
     private PostFacade postFacade;
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        if (session.getAttribute("user") != null && request.getParameter("id") != null) {
-            Integer idPost = Integer.parseInt(request.getParameter("id"));
-            postFacade.deletePost(idPost);
-            RequestDispatcher rd = request.getRequestDispatcher("/PostServlet");
+        User user = (User) session.getAttribute("user");
+        if(user!=null){
+            List<User> friends = user.getUserList();
+            List<Integer> ids = new ArrayList<>();
+            ids.add(user.getIdUser());
+            friends.forEach((u) -> {
+                ids.add(u.getIdUser());
+            });
+            request.setAttribute("posts", postFacade.findPostsByMultipleIds(ids));
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/welcome.jsp");
             rd.forward(request, response);
+        }else{
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
         }
     }
 
