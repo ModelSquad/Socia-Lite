@@ -17,7 +17,7 @@ import socialite.entity.User;
 
 /**
  *
- * @author Sevi
+ * @author cherra
  */
 @Stateless
 public class PostFacade extends AbstractFacade<Post> {
@@ -54,4 +54,5 @@ public class PostFacade extends AbstractFacade<Post> {
         q.setParameter("ids", ids);
         return q.getResultList(); 
     }
+    
 }

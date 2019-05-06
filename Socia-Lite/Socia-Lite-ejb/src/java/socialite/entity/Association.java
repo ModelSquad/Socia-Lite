@@ -27,25 +27,25 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Sevi
+ * @author cherra
  */
 @Entity
-@Table(name = "Group1")
+@Table(name = "Association")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Group1.findAll", query = "SELECT g FROM Group1 g")
-    , @NamedQuery(name = "Group1.findByIdGroup", query = "SELECT g FROM Group1 g WHERE g.idGroup = :idGroup")
-    , @NamedQuery(name = "Group1.findByName", query = "SELECT g FROM Group1 g WHERE g.name = :name")
-    , @NamedQuery(name = "Group1.findByDescription", query = "SELECT g FROM Group1 g WHERE g.description = :description")
-    , @NamedQuery(name = "Group1.findByProfilePic", query = "SELECT g FROM Group1 g WHERE g.profilePic = :profilePic")})
-public class Group1 implements Serializable {
+    @NamedQuery(name = "Association.findAll", query = "SELECT a FROM Association a")
+    , @NamedQuery(name = "Association.findByIdAssociation", query = "SELECT a FROM Association a WHERE a.idAssociation = :idAssociation")
+    , @NamedQuery(name = "Association.findByName", query = "SELECT a FROM Association a WHERE a.name = :name")
+    , @NamedQuery(name = "Association.findByDescription", query = "SELECT a FROM Association a WHERE a.description = :description")
+    , @NamedQuery(name = "Association.findByProfilePic", query = "SELECT a FROM Association a WHERE a.profilePic = :profilePic")})
+public class Association implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idGroup")
-    private Integer idGroup;
+    @Column(name = "idAssociation")
+    private Integer idAssociation;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -57,37 +57,33 @@ public class Group1 implements Serializable {
     @Size(max = 100)
     @Column(name = "profilePic")
     private String profilePic;
-    @JoinTable(name = "UserGroup", joinColumns = {
-        @JoinColumn(name = "group", referencedColumnName = "idGroup")
-        , @JoinColumn(name = "group", referencedColumnName = "idGroup")
-        , @JoinColumn(name = "group", referencedColumnName = "idGroup")}, inverseJoinColumns = {
-        @JoinColumn(name = "user", referencedColumnName = "idUser")
-        , @JoinColumn(name = "user", referencedColumnName = "idUser")
-        , @JoinColumn(name = "user", referencedColumnName = "idUser")})
+    @JoinTable(name = "UserAssociation", joinColumns = {
+        @JoinColumn(name = "association", referencedColumnName = "idAssociation")}, inverseJoinColumns = {
+        @JoinColumn(name = "user", referencedColumnName = "idUser")})
     @ManyToMany
     private List<User> userList;
     @JoinColumn(name = "admin", referencedColumnName = "idUser")
     @ManyToOne(optional = false)
     private User admin;
 
-    public Group1() {
+    public Association() {
     }
 
-    public Group1(Integer idGroup) {
-        this.idGroup = idGroup;
+    public Association(Integer idAssociation) {
+        this.idAssociation = idAssociation;
     }
 
-    public Group1(Integer idGroup, String name) {
-        this.idGroup = idGroup;
+    public Association(Integer idAssociation, String name) {
+        this.idAssociation = idAssociation;
         this.name = name;
     }
 
-    public Integer getIdGroup() {
-        return idGroup;
+    public Integer getIdAssociation() {
+        return idAssociation;
     }
 
-    public void setIdGroup(Integer idGroup) {
-        this.idGroup = idGroup;
+    public void setIdAssociation(Integer idAssociation) {
+        this.idAssociation = idAssociation;
     }
 
     public String getName() {
@@ -134,18 +130,18 @@ public class Group1 implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idGroup != null ? idGroup.hashCode() : 0);
+        hash += (idAssociation != null ? idAssociation.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Group1)) {
+        if (!(object instanceof Association)) {
             return false;
         }
-        Group1 other = (Group1) object;
-        if ((this.idGroup == null && other.idGroup != null) || (this.idGroup != null && !this.idGroup.equals(other.idGroup))) {
+        Association other = (Association) object;
+        if ((this.idAssociation == null && other.idAssociation != null) || (this.idAssociation != null && !this.idAssociation.equals(other.idAssociation))) {
             return false;
         }
         return true;
@@ -153,7 +149,7 @@ public class Group1 implements Serializable {
 
     @Override
     public String toString() {
-        return "socialite.entity.Group1[ idGroup=" + idGroup + " ]";
+        return "socialite.entity.Association[ idAssociation=" + idAssociation + " ]";
     }
     
 }

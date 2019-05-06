@@ -9,8 +9,10 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -24,22 +26,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Sevi
+ * @author cherra
  */
 @Entity
 @Table(name = "FriendshipRequest")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "FriendshipRequest.findAll", query = "SELECT f FROM FriendshipRequest f")
-    , @NamedQuery(name = "FriendshipRequest.findByUserSender", query = "SELECT f FROM FriendshipRequest f WHERE f.friendshipRequestPK.userSender = :userSender")
-    , @NamedQuery(name = "FriendshipRequest.findByUserReceiver", query = "SELECT f FROM FriendshipRequest f WHERE f.friendshipRequestPK.userReceiver = :userReceiver")
     , @NamedQuery(name = "FriendshipRequest.findByDateTime", query = "SELECT f FROM FriendshipRequest f WHERE f.dateTime = :dateTime")
-    , @NamedQuery(name = "FriendshipRequest.findByText", query = "SELECT f FROM FriendshipRequest f WHERE f.text = :text")})
+    , @NamedQuery(name = "FriendshipRequest.findByText", query = "SELECT f FROM FriendshipRequest f WHERE f.text = :text")
+    , @NamedQuery(name = "FriendshipRequest.findByFriendshipRequestId", query = "SELECT f FROM FriendshipRequest f WHERE f.friendshipRequestId = :friendshipRequestId")})
 public class FriendshipRequest implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected FriendshipRequestPK friendshipRequestPK;
     @Basic(optional = false)
     @NotNull
     @Column(name = "dateTime")
@@ -48,35 +47,28 @@ public class FriendshipRequest implements Serializable {
     @Size(max = 200)
     @Column(name = "text")
     private String text;
-    @JoinColumn(name = "user_receiver", referencedColumnName = "idUser", insertable = false, updatable = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "friendshipRequestId")
+    private Integer friendshipRequestId;
+    @JoinColumn(name = "user_receiver", referencedColumnName = "idUser")
     @ManyToOne(optional = false)
-    private User user;
-    @JoinColumn(name = "user_sender", referencedColumnName = "idUser", insertable = false, updatable = false)
+    private User userReceiver;
+    @JoinColumn(name = "user_sender", referencedColumnName = "idUser")
     @ManyToOne(optional = false)
-    private User user1;
+    private User userSender;
 
     public FriendshipRequest() {
     }
 
-    public FriendshipRequest(FriendshipRequestPK friendshipRequestPK) {
-        this.friendshipRequestPK = friendshipRequestPK;
+    public FriendshipRequest(Integer friendshipRequestId) {
+        this.friendshipRequestId = friendshipRequestId;
     }
 
-    public FriendshipRequest(FriendshipRequestPK friendshipRequestPK, Date dateTime) {
-        this.friendshipRequestPK = friendshipRequestPK;
+    public FriendshipRequest(Integer friendshipRequestId, Date dateTime) {
+        this.friendshipRequestId = friendshipRequestId;
         this.dateTime = dateTime;
-    }
-
-    public FriendshipRequest(int userSender, int userReceiver) {
-        this.friendshipRequestPK = new FriendshipRequestPK(userSender, userReceiver);
-    }
-
-    public FriendshipRequestPK getFriendshipRequestPK() {
-        return friendshipRequestPK;
-    }
-
-    public void setFriendshipRequestPK(FriendshipRequestPK friendshipRequestPK) {
-        this.friendshipRequestPK = friendshipRequestPK;
     }
 
     public Date getDateTime() {
@@ -95,26 +87,34 @@ public class FriendshipRequest implements Serializable {
         this.text = text;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getFriendshipRequestId() {
+        return friendshipRequestId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setFriendshipRequestId(Integer friendshipRequestId) {
+        this.friendshipRequestId = friendshipRequestId;
     }
 
-    public User getUser1() {
-        return user1;
+    public User getUserReceiver() {
+        return userReceiver;
     }
 
-    public void setUser1(User user1) {
-        this.user1 = user1;
+    public void setUserReceiver(User userReceiver) {
+        this.userReceiver = userReceiver;
+    }
+
+    public User getUserSender() {
+        return userSender;
+    }
+
+    public void setUserSender(User userSender) {
+        this.userSender = userSender;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (friendshipRequestPK != null ? friendshipRequestPK.hashCode() : 0);
+        hash += (friendshipRequestId != null ? friendshipRequestId.hashCode() : 0);
         return hash;
     }
 
@@ -125,7 +125,7 @@ public class FriendshipRequest implements Serializable {
             return false;
         }
         FriendshipRequest other = (FriendshipRequest) object;
-        if ((this.friendshipRequestPK == null && other.friendshipRequestPK != null) || (this.friendshipRequestPK != null && !this.friendshipRequestPK.equals(other.friendshipRequestPK))) {
+        if ((this.friendshipRequestId == null && other.friendshipRequestId != null) || (this.friendshipRequestId != null && !this.friendshipRequestId.equals(other.friendshipRequestId))) {
             return false;
         }
         return true;
@@ -133,7 +133,7 @@ public class FriendshipRequest implements Serializable {
 
     @Override
     public String toString() {
-        return "socialite.entity.FriendshipRequest[ friendshipRequestPK=" + friendshipRequestPK + " ]";
+        return "socialite.entity.FriendshipRequest[ friendshipRequestId=" + friendshipRequestId + " ]";
     }
     
 }

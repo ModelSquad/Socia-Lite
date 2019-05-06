@@ -30,9 +30,89 @@
         <!-- Fancybox -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
         <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<!-- Icons -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+ 
 
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  </head>
+  <body>
+    <% 
+        User user = (User)request.getSession().getAttribute("user");
+        Vector<Post> posts = (Vector<Post>) request.getSession().getAttribute("posts");
+        List<User> friends = user.getUserList();
+    %>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="welcome.jsp"><i class="material-icons" style="font-size:20px;">home</i>Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="friends.jsp"><i class="material-icons" style="font-size:20px;">people</i> Friends</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/Socia-Lite-war/user.jsp">My profile</a>
+            </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+               <a class="nav-link" href="/Socia-Lite-war/SignoutServlet"><i class="fa fa-sign-out"></i> Sign out</a>
+            </li>
+            </ul>
 
+        </div>
+    </nav>
+
+  <div class="container-fluid text-center">
+    <div class="row content">
+      <div class="col-sm-2 sidenav">
+        <div class="row content">
+        <div class="panel panel-primary friend-panel m-2">
+            <div class="panel-heading">Friends</div>
+            <div class="panel-body friend-content" style="overflow-y: scroll; ">
+                <div class="card m-2">
+                    <div ml-2>
+                    <img class="rounded-circle ml-2 mt-2" width="30" src="https://avatars0.githubusercontent.com/u/33965662?s=460&v=4" alt=""> 
+                    </div>
+                    <div>@XFJA</div>
+                </div>
+                <%if(friends != null && friends.size()>0){
+                    for(User friend : friends){  
+                %>
+                <div class="card m-2">
+                    <img class="rounded-circle" width="30" src="<%= 
+                                (friend.getProfilePic() == null) 
+                      ? "https://cdn.clipart.email/0ad2ce5b5370f2d91ef8b465f6770e77_people-icons-3800-free-files-in-png-eps-svg-format_338-338.jpeg" 
+                      : friend.getProfilePic()%>" alt=""> 
+                    <div><%=friend.getNickname()%></div>
+                </div>
+                <%  }
+                  }%>
+                
+                
+                
+            </div>
+        </div>  
+    </div>
+    </div>      
+      
+      
+      <div class="col-sm text-left feed">
+          
+          <!-- ADD POST -->
         <script>
             <%@ include file="welcome.js"%>
         </script>
@@ -40,58 +120,19 @@
     <body>
         <%
             String currentPath = request.getContextPath();
-            List< Post> posts = null;
-            User user = (User) request.getSession().getAttribute("user");
+            
             if (user == null) {
                 response.sendRedirect(currentPath);
             } else {
-                posts = (List<Post>) request.getAttribute("posts");
+                posts = (Vector<Post>) request.getAttribute("posts");
             }
             if(posts==null){
                 response.sendRedirect(currentPath + "/PostServlet");
             }
         %>
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-            <a class="navbar-brand" href="#">Socia-Lite</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Socia-Lite-war/user.jsp">My profile</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Socia-Lite-war/SignoutServlet"><i class="fa fa-sign-out"></i> Sign out</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
 
         <div class="container-fluid text-center">
-            <div class="row content">
-                <div class="col-sm-2 sidenav">
-                    <p><a href="#">Link</a></p>
-                    <p><a href="#">Link</a></p>
-                    <p><a href="#">Link</a></p>
-                </div>
-
-
-
-                <div class="col-sm text-left feed">
-
+            <div class="col-sm text-left feed">
                     <!-- ADD POST -->
                     <form method="POST" action="<%=request.getContextPath()%>/AddPostServlet">
                         <div class="jumbotron jumbotron-post">
@@ -103,7 +144,6 @@
                                 <button type="button" class="btn btn-post btn-emoji">😘</button>
                                 <button type="button" class="btn btn-post btn-emoji">😂</button>
                             </div>
-
                             <div class="btn-group post-button post-actions" role="group">
                                 <label class="btn btn-post">
                                     Upload picture <input type="file" id="img-upload" hidden multiple>
@@ -385,31 +425,35 @@
                             <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Compartir </a>
                         </div>
                     </div>
-
-
-
-                </div>
-
-
-
-                <!-- Right colum -->
-
-                <div class="col-sm-2 sidenav">
-                    <div class="well">
-                        <p>ADS</p>
-                    </div>
-                    <div class="well">
-                        <p>ADS</p>
-                    </div>
                 </div>
             </div>
         </div>
-
         <footer class="container-fluid text-center">
             <p>Footer Text</p>
         </footer>
+        </body>
+      </div>   
+    </div>
+  </div>
 
-    </body>
+    <footer class="container-fluid text-center">
+      <p>Footer Text</p>
+    </footer>
+<script>
+    window.onscroll = function() {myFunction()};
+
+    var header = document.getElementById("myHeader");
+    var sticky = header.offsetTop;
+
+    function myFunction() {
+      if (window.pageYOffset > sticky) {
+        header.classList.add("sticky");
+      } else {
+        header.classList.remove("sticky");
+      }
+    }
+</script>
+  </body>
 </html>
 
 <!-- SCRIPT DELETE POST WARNING -->

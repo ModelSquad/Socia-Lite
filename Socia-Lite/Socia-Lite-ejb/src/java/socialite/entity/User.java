@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,6 +20,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,6 +32,8 @@ import javax.xml.bind.annotation.XmlTransient;
 /**
  *
  * @author xfja
+=======
+ * @author cherra
  */
 @Entity
 @Table(name = "User")
@@ -78,7 +82,9 @@ public class User implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "surname")
     private String surname;
-    @Size(max = 45)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "nickname")
     private String nickname;
     @Basic(optional = false)
@@ -109,8 +115,19 @@ public class User implements Serializable {
         @JoinColumn(name = "idUser", referencedColumnName = "idUser")})
     @ManyToMany
     private List<User> userList;
+
     @ManyToMany(mappedBy = "userList")
     private List<User> userList1;
+    @ManyToMany(mappedBy = "userList")
+    private List<Association> associationList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "admin")
+    private List<Association> associationList1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userReceiver")
+    private List<FriendshipRequest> friendshipRequestList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userSender")
+    private List<FriendshipRequest> friendshipRequestList1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Post> postList;
 
     public User() {
     }
@@ -119,12 +136,13 @@ public class User implements Serializable {
         this.idUser = idUser;
     }
 
-    public User(Integer idUser, String email, String password, String name, String surname, Date birthDate) {
+    public User(Integer idUser, String email, String password, String name, String surname, String nickname, Date birthDate) {
         this.idUser = idUser;
         this.email = email;
         this.password = password;
         this.name = name;
         this.surname = surname;
+        this.nickname = nickname;
         this.birthDate = birthDate;
     }
 
@@ -248,6 +266,51 @@ public class User implements Serializable {
 
     public void setUserList1(List<User> userList1) {
         this.userList1 = userList1;
+    }
+
+    @XmlTransient
+    public List<Association> getAssociationList() {
+        return associationList;
+    }
+
+    public void setAssociationList(List<Association> associationList) {
+        this.associationList = associationList;
+    }
+
+    @XmlTransient
+    public List<Association> getAssociationList1() {
+        return associationList1;
+    }
+
+    public void setAssociationList1(List<Association> associationList1) {
+        this.associationList1 = associationList1;
+    }
+
+    @XmlTransient
+    public List<FriendshipRequest> getFriendshipRequestList() {
+        return friendshipRequestList;
+    }
+
+    public void setFriendshipRequestList(List<FriendshipRequest> friendshipRequestList) {
+        this.friendshipRequestList = friendshipRequestList;
+    }
+
+    @XmlTransient
+    public List<FriendshipRequest> getFriendshipRequestList1() {
+        return friendshipRequestList1;
+    }
+
+    public void setFriendshipRequestList1(List<FriendshipRequest> friendshipRequestList1) {
+        this.friendshipRequestList1 = friendshipRequestList1;
+    }
+
+    @XmlTransient
+    public List<Post> getPostList() {
+        return postList;
+    }
+
+    public void setPostList(List<Post> postList) {
+        this.postList = postList;
     }
 
     @Override
