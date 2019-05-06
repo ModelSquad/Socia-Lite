@@ -7,32 +7,39 @@ package socialite.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import socialite.dao.PostFacade;
-import socialite.entity.User;
-import socialite.entity.Post;
-import java.util.Date;
-import socialite.dao.VisibilityFacade;
 
 /**
  *
- * @author jaysus
+ * @author Sevi
  */
-@WebServlet(name = "IndexServlet", urlPatterns = {"/index"})
-public class IndexServlet extends HttpServlet {
+@WebServlet(name = "SignoutServlet", urlPatterns = {"/SignoutServlet"})
+public class SignoutServlet extends HttpServlet {
 
-    @EJB
-    private PostFacade postFacade;    
-    
-    @EJB
-    private VisibilityFacade visibilityFacade;    
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+            
+            response.setContentType("text/html;charset=UTF-8");
+
+            request.getSession().invalidate();  
+            
+            response.sendRedirect(request.getContextPath());
+
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -46,17 +53,7 @@ public class IndexServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        RequestDispatcher rd;
-        User user = (User)session.getAttribute("user");
-        if(user != null) {
-            session.setAttribute("posts", postFacade.findByUser(user));
-            rd = request.getRequestDispatcher("/welcome.jsp");
-        } else {
-            rd = request.getRequestDispatcher("/index.jsp");
-        }
-        
-        rd.forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -70,7 +67,7 @@ public class IndexServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        processRequest(request, response);
     }
 
     /**

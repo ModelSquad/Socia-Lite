@@ -6,6 +6,9 @@
 package socialite.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.persistence.EntityManager;
@@ -16,14 +19,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import socialite.dao.PostFacade;
 import socialite.dao.UserFacade;
+import socialite.entity.Post;
 import socialite.entity.User;
 
-@WebServlet(name = "LoginServlet", urlPatterns = {"/index"})
+@WebServlet(name = "LoginServlet", urlPatterns = {"/"})
 public class LoginServlet extends HttpServlet {
 
     @EJB
     private UserFacade userFacade;
+    @EJB
+    private PostFacade postFacade;
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -38,7 +45,7 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        if(session.getAttribute("user") == null) {
+        if (session.getAttribute("user") == null) {
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         }
     }
@@ -56,30 +63,29 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        
+
         String email = request.getParameter("email");
-        
-        if(email==null){
+
+        if (email == null) {
             throw new RuntimeException("ERROR. Username is null");
         }
         String password = request.getParameter("password");
-                if(password==null){
+        if (password == null) {
             throw new RuntimeException("ERROR. Password is null");
         }
-                
+
         User user = userFacade.findByEmail(email);
         RequestDispatcher rd;
-        
-        if(user==null || !user.getPassword().equals(password)){
-            request.setAttribute("errorLogin", true);   
+
+        if (user == null || !user.getPassword().equals(password)) {
+            request.setAttribute("errorLogin", true);
             rd = request.getRequestDispatcher("/index.jsp");
-        }
-        else{
+        } else {
             session.setAttribute("user", user);
-            rd = request.getRequestDispatcher("/welcome.jsp");
+            rd = request.getRequestDispatcher("/PostServlet");
         }
-        
         rd.forward(request, response);
+        
     }
 
     /**
@@ -91,5 +97,21 @@ public class LoginServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private List<Post> getPosts(User user) {
+        List<Post> posts = postFacade.findByUser(user);
+        List<User> friends = user.getUserList();
+        friends.forEach((friend) -> {
+            posts.addAll(postFacade.findByUser(friend));
+        });
+        Collections.sort(posts, (Post p1, Post p2) -> {
+            if (p1.getDate() == null || p2.getDate() == null) {
+                return 0;
+            }
+            return p2.getDate().compareTo(p1.getDate());
+        });
+
+        return posts;
+    }
 
 }

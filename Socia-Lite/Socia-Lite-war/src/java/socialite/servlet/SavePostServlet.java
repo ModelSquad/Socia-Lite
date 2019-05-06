@@ -7,6 +7,10 @@ package socialite.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,23 +20,45 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import socialite.dao.PostFacade;
-import socialite.entity.User;
 import socialite.entity.Post;
-import java.util.Date;
-import socialite.dao.VisibilityFacade;
+import socialite.entity.User;
 
-/**
- *
- * @author jaysus
- */
-@WebServlet(name = "IndexServlet", urlPatterns = {"/index"})
-public class IndexServlet extends HttpServlet {
+@WebServlet(name = "SavePostServlet", urlPatterns = {"/SavePostServlet"})
+public class SavePostServlet extends HttpServlet {
 
     @EJB
-    private PostFacade postFacade;    
-    
-    @EJB
-    private VisibilityFacade visibilityFacade;    
+    private PostFacade postFacade;
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        if (session.getAttribute("user") != null && request.getParameter("id")!=null) {
+            Integer idPost = Integer.parseInt(request.getParameter("id"));
+            Post post = postFacade.find(idPost);
+            String title = (String) request.getParameter("title");
+            post.setTitle(title);
+            String textBody = (String) request.getParameter("text-body");
+            post.setText(textBody);
+            post.setDate(new Date());
+            postFacade.edit(post);
+            RequestDispatcher rd = request.getRequestDispatcher("/PostServlet");
+            rd.forward(request, response);
+        }else{
+             response.sendRedirect(request.getContextPath() + "/welcome.jsp"); //should return error in future versions
+        }
+       
+
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -46,17 +72,7 @@ public class IndexServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        RequestDispatcher rd;
-        User user = (User)session.getAttribute("user");
-        if(user != null) {
-            session.setAttribute("posts", postFacade.findByUser(user));
-            rd = request.getRequestDispatcher("/welcome.jsp");
-        } else {
-            rd = request.getRequestDispatcher("/index.jsp");
-        }
-        
-        rd.forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -70,7 +86,7 @@ public class IndexServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        processRequest(request, response);
     }
 
     /**

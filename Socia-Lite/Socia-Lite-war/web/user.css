@@ -1,0 +1,474 @@
+.jumbotron-post{
+    padding-top: 25px !important;
+    height: 130px;
+    transition: 1.2s ease;
+    margin-top: 15px;
+    background-color: #4285f4 !important;
+    color: whitesmoke;
+    -webkit-box-shadow: 5px 5px 11px -1px rgba(0,0,0,0.51);
+    -moz-box-shadow: 5px 5px 11px -1px rgba(0,0,0,0.51);
+    box-shadow: 5px 5px 11px -1px rgba(0,0,0,0.51);
+}
+
+.post-emoji {
+    float: left;
+}
+
+.text-area-post {
+    margin-top: 20px;
+    height: 2.3em !important;
+    resize: none;
+    transition: 2s ease-out;
+}
+
+.post-button {
+    float: right;
+}
+
+.jumbotron-post:hover {
+    height: 230px;
+    transition: 0.65s ease;
+}
+
+.btn-group {
+    background-color: #F5F5F5;
+    border-radius: 10px;
+}
+
+.btn-post:hover {
+    background-color: #FFFFFF;
+}
+
+.jumbotron-post:not(:hover) > .post-actions {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.5s, opacity 0.3s linear;
+}
+
+.post-actions {
+    visibility: hidden;
+    opacity: 0;
+    margin-top: 20px;
+}
+
+.jumbotron-post:hover > .post-actions {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s, opacity 0.7s linear;
+}
+
+.jumbotron-post:hover > .text-area-post {
+    height: 5em !important;
+    transition: 0.7s;
+}
+
+.jumbotron-post:not(:hover) > .text-area-post {
+    height: 2.3em !important;
+    transition: 0.7s;
+}
+
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+    margin-bottom: 0px;
+    border-radius: 0;
+}
+
+.navbar-dark {
+    background-color: #4285f4;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {height: 450px}
+
+/* Set gray background color and 100% height */
+.sidenav {
+    padding-top: 20px;
+    background-color: #f1f1f1;
+    height: 100%;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+    background-color: #555;
+    color: white;
+    padding: 0px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+    .sidenav {
+        height: auto;
+        padding: 15px;
+    }
+    .row.content {height:auto;}
+}
+
+body {
+    background-color: #eeeeee;
+    margin-bottom: 100px;
+}
+
+.h7 {
+    font-size: 0.8rem;
+}
+
+.gedf-wrapper {
+    margin-top: 0.97rem;
+}
+
+@media (min-width: 992px) {
+    .gedf-main {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+    .gedf-card {
+        margin-bottom: 2.77rem;
+    }
+}
+
+/**Reset Bootstrap*/
+.dropdown-toggle::after {
+    content: none;
+    display: none;
+}
+.feed{
+    margin-bottom: 50px;
+    margin-top: 100px;
+}
+
+.post-image{        
+    max-height: 400px;
+    width: auto;
+    object-fit: cover;
+}
+.modal-confirm {		
+    color: #636363;
+    width: 400px;
+}
+.modal-confirm .modal-content {
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+    text-align: center;
+    font-size: 14px;
+}
+.modal-confirm .modal-header {
+    border-bottom: none;   
+    position: relative;
+}
+.modal-confirm h4 {
+    text-align: center;
+    font-size: 26px;
+    margin: 30px 0 -10px;
+}
+.modal-confirm .close {
+    position: absolute;
+    top: -5px;
+    right: -2px;
+}
+.modal-confirm .modal-body {
+    color: #999;
+}
+.modal-confirm .modal-footer {
+    border: none;
+    text-align: center;		
+    border-radius: 5px;
+    font-size: 13px;
+    padding: 10px 15px 25px 15px;
+}
+.modal-confirm .modal-footer a {
+    color: #999;
+}		
+.modal-confirm .icon-box {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    border-radius: 50%;
+    z-index: 9;
+    text-align: center;
+    border: 3px solid #f15e5e;
+}
+.modal-confirm .icon-box i {
+    color: #f15e5e;
+    font-size: 46px;
+    display: inline-block;
+    margin-top: 13px;
+}
+.modal-confirm .btn {
+    color: #fff;
+    border-radius: 4px;
+    background: #60c7c1;
+    text-decoration: none;
+    transition: all 0.4s;
+    line-height: normal;
+    min-width: 120px;
+    border: none;
+    min-height: 40px;
+    border-radius: 3px;
+    margin: 0 5px;
+    outline: none !important;
+}
+.modal-confirm .btn-info {
+    background: #c1c1c1;
+}
+.modal-confirm .btn-info:hover, .modal-confirm .btn-info:focus {
+    background: #a8a8a8;
+}
+.modal-confirm .btn-danger {
+    background: #f15e5e;
+}
+.modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+    background: #ee3535;
+}
+.trigger-btn {
+    display: inline-block;
+    margin: 100px auto;
+}
+.btn-ok{
+    color: white;
+}
+
+#delete-btn{
+    color: white;
+}
+.linea
+{
+    display: inline-block;
+}
+/* Button */
+ .btn {
+     border-radius: 100px;
+     font-size: 13px;
+     font-weight: bold;
+     letter-spacing: 1px;
+     padding: 17px 39px;
+     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.14);
+     text-transform: uppercase;
+     box-shadow: 0 4px 9px 0 rgba(0, 0, 0, 0.2);
+}
+ .btn-primary {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#5a7ce2+0,8283e8+50,5c5de8+51,565bd8+71,575cdb+100 */
+     background: #5a7ce2;
+    /* Old browsers */
+     background: -moz-linear-gradient(-45deg, #5a7ce2 0%, #8283e8 50%, #5c5de8 51%, #565bd8 71%, #575cdb 100%);
+    /* FF3.6-15 */
+     background: -webkit-linear-gradient(-45deg, #5a7ce2 0%,#8283e8 50%,#5c5de8 51%,#565bd8 71%,#575cdb 100%);
+    /* Chrome10-25,Safari5.1-6 */
+     background: linear-gradient(135deg, #5a7ce2 0%,#8283e8 50%,#5c5de8 51%,#565bd8 71%,#575cdb 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5a7ce2', endColorstr='#575cdb',GradientType=1 );
+    /* IE6-9 fallback on horizontal gradient */
+     background-size: 400% 400%;
+     -webkit-animation: AnimationName 3s ease infinite;
+     -moz-animation: AnimationName 3s ease infinite;
+     animation: AnimationName 3s ease infinite;
+     -webkit-animation: AnimationName 3s ease infinite;
+     -moz-animation: AnimationName 3s ease infinite;
+     animation: AnimationName 3s ease infinite;
+     border: medium none;
+}
+ .btn-outline-primary:hover {
+     background-color: #5a7ce2;
+     border-color: #5a7ce2;
+     color: #fff;
+}
+ .btn-secondary{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#797b7f+0,b5b8bf+50,8e9397+51,8e9397+71,828589+100 */
+     background: #797b7f;
+    /* Old browsers */
+     background: -moz-linear-gradient(-45deg, #797b7f 0%, #b5b8bf 50%, #8e9397 51%, #8e9397 71%, #828589 100%);
+    /* FF3.6-15 */
+     background: -webkit-linear-gradient(-45deg, #797b7f 0%,#b5b8bf 50%,#8e9397 51%,#8e9397 71%,#828589 100%);
+    /* Chrome10-25,Safari5.1-6 */
+     background: linear-gradient(135deg, #797b7f 0%,#b5b8bf 50%,#8e9397 51%,#8e9397 71%,#828589 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#797b7f', endColorstr='#828589',GradientType=1 );
+    /* IE6-9 fallback on horizontal gradient */
+     background-size: 400% 400%;
+     -webkit-animation: AnimationName 3s ease infinite;
+     -moz-animation: AnimationName 3s ease infinite;
+     animation: AnimationName 3s ease infinite;
+     -webkit-animation: AnimationName 3s ease infinite;
+     -moz-animation: AnimationName 3s ease infinite;
+     animation: AnimationName 3s ease infinite;
+     border: medium none;
+}
+ .btn-success{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#05ac50+0,21dd72+50,05c44e+51,05ac50+71,05ac50+100 */
+     background: #05ac50;
+    /* Old browsers */
+     background: -moz-linear-gradient(-45deg, #05ac50 0%, #21dd72 50%, #05c44e 51%, #05ac50 71%, #05ac50 100%);
+    /* FF3.6-15 */
+     background: -webkit-linear-gradient(-45deg, #05ac50 0%,#21dd72 50%,#05c44e 51%,#05ac50 71%,#05ac50 100%);
+    /* Chrome10-25,Safari5.1-6 */
+     background: linear-gradient(135deg, #05ac50 0%,#21dd72 50%,#05c44e 51%,#05ac50 71%,#05ac50 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#05ac50', endColorstr='#05ac50',GradientType=1 );
+    /* IE6-9 fallback on horizontal gradient */
+     background-size: 400% 400%;
+     -webkit-animation: AnimationName 3s ease infinite;
+     -moz-animation: AnimationName 3s ease infinite;
+     animation: AnimationName 3s ease infinite;
+     -webkit-animation: AnimationName 3s ease infinite;
+     -moz-animation: AnimationName 3s ease infinite;
+     animation: AnimationName 3s ease infinite;
+     border: medium none;
+}
+ .btn-danger{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e81216+0,f45355+50,f6290c+51,ed0e11+71,fc1b21+100 */
+     background: #e81216;
+    /* Old browsers */
+     background: -moz-linear-gradient(-45deg, #e81216 0%, #f45355 50%, #f6290c 51%, #ed0e11 71%, #fc1b21 100%);
+    /* FF3.6-15 */
+     background: -webkit-linear-gradient(-45deg, #e81216 0%,#f45355 50%,#f6290c 51%,#ed0e11 71%,#fc1b21 100%);
+    /* Chrome10-25,Safari5.1-6 */
+     background: linear-gradient(135deg, #e81216 0%,#f45355 50%,#f6290c 51%,#ed0e11 71%,#fc1b21 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e81216', endColorstr='#fc1b21',GradientType=1 );
+    /* IE6-9 fallback on horizontal gradient */
+     background-size: 400% 400%;
+     -webkit-animation: AnimationName 3s ease infinite;
+     -moz-animation: AnimationName 3s ease infinite;
+     animation: AnimationName 3s ease infinite;
+     -webkit-animation: AnimationName 3s ease infinite;
+     -moz-animation: AnimationName 3s ease infinite;
+     animation: AnimationName 3s ease infinite;
+     border: medium none;
+}
+ .btn-warning{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e5ae09+0,ffd044+50,ffc107+51,fc9014+71,f1890b+100 */
+     background: #e5ae09;
+    /* Old browsers */
+     background: -moz-linear-gradient(-45deg, #e5ae09 0%, #ffd044 50%, #ffc107 51%, #fc9014 71%, #f1890b 100%);
+    /* FF3.6-15 */
+     background: -webkit-linear-gradient(-45deg, #e5ae09 0%,#ffd044 50%,#ffc107 51%,#fc9014 71%,#f1890b 100%);
+    /* Chrome10-25,Safari5.1-6 */
+     background: linear-gradient(135deg, #e5ae09 0%,#ffd044 50%,#ffc107 51%,#fc9014 71%,#f1890b 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5ae09', endColorstr='#f1890b',GradientType=1 );
+    /* IE6-9 fallback on horizontal gradient */
+     background-size: 400% 400%;
+     -webkit-animation: AnimationName 3s ease infinite;
+     -moz-animation: AnimationName 3s ease infinite;
+     animation: AnimationName 3s ease infinite;
+     -webkit-animation: AnimationName 3s ease infinite;
+     -moz-animation: AnimationName 3s ease infinite;
+     animation: AnimationName 3s ease infinite;
+     border: medium none;
+     color: #fff !important;
+}
+ .btn-info{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#01a8c1+0,2adbf7+50,00b5d1+51,0aafc9+71,0599b1+100 */
+     background: #01a8c1;
+    /* Old browsers */
+     background: -moz-linear-gradient(-45deg, #01a8c1 0%, #2adbf7 50%, #00b5d1 51%, #0aafc9 71%, #0599b1 100%);
+    /* FF3.6-15 */
+     background: -webkit-linear-gradient(-45deg, #01a8c1 0%,#2adbf7 50%,#00b5d1 51%,#0aafc9 71%,#0599b1 100%);
+    /* Chrome10-25,Safari5.1-6 */
+     background: linear-gradient(135deg, #01a8c1 0%,#2adbf7 50%,#00b5d1 51%,#0aafc9 71%,#0599b1 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01a8c1', endColorstr='#0599b1',GradientType=1 );
+    /* IE6-9 fallback on horizontal gradient */
+     background-size: 400% 400%;
+     -webkit-animation: AnimationName 3s ease infinite;
+     -moz-animation: AnimationName 3s ease infinite;
+     animation: AnimationName 3s ease infinite;
+     -webkit-animation: AnimationName 3s ease infinite;
+     -moz-animation: AnimationName 3s ease infinite;
+     animation: AnimationName 3s ease infinite;
+     border: medium none;
+}
+ .btn-light{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f2f2f2+0,dddddd+50,ffffff+51,ffffff+71,f6f8fb+100 */
+     background: #f2f2f2;
+    /* Old browsers */
+     background: -moz-linear-gradient(-45deg, #f2f2f2 0%, #dddddd 50%, #ffffff 51%, #ffffff 71%, #f6f8fb 100%);
+    /* FF3.6-15 */
+     background: -webkit-linear-gradient(-45deg, #f2f2f2 0%,#dddddd 50%,#ffffff 51%,#ffffff 71%,#f6f8fb 100%);
+    /* Chrome10-25,Safari5.1-6 */
+     background: linear-gradient(135deg, #f2f2f2 0%,#dddddd 50%,#ffffff 51%,#ffffff 71%,#f6f8fb 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f2f2', endColorstr='#f6f8fb',GradientType=1 );
+    /* IE6-9 fallback on horizontal gradient */
+     color: #3f345f !important;
+     background-size: 400% 400%;
+     -webkit-animation: AnimationName 3s ease infinite;
+     -moz-animation: AnimationName 3s ease infinite;
+     animation: AnimationName 3s ease infinite;
+     -webkit-animation: AnimationName 3s ease infinite;
+     -moz-animation: AnimationName 3s ease infinite;
+     animation: AnimationName 3s ease infinite;
+     border: medium none;
+}
+ .btn-dark{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#343a40+0,667584+50,4e5256+51,242a30+71,343a40+100 */
+     background: #343a40;
+    /* Old browsers */
+     background: -moz-linear-gradient(-45deg, #343a40 0%, #667584 50%, #4e5256 51%, #242a30 71%, #343a40 100%);
+    /* FF3.6-15 */
+     background: -webkit-linear-gradient(-45deg, #343a40 0%,#667584 50%,#4e5256 51%,#242a30 71%,#343a40 100%);
+    /* Chrome10-25,Safari5.1-6 */
+     background: linear-gradient(135deg, #343a40 0%,#667584 50%,#4e5256 51%,#242a30 71%,#343a40 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#343a40', endColorstr='#343a40',GradientType=1 );
+    /* IE6-9 fallback on horizontal gradient */
+     background-size: 400% 400%;
+     -webkit-animation: AnimationName 3s ease infinite;
+     -moz-animation: AnimationName 3s ease infinite;
+     animation: AnimationName 3s ease infinite;
+     -webkit-animation: AnimationName 3s ease infinite;
+     -moz-animation: AnimationName 3s ease infinite;
+     animation: AnimationName 3s ease infinite;
+     border: medium none;
+}
+ @-webkit-keyframes AnimationName {
+     0%{
+        background-position:0% 31%
+    }
+     50%{
+        background-position:100% 70%
+    }
+     100%{
+        background-position:0% 31%
+    }
+}
+ @-moz-keyframes AnimationName {
+     0%{
+        background-position:0% 31%
+    }
+     50%{
+        background-position:100% 70%
+    }
+     100%{
+        background-position:0% 31%
+    }
+}
+ @keyframes AnimationName {
+     0%{
+        background-position:0% 31%
+    }
+     50%{
+        background-position:100% 70%
+    }
+     100%{
+        background-position:0% 31%
+    }
+}
+ .btn-outline-light:hover{
+     color: #3f345f;
+}
+ .btn-outline-warning:hover{
+     color: #ffffff;
+}
+ .btn-sm {
+     font-size: 12px;
+     padding: 11px 25px;
+}
+ .elements-page-btn .btn {
+     margin: 6px 3px;
+}
+

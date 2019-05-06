@@ -9,17 +9,16 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Sevi
+ * @author xfja
  */
 @Entity
 @Table(name = "User")
@@ -105,16 +104,13 @@ public class User implements Serializable {
     @Size(max = 100)
     @Column(name = "profilePic")
     private String profilePic;
+    @JoinTable(name = "UserFriend", joinColumns = {
+        @JoinColumn(name = "idFriend", referencedColumnName = "idUser")}, inverseJoinColumns = {
+        @JoinColumn(name = "idUser", referencedColumnName = "idUser")})
+    @ManyToMany
+    private List<User> userList;
     @ManyToMany(mappedBy = "userList")
-    private List<Group1> group1List;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "admin")
-    private List<Group1> group1List1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<FriendshipRequest> friendshipRequestList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1")
-    private List<FriendshipRequest> friendshipRequestList1;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-    private Post post;
+    private List<User> userList1;
 
     public User() {
     }
@@ -237,47 +233,21 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public List<Group1> getGroup1List() {
-        return group1List;
+    public List<User> getUserList() {
+        return userList;
     }
 
-    public void setGroup1List(List<Group1> group1List) {
-        this.group1List = group1List;
-    }
-
-    @XmlTransient
-    public List<Group1> getGroup1List1() {
-        return group1List1;
-    }
-
-    public void setGroup1List1(List<Group1> group1List1) {
-        this.group1List1 = group1List1;
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 
     @XmlTransient
-    public List<FriendshipRequest> getFriendshipRequestList() {
-        return friendshipRequestList;
+    public List<User> getUserList1() {
+        return userList1;
     }
 
-    public void setFriendshipRequestList(List<FriendshipRequest> friendshipRequestList) {
-        this.friendshipRequestList = friendshipRequestList;
-    }
-
-    @XmlTransient
-    public List<FriendshipRequest> getFriendshipRequestList1() {
-        return friendshipRequestList1;
-    }
-
-    public void setFriendshipRequestList1(List<FriendshipRequest> friendshipRequestList1) {
-        this.friendshipRequestList1 = friendshipRequestList1;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
+    public void setUserList1(List<User> userList1) {
+        this.userList1 = userList1;
     }
 
     @Override
