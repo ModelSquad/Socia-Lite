@@ -60,7 +60,6 @@ public class SendFriendshipRequestServlet extends HttpServlet {
             List<FriendshipRequest> frRequested = friendRequested.getFriendshipRequestList();
             frRequested.add(friendshipRequest);
             friendRequested.setFriendshipRequestList1(frRequested);
-            
             friendshipRequestFacade.create(friendshipRequest);
             userFacade.edit(user);
             userFacade.edit(friendRequested);
