@@ -80,9 +80,9 @@ public class AddPostServlet extends HttpServlet {
                 if(requestData.get("post-text") != null) {
                     User user = (User)session.getAttribute("user");
                     Post post = (Post)requestData.get("post");
-
+                    String visibility = (String)requestData.get("visibility");
                     post.setText((String)requestData.get("post-text"));
-                    post.setVisibility(visibilityFacade.find(1));
+                    post.setVisibility((visibility.equalsIgnoreCase("PUBLIC")) ? visibilityFacade.find(1) : visibilityFacade.find(2));
                     post.setMediaList((List<Media>)requestData.get("media"));
                     
                     postFacade.edit(post);

@@ -232,6 +232,7 @@ COMMIT;
 START TRANSACTION;
 USE `socialite`;
 INSERT INTO `socialite`.`Visibility` (`idVisibility`, `name`) VALUES (1, 'PUBLIC');
+INSERT INTO `socialite`.`Visibility` (`idVisibility`, `name`) VALUES (2, 'PRIVATE');
 
 COMMIT;
 

@@ -137,6 +137,10 @@ background-color: #4285f4;
     height: 100%;
 }
 
+#radioBtn .notActive{
+    color: #3276b1;
+    background-color: #fff;
+}
 
   /* Set black background color, white text and some padding */
 

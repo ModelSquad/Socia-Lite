@@ -134,11 +134,14 @@
                         <div class="jumbotron jumbotron-post">
                             <h4>Share your experiences</h4>
                             <textarea name="post-text" class="form-control text-area-post" placeholder="Write something here..."></textarea>
-                            <div class="btn-group post-emoji post-actions" role="group">
-                                <button type="button" class="btn btn-post btn-emoji">❤️</button>
-                                <button type="button" class="btn btn-post btn-emoji">😉</button>
-                                <button type="button" class="btn btn-post btn-emoji">😘</button>
-                                <button type="button" class="btn btn-post btn-emoji">😂</button>
+                            <div class="btn-group post-actions" role="group">
+                                <div class="input-group">
+                                    <div id="radioBtn" class="btn-group">
+                                            <a class="btn btn-primary btn-sm active" data-toggle="visibility" data-title="public">Public</a>
+                                            <a class="btn btn-primary btn-sm notActive" data-toggle="visibility" data-title="private">Private</a>
+                                    </div>
+                                    <input type="hidden" name="visibility" id="visibility">
+                                </div>
                             </div>
                             <div class="btn-group post-button post-actions" role="group">
                                 <label class="btn btn-post">
