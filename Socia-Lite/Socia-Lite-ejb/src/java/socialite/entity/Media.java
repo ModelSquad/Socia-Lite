@@ -43,7 +43,7 @@ public class Media implements Serializable {
     private Integer idMedia;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 1000)
     @Column(name = "mediaUrl")
     private String mediaUrl;
     @JoinColumns({

@@ -5,30 +5,50 @@
  */
 package socialite.servlet;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+import javax.validation.ConstraintViolationException;
 import socialite.dao.PostFacade;
 import socialite.dao.VisibilityFacade;
 import socialite.entity.Post;
 import socialite.entity.User;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemIterator;
+import org.apache.commons.fileupload.FileItemStream;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import socialite.dao.MediaFacade;
+import socialite.entity.Media;
 
 /**
  *
  * @author xfja
  */
 @WebServlet(name = "AddPostServlet", urlPatterns = {"/AddPostServlet"})
+@MultipartConfig
 public class AddPostServlet extends HttpServlet {
 
     @EJB
@@ -37,6 +57,9 @@ public class AddPostServlet extends HttpServlet {
     @EJB
     private VisibilityFacade visibilityFacade;
 
+    @EJB
+    private MediaFacade mediaFacade;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -48,19 +71,83 @@ public class AddPostServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AddPostServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AddPostServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+
+        HttpSession session = request.getSession();
+        if(session.getAttribute("user") != null) {
+            try {
+                HashMap<String, Object> requestData = this.getMedia(request);
+                
+                if(requestData.get("post-text") != null) {
+                    User user = (User)session.getAttribute("user");
+                    Post post = (Post)requestData.get("post");
+
+                    post.setText((String)requestData.get("post-text"));
+                    post.setVisibility(visibilityFacade.find(1));
+                    post.setMediaList((List<Media>)requestData.get("media"));
+                    
+                    postFacade.edit(post);
+
+                    RequestDispatcher rd = request.getRequestDispatcher("/PostServlet");
+                    rd.forward(request, response);
+                }
+                
+            } catch (Exception ex) {
+                Logger.getLogger(AddPostServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+          response.sendRedirect(request.getContextPath()+"/index.jsp");  
+        } 
+    }
+    
+    private HashMap<String, Object> getMedia(HttpServletRequest request) throws Exception {
+        
+        ServletFileUpload fileUpload = new ServletFileUpload(new DiskFileItemFactory());
+        List<FileItem> items = fileUpload.parseRequest(request);
+        HashMap<String, Object> result = new HashMap<>();     
+        
+        
+        User user = (User)request.getSession().getAttribute("user");
+        
+        Post post = new Post();
+        post.setText("");
+        post.setTitle("");
+        post.setLikes(0);
+        post.setDate(new Date());
+        post.setUser(user);
+        post.setVisibility(visibilityFacade.find(1));
+        postFacade.create(post);
+        
+        String filename = System.getProperty("user.dir") + "/" + user.getNickname() + new Date().toString().replace(" ", "_");
+        int counter = 1;
+        List<Media> media = new ArrayList<>();
+        
+        for (FileItem item : items) {
+            
+            if(item.isFormField()) {
+                result.put(item.getFieldName(), item.getString());
+            } else {
+                InputStream inputStream = item.getInputStream();
+                String extension = item.getContentType().substring(item.getContentType().lastIndexOf("/") + 1);
+                
+                int data = inputStream.read();
+                FileOutputStream file = new FileOutputStream(filename + counter + "." + extension);
+                while(data != -1) {
+                    file.write(data);
+                    data = inputStream.read();
+                }
+                Media currentMedia = new Media();
+                currentMedia.setMediaUrl(filename + counter + "." + extension);
+                currentMedia.setPost(post);
+                mediaFacade.create(currentMedia);
+                media.add(currentMedia);
+                counter++;
+            }
         }
+       
+	result.put("media", media);
+        result.put("post", post);
+        
+        return result;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -89,22 +176,7 @@ public class AddPostServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if(session.getAttribute("user") != null && request.getParameter("post-text") != null) {
-            User user = (User)session.getAttribute("user");
-            Post post = new Post();
-            post.setText(request.getParameter("post-text"));
-            post.setTitle("");
-            post.setLikes(0);
-            post.setDate(new Date());
-            post.setUser(user);
-            post.setVisibility(visibilityFacade.find(1));
-            postFacade.create(post);
-            RequestDispatcher rd = request.getRequestDispatcher("PostServlet");
-            rd.forward(request, response);
-        }else{
-          response.sendRedirect(request.getContextPath()+"/login.jsp");  
-        } 
+        processRequest(request, response);
     }
 
     /**

@@ -34,7 +34,9 @@
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 <!-- Icons -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
- 
+ <script>
+            <%@ include file="welcome.js"%>
+        </script>
 
   </head>
   <body>
@@ -112,12 +114,6 @@
       
       <div class="col-sm text-left feed">
           
-          <!-- ADD POST -->
-        <script>
-            <%@ include file="welcome.js"%>
-        </script>
-    </head>
-    <body>
         <%
             String currentPath = request.getContextPath();
             
@@ -134,7 +130,7 @@
         <div class="container-fluid text-center">
             <div class="col-sm text-left feed">
                     <!-- ADD POST -->
-                    <form method="POST" action="<%=request.getContextPath()%>/AddPostServlet">
+                    <form method="POST" action="<%=request.getContextPath()%>/AddPostServlet" enctype='multipart/form-data'>
                         <div class="jumbotron jumbotron-post">
                             <h4>Share your experiences</h4>
                             <textarea name="post-text" class="form-control text-area-post" placeholder="Write something here..."></textarea>
@@ -146,7 +142,7 @@
                             </div>
                             <div class="btn-group post-button post-actions" role="group">
                                 <label class="btn btn-post">
-                                    Upload picture <input type="file" id="img-upload" hidden multiple>
+                                    Upload picture <input type="file" name="img-upload" id="img-upload" hidden multiple>
                                 </label>
                                 <input type="submit" class="btn btn-post" value="Send">
                             </div>

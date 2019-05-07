@@ -113,7 +113,7 @@ DROP TABLE IF EXISTS `socialite`.`Media` ;
 
 CREATE TABLE IF NOT EXISTS `socialite`.`Media` (
   `idMedia` INT NOT NULL AUTO_INCREMENT,
-  `mediaUrl` VARCHAR(100) NOT NULL,
+  `mediaUrl` VARCHAR(1000) NOT NULL,
   `post` INT NOT NULL,
   PRIMARY KEY (`idMedia`),
   UNIQUE INDEX `idMedia_UNIQUE` (`idMedia` ASC),
