@@ -221,11 +221,11 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `socialite`;
-INSERT INTO `socialite`.`User` (`idUser`, `email`, `password`, `name`, `surname`, `nickname`, `birthDate`, `birthPlace`, `job`, `jobPlace`, `studyPlace`, `website`, `profilePic`) VALUES (1, 'juan@gmail.es', 'juan', 'Juan', 'Martinez', 'juan97', '1997-05-22', 'Antequera', 'Mecánico', 'Antequera', 'I.E.S. Pedro Espinosa', '', NULL);
-INSERT INTO `socialite`.`User` (`idUser`, `email`, `password`, `name`, `surname`, `nickname`, `birthDate`, `birthPlace`, `job`, `jobPlace`, `studyPlace`, `website`, `profilePic`) VALUES (2, 'jose@gmail.com', 'jose', 'Jose', 'Jimenez', 'jose778', '1996-06-30', 'Estepona', 'Pintor', 'Estepona', 'I.E.S. Vino', NULL, NULL);
-INSERT INTO `socialite`.`User` (`idUser`, `email`, `password`, `name`, `surname`, `nickname`, `birthDate`, `birthPlace`, `job`, `jobPlace`, `studyPlace`, `website`, `profilePic`) VALUES (3, 'pepe@gmail.com', 'pepe', 'Pepe', 'Ruiz', 'pepe777', '1990-02-22', 'Guadix', 'Electricista', 'Guadix', '', NULL, NULL);
-INSERT INTO `socialite`.`User` (`idUser`, `email`, `password`, `name`, `surname`, `nickname`, `birthDate`, `birthPlace`, `job`, `jobPlace`, `studyPlace`, `website`, `profilePic`) VALUES (4, 'andres@gmail.com', 'andres', 'Andres', 'Aguilar', 'andres11', '1990-02-22', 'Guadix', 'Juez', 'Marbella', '', NULL, NULL);
-INSERT INTO `socialite`.`User` (`idUser`, `email`, `password`, `name`, `surname`, `nickname`, `birthDate`, `birthPlace`, `job`, `jobPlace`, `studyPlace`, `website`, `profilePic`) VALUES (5, 'jorge@gmail.com', 'jorge', 'Jorge', 'Paz', 'jorge22', '1990-02-22', 'Lanzarote', 'Barrendero', 'Antequera', '', NULL, NULL);
+INSERT INTO `socialite`.`User` (`idUser`, `email`, `password`, `name`, `surname`, `nickname`, `birthDate`, `birthPlace`, `job`, `studyPlace`, `website`, `profilePic`) VALUES (1, 'juan@gmail.es', 'juan', 'Juan', 'Martinez', 'juan97', '1997-05-22', 'Antequera', 'Mecánico', 'I.E.S. Pedro Espinosa', '', NULL);
+INSERT INTO `socialite`.`User` (`idUser`, `email`, `password`, `name`, `surname`, `nickname`, `birthDate`, `birthPlace`, `job`, `studyPlace`, `website`, `profilePic`) VALUES (2, 'jose@gmail.com', 'jose', 'Jose', 'Jimenez', 'jose778', '1996-06-30', 'Estepona', 'Pintor', 'I.E.S. Vino', NULL, NULL);
+INSERT INTO `socialite`.`User` (`idUser`, `email`, `password`, `name`, `surname`, `nickname`, `birthDate`, `birthPlace`, `job`, `studyPlace`, `website`, `profilePic`) VALUES (3, 'pepe@gmail.com', 'pepe', 'Pepe', 'Ruiz', 'pepe777', '1990-02-22', 'Guadix', 'Electricista', '', NULL, NULL);
+INSERT INTO `socialite`.`User` (`idUser`, `email`, `password`, `name`, `surname`, `nickname`, `birthDate`, `birthPlace`, `job`, `studyPlace`, `website`, `profilePic`) VALUES (4, 'andres@gmail.com', 'andres', 'Andres', 'Aguilar', 'andres11', '1990-02-22', 'Guadix', 'Juez', '', NULL, NULL);
+INSERT INTO `socialite`.`User` (`idUser`, `email`, `password`, `name`, `surname`, `nickname`, `birthDate`, `birthPlace`, `job`, `studyPlace`, `website`, `profilePic`) VALUES (5, 'jorge@gmail.com', 'jorge', 'Jorge', 'Paz', 'jorge22', '1990-02-22', 'Lanzarote', 'Barrendero', '', NULL, NULL);
 
 COMMIT;
 
