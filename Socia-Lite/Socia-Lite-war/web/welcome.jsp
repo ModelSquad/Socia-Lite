@@ -46,7 +46,7 @@
         List<User> friends = user.getUserList();
     %>
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">SociaLite</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -54,27 +54,28 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="welcome.jsp"><i class="material-icons" style="font-size:20px;">home</i>Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/Socia-Lite-war/welcome.jsp"><i class="fa fa-home" aria-hidden="true" style="font-size:20px;"></i> Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="friends.jsp"><i class="material-icons" style="font-size:20px;">people</i> Friends</a>
+              <a class="nav-link" href="/Socia-Lite-war/friends.jsp"><i class="material-icons" style="font-size:22px;">people</i> Friends</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
+              <a class="nav-link" href="#"><i class="fa fa-users" aria-hidden="true"></i> Groups</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
+              <a class="nav-link" href="/Socia-Lite-war/user.jsp"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/Socia-Lite-war/user.jsp">My profile</a>
-            </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
+            <form class="form-inline md-form form-sm mt-0" action="SearchServlet">
+                <i class="fa fa-search" aria-hidden="true" style="color:lightsteelblue"></i>
+                <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search users" aria-label="Search" name="search">
+            </form>
+          </ul>
+
+          <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                <a class="nav-link" href="/Socia-Lite-war/SignoutServlet"><i class="fa fa-sign-out"></i> Sign out</a>
             </li>
-            </ul>
-
+          </ul>
         </div>
     </nav>
 
