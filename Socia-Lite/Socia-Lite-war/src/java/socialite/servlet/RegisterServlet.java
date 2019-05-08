@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.servlet.http.HttpSession;
 import socialite.dao.UserFacade;
 
 /**
@@ -96,7 +97,9 @@ public class RegisterServlet extends HttpServlet {
         }
         if(strErrors.equals("")){
             userFacade.create(user);
-            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/welcome.jsp");
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/PostServlet");
             rd.forward(request, response);
         }else{
             request.setAttribute("email", email);
