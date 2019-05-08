@@ -12,7 +12,7 @@ import socialite.entity.Media;
 
 /**
  *
- * @author cherra
+ * @author Sevi
  */
 @Stateless
 public class MediaFacade extends AbstractFacade<Media> {

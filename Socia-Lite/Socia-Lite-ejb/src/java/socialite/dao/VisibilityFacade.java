@@ -12,7 +12,7 @@ import socialite.entity.Visibility;
 
 /**
  *
- * @author cherra
+ * @author Sevi
  */
 @Stateless
 public class VisibilityFacade extends AbstractFacade<Visibility> {

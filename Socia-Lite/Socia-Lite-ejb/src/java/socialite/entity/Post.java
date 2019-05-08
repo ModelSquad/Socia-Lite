@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author cherra
+ * @author Sevi
  */
 @Entity
 @Table(name = "Post")
@@ -42,8 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Post.findByDate", query = "SELECT p FROM Post p WHERE p.date = :date")
     , @NamedQuery(name = "Post.findByTitle", query = "SELECT p FROM Post p WHERE p.title = :title")
     , @NamedQuery(name = "Post.findByText", query = "SELECT p FROM Post p WHERE p.text = :text")
-    , @NamedQuery(name = "Post.findByLikes", query = "SELECT p FROM Post p WHERE p.likes = :likes")
-    , @NamedQuery(name = "Post.findByUser", query = "SELECT p FROM Post p WHERE p.user = :user")})
+    , @NamedQuery(name = "Post.findByLikes", query = "SELECT p FROM Post p WHERE p.likes = :likes")})
 public class Post implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -176,10 +175,6 @@ public class Post implements Serializable {
     @Override
     public String toString() {
         return "socialite.entity.Post[ idPost=" + idPost + " ]";
-    }
-
-    public Date getTime() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

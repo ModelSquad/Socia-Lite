@@ -12,7 +12,7 @@ import socialite.entity.Association;
 
 /**
  *
- * @author cherra
+ * @author Sevi
  */
 @Stateless
 public class AssociationFacade extends AbstractFacade<Association> {

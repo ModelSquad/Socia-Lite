@@ -17,7 +17,7 @@ import socialite.entity.User;
 
 /**
  *
- * @author cherra
+ * @author Sevi
  */
 @Stateless
 public class UserFacade extends AbstractFacade<User> {

@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author cherra
+ * @author Sevi
  */
 @Entity
 @Table(name = "Visibility")

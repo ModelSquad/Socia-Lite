@@ -8,13 +8,12 @@ package socialite.dao;
 import java.util.Iterator;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import socialite.entity.FriendshipRequest;
 
 /**
  *
- * @author cherra
+ * @author Sevi
  */
 @Stateless
 public class FriendshipRequestFacade extends AbstractFacade<FriendshipRequest> {
@@ -30,13 +29,11 @@ public class FriendshipRequestFacade extends AbstractFacade<FriendshipRequest> {
     public FriendshipRequestFacade() {
         super(FriendshipRequest.class);
     }
-
+    
     public FriendshipRequest findByFriendshipRequestId(Integer friendshipRequestId) {
         Iterator it = em.createNamedQuery("FriendshipRequest.findByFriendshipRequestId")
         .setParameter("friendshipRequestId", friendshipRequestId).getResultList().iterator();
         return (it.hasNext()) ? (FriendshipRequest)it.next() : null;
     }
-    
-
     
 }

@@ -5,7 +5,6 @@
  */
 package socialite.dao;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 import javax.ejb.Stateless;
@@ -17,7 +16,7 @@ import socialite.entity.User;
 
 /**
  *
- * @author cherra
+ * @author Sevi
  */
 @Stateless
 public class PostFacade extends AbstractFacade<Post> {
@@ -33,7 +32,7 @@ public class PostFacade extends AbstractFacade<Post> {
     public PostFacade() {
         super(Post.class);
     }
-
+   
     public Vector<Post> findByUser(User user) {
         return (Vector<Post>) em.createNamedQuery("Post.findByUser")
                 .setParameter("user", user).getResultList();
@@ -53,6 +52,5 @@ public class PostFacade extends AbstractFacade<Post> {
         q = this.em.createQuery("select p from Post p where p.user IN :ids order by p.date DESC");
         q.setParameter("ids", ids);
         return q.getResultList(); 
-    }
-    
+    }    
 }

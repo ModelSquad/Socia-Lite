@@ -31,9 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author xfja
-=======
- * @author cherra
+ * @author Sevi
  */
 @Entity
 @Table(name = "User")
@@ -49,7 +47,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "User.findByBirthDate", query = "SELECT u FROM User u WHERE u.birthDate = :birthDate")
     , @NamedQuery(name = "User.findByBirthPlace", query = "SELECT u FROM User u WHERE u.birthPlace = :birthPlace")
     , @NamedQuery(name = "User.findByJob", query = "SELECT u FROM User u WHERE u.job = :job")
-    , @NamedQuery(name = "User.findByJobPlace", query = "SELECT u FROM User u WHERE u.jobPlace = :jobPlace")
     , @NamedQuery(name = "User.findByStudyPlace", query = "SELECT u FROM User u WHERE u.studyPlace = :studyPlace")
     , @NamedQuery(name = "User.findByWebsite", query = "SELECT u FROM User u WHERE u.website = :website")
     , @NamedQuery(name = "User.findByProfilePic", query = "SELECT u FROM User u WHERE u.profilePic = :profilePic")})
@@ -99,15 +96,12 @@ public class User implements Serializable {
     @Column(name = "job")
     private String job;
     @Size(max = 45)
-    @Column(name = "jobPlace")
-    private String jobPlace;
-    @Size(max = 45)
     @Column(name = "studyPlace")
     private String studyPlace;
-    @Size(max = 100)
+    @Size(max = 200)
     @Column(name = "website")
     private String website;
-    @Size(max = 100)
+    @Size(max = 200)
     @Column(name = "profilePic")
     private String profilePic;
     @JoinTable(name = "UserFriend", joinColumns = {
@@ -115,7 +109,6 @@ public class User implements Serializable {
         @JoinColumn(name = "idUser", referencedColumnName = "idUser")})
     @ManyToMany
     private List<User> userList;
-
     @ManyToMany(mappedBy = "userList")
     private List<User> userList1;
     @ManyToMany(mappedBy = "userList")
@@ -216,14 +209,6 @@ public class User implements Serializable {
 
     public void setJob(String job) {
         this.job = job;
-    }
-
-    public String getJobPlace() {
-        return jobPlace;
-    }
-
-    public void setJobPlace(String jobPlace) {
-        this.jobPlace = jobPlace;
     }
 
     public String getStudyPlace() {
