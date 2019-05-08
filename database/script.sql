@@ -34,10 +34,9 @@ CREATE TABLE IF NOT EXISTS `socialite`.`User` (
   `birthDate` DATE NOT NULL,
   `birthPlace` VARCHAR(45) NULL,
   `job` VARCHAR(100) NULL,
-  `jobPlace` VARCHAR(45) NULL,
   `studyPlace` VARCHAR(45) NULL,
-  `website` VARCHAR(100) NULL,
-  `profilePic` VARCHAR(100) NULL,
+  `website` VARCHAR(200) NULL,
+  `profilePic` VARCHAR(200) NULL,
   PRIMARY KEY (`idUser`),
   UNIQUE INDEX `idUsuario_UNIQUE` (`idUser` ASC),
   UNIQUE INDEX `correo_UNIQUE` (`email` ASC))
