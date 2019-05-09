@@ -124,7 +124,7 @@
                       : notFriend.getProfilePic()%>" alt="">
                         </div>
                         <div class="ml-2">
-                            <div class="h5 m-0"><a href="#"><%=notFriend.getNickname()%></a></div>
+                            <div class="h5 m-0"><a href="ProfileServlet?user=<%=notFriend.getIdUser()%>"><%=notFriend.getNickname()%></a></div>
                             <div class="h7 text-muted"><%=notFriend.getName() +" "+notFriend.getSurname()%></div>
                         </div>
                     </div>
