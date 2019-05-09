@@ -25,7 +25,7 @@
 }
 
 .post-row {
-    margin-top: 75px;
+    margin-top: 20px;
     position: relative;
     height: 200px;
     justify-content: center;
@@ -137,6 +137,10 @@ background-color: #4285f4;
     height: 100%;
 }
 
+#radioBtn .notActive{
+    color: #3276b1;
+    background-color: #fff;
+}
 
   /* Set black background color, white text and some padding */
 
@@ -337,4 +341,6 @@ body {
 .sticky + .content {
   padding-top: 102px;
 }
+
+
 

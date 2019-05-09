@@ -18,6 +18,7 @@
         <style>
             <%@ include file="user.css"%>
         </style>
+        
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -38,34 +39,39 @@
         <%
             User user = (User) request.getSession().getAttribute("user");
         %>
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-            <a class="navbar-brand" href="#">Socia-Lite</a>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="#">SociaLite</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/Socia-Lite-war/welcome.jsp">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">My profile <span class="sr-only">(current)</span></a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Socia-Lite-war/SignoutServlet"><i class="fa fa-sign-out"></i> Sign out</a>
-                    </li>
-                </ul>
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="/Socia-Lite-war/welcome.jsp"><i class="fa fa-home" aria-hidden="true" style="font-size:20px;"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/Socia-Lite-war/friends.jsp"><i class="material-icons" style="font-size:22px;">people</i> Friends</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#"><i class="fa fa-users" aria-hidden="true"></i> Groups</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="/Socia-Lite-war/user.jsp"><i class="fa fa-user" aria-hidden="true"></i> Profile<span class="sr-only">(current)</span></a>
+                </li>
+                <form class="form-inline md-form form-sm mt-0" action="SearchServlet">
+                    <i class="fa fa-search" aria-hidden="true" style="color:lightsteelblue"></i>
+                    <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search users" aria-label="Search" name="search">
+                </form>
+              </ul>
+
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                   <a class="nav-link" href="/Socia-Lite-war/SignoutServlet"><i class="fa fa-sign-out"></i> Sign out</a>
+                </li>
+              </ul>
             </div>
-        </nav>
+        </nav>        
         
         <div class="container-fluid text-center">
             <div class="row content">

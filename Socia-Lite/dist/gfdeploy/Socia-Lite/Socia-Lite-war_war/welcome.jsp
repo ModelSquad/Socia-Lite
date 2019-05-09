@@ -34,7 +34,9 @@
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 <!-- Icons -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
- 
+ <script>
+            <%@ include file="welcome.js"%>
+        </script>
 
   </head>
   <body>
@@ -44,7 +46,7 @@
         List<User> friends = user.getUserList();
     %>
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">SociaLite</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -52,27 +54,28 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="welcome.jsp"><i class="material-icons" style="font-size:20px;">home</i>Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/Socia-Lite-war/welcome.jsp"><i class="fa fa-home" aria-hidden="true" style="font-size:20px;"></i> Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="friends.jsp"><i class="material-icons" style="font-size:20px;">people</i> Friends</a>
+              <a class="nav-link" href="/Socia-Lite-war/friends.jsp"><i class="material-icons" style="font-size:22px;">people</i> Friends</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
+              <a class="nav-link" href="#"><i class="fa fa-users" aria-hidden="true"></i> Groups</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
+              <a class="nav-link" href="/Socia-Lite-war/user.jsp"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/Socia-Lite-war/user.jsp">My profile</a>
-            </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
+            <form class="form-inline md-form form-sm mt-0" action="SearchServlet">
+                <i class="fa fa-search" aria-hidden="true" style="color:lightsteelblue"></i>
+                <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search users" aria-label="Search" name="search">
+            </form>
+          </ul>
+
+          <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                <a class="nav-link" href="/Socia-Lite-war/SignoutServlet"><i class="fa fa-sign-out"></i> Sign out</a>
             </li>
-            </ul>
-
+          </ul>
         </div>
     </nav>
 
@@ -112,12 +115,6 @@
       
       <div class="col-sm text-left feed">
           
-          <!-- ADD POST -->
-        <script>
-            <%@ include file="welcome.js"%>
-        </script>
-    </head>
-    <body>
         <%
             String currentPath = request.getContextPath();
             
@@ -134,19 +131,22 @@
         <div class="container-fluid text-center">
             <div class="col-sm text-left feed">
                     <!-- ADD POST -->
-                    <form method="POST" action="<%=request.getContextPath()%>/AddPostServlet">
+                    <form method="POST" action="<%=request.getContextPath()%>/AddPostServlet" enctype='multipart/form-data'>
                         <div class="jumbotron jumbotron-post">
                             <h4>Share your experiences</h4>
                             <textarea name="post-text" class="form-control text-area-post" placeholder="Write something here..."></textarea>
-                            <div class="btn-group post-emoji post-actions" role="group">
-                                <button type="button" class="btn btn-post btn-emoji">❤️</button>
-                                <button type="button" class="btn btn-post btn-emoji">😉</button>
-                                <button type="button" class="btn btn-post btn-emoji">😘</button>
-                                <button type="button" class="btn btn-post btn-emoji">😂</button>
+                            <div class="btn-group post-actions" role="group">
+                                <div class="input-group">
+                                    <div id="radioBtn" class="btn-group">
+                                            <a class="btn btn-primary btn-sm active" data-toggle="visibility" data-title="public">Public</a>
+                                            <a class="btn btn-primary btn-sm notActive" data-toggle="visibility" data-title="private">Private</a>
+                                    </div>
+                                    <input type="hidden" name="visibility" id="visibility">
+                                </div>
                             </div>
                             <div class="btn-group post-button post-actions" role="group">
                                 <label class="btn btn-post">
-                                    Upload picture <input type="file" id="img-upload" hidden multiple>
+                                    Upload picture <input type="file" name="img-upload" id="img-upload" hidden multiple>
                                 </label>
                                 <input type="submit" class="btn btn-post" value="Send">
                             </div>
