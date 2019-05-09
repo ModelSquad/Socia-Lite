@@ -9,7 +9,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>SociaLite - Edit Post</title>
         <style>
-            <%@ include file="editPost.css"%>
+            <%@ include file="stylesheets/editPost.css"%>
         </style>
 
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">

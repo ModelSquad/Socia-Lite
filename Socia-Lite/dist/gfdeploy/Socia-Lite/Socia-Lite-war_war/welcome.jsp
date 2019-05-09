@@ -10,7 +10,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
-            <%@ include file="welcome.css"%>
+            <%@ include file="stylesheets/welcome.css"%>
         </style>
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -35,7 +35,7 @@
 <!-- Icons -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
  <script>
-            <%@ include file="welcome.js"%>
+            <%@ include file="js/welcome.js"%>
         </script>
 
   </head>
@@ -138,7 +138,7 @@
                             <div class="btn-group post-actions" role="group">
                                 <div class="input-group">
                                     <div id="radioBtn" class="btn-group">
-                                            <a class="btn btn-primary btn-sm active" data-toggle="visibility" data-title="public">Public</a>
+                                            <a class="btn btn-primary btn-sm active" data-toggle="visibility" data-title="public">Friends</a>
                                             <a class="btn btn-primary btn-sm notActive" data-toggle="visibility" data-title="private">Private</a>
                                     </div>
                                     <input type="hidden" name="visibility" id="visibility">
@@ -148,7 +148,7 @@
                                 <label class="btn btn-post">
                                     Upload picture <input type="file" name="img-upload" id="img-upload" hidden multiple>
                                 </label>
-                                <input type="submit" class="btn btn-post" value="Send">
+                                <input type="submit" class="btn btn-post btn-send" value="Send">
                             </div>
                             <div class="row post-row">
                                 <img id="img-0" class="img-preview" src="https://zenit.org/wp-content/uploads/2018/05/no-image-icon.png">
@@ -428,17 +428,22 @@
                 </div>
             </div>
         </div>
-        <footer class="container-fluid text-center">
-            <p>Footer Text</p>
-        </footer>
+                    
+         <!-- Right colum -->
+                <div class="col-sm-2 sidenav">
+                    <div class="well">
+                        <p>ADS</p>
+                    </div>
+                    <div class="well">
+                        <p>ADS</p>
+                    </div>
+                </div>
+                    
         </body>
       </div>   
     </div>
   </div>
 
-    <footer class="container-fluid text-center">
-      <p>Footer Text</p>
-    </footer>
 <script>
     window.onscroll = function() {myFunction()};
 

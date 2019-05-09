@@ -17,10 +17,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-         <%@ include file="friends.css"%>
+         <%@ include file="stylesheets/friends.css"%>
     </style>
     <script>
-        <%@ include file="welcome.js"%>
+        <%@ include file="js/welcome.js"%>
     </script>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
