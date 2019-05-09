@@ -8,6 +8,7 @@ package socialite.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,6 +20,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -39,6 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Association.findByDescription", query = "SELECT a FROM Association a WHERE a.description = :description")
     , @NamedQuery(name = "Association.findByProfilePic", query = "SELECT a FROM Association a WHERE a.profilePic = :profilePic")})
 public class Association implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "associationReceiver")
+    private List<AssociationRequest> associationRequestList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -150,6 +155,15 @@ public class Association implements Serializable {
     @Override
     public String toString() {
         return "socialite.entity.Association[ idAssociation=" + idAssociation + " ]";
+    }
+
+    @XmlTransient
+    public List<AssociationRequest> getAssociationRequestList() {
+        return associationRequestList;
+    }
+
+    public void setAssociationRequestList(List<AssociationRequest> associationRequestList) {
+        this.associationRequestList = associationRequestList;
     }
     
 }

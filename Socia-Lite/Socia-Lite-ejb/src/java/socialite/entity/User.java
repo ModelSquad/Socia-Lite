@@ -52,6 +52,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "User.findByProfilePic", query = "SELECT u FROM User u WHERE u.profilePic = :profilePic")})
 public class User implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userSender")
+    private List<AssociationRequest> associationRequestList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -321,6 +324,15 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "socialite.entity.User[ idUser=" + idUser + " ]";
+    }
+
+    @XmlTransient
+    public List<AssociationRequest> getAssociationRequestList() {
+        return associationRequestList;
+    }
+
+    public void setAssociationRequestList(List<AssociationRequest> associationRequestList) {
+        this.associationRequestList = associationRequestList;
     }
     
 }

@@ -150,6 +150,31 @@ CREATE TABLE IF NOT EXISTS `socialite`.`FriendshipRequest` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `socialite`.`AssociationRequest`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `socialite`.`AssociationRequest` ;
+
+CREATE TABLE IF NOT EXISTS `socialite`.`AssociationRequest` (
+  `user_sender` INT NOT NULL,
+  `association_receiver` INT NOT NULL,
+  `dateTime` DATETIME NOT NULL,
+  `text` VARCHAR(200) NULL,
+  `associationRequestId` INT NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`associationRequestId`),
+  INDEX `fk_AssociationReceiver_idx` (`association_receiver` ASC),
+  CONSTRAINT `fk_AssociationReceiver`
+    FOREIGN KEY (`association_receiver`)
+    REFERENCES `socialite`.`Association` (`idAssociation`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_UserSender_association`
+    FOREIGN KEY (`user_sender`)
+    REFERENCES `socialite`.`User` (`idUser`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
 
 
 -- -----------------------------------------------------

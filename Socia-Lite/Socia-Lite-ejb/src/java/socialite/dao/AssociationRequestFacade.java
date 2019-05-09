@@ -8,14 +8,14 @@ package socialite.dao;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import socialite.entity.Association;
+import socialite.entity.AssociationRequest;
 
 /**
  *
  * @author cherra
  */
 @Stateless
-public class AssociationFacade extends AbstractFacade<Association> {
+public class AssociationRequestFacade extends AbstractFacade<AssociationRequest> {
 
     @PersistenceContext(unitName = "Socia-Lite-ejbPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class AssociationFacade extends AbstractFacade<Association> {
         return em;
     }
 
-    public AssociationFacade() {
-        super(Association.class);
+    public AssociationRequestFacade() {
+        super(AssociationRequest.class);
     }
     
 }

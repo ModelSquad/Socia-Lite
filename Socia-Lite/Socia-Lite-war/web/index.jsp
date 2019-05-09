@@ -45,7 +45,7 @@
 
         <!-- Register -->
     <div id="formFooter">
-      <a class="underlineHover" href="Socia-Lite-war/register.jsp">Register</a>
+      <a class="underlineHover" href="register.jsp">Register</a>
     </div>
   </div>
 </div>
