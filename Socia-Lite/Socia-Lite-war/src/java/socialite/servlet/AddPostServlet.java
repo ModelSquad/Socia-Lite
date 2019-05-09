@@ -117,7 +117,8 @@ public class AddPostServlet extends HttpServlet {
         post.setVisibility(visibilityFacade.find(1));
         postFacade.create(post);
         
-        String filename = System.getProperty("user.dir") + "/" + user.getNickname() + new Date().toString().replace(" ", "_");
+        String filename = System.getProperty("user.dir") + user.getNickname() + new Date().toString().replaceAll("[ :]", "_");
+        
         int counter = 1;
         List<Media> media = new ArrayList<>();
         
@@ -125,8 +126,12 @@ public class AddPostServlet extends HttpServlet {
             
             if(item.isFormField()) {
                 result.put(item.getFieldName(), item.getString());
-            } else {
+            } else if(item.getContentType().startsWith("image")){
+                
                 InputStream inputStream = item.getInputStream();
+
+                Logger.getLogger(AddPostServlet.class.getName()).log(Level.SEVERE, item.getContentType());
+                
                 String extension = item.getContentType().substring(item.getContentType().lastIndexOf("/") + 1);
                 
                 int data = inputStream.read();
