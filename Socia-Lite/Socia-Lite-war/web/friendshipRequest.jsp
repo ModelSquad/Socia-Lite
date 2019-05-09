@@ -117,7 +117,7 @@
                       : friend.getProfilePic()%>" alt="">
                         </div>
                         <div class="ml-2">
-                            <div class="h5 m-0"><a href="#"><%=friend.getNickname()%></a></div>
+                            <div class="h5 m-0"><a href="ProfileServlet?user=<%=friend.getIdUser()%>"><%=friend.getNickname()%></a></div>
                             <div class="h7 text-muted"><%=friend.getName() +" "+friend.getSurname()%></div>
                         </div>
                     </div>

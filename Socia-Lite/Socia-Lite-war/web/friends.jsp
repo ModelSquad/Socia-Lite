@@ -123,13 +123,13 @@
                       : friend.getProfilePic() %>" alt="">
                         </div>
                         <div class="ml-2">
-                            <div class="h5 m-0"><a href="#"><%=friend.getNickname()%></a></div>
+                            <div class="h5 m-0"><a href="ProfileServlet?user=<%=friend.getIdUser()%>"><%=friend.getNickname()%></a></div>
                             <div class="h7 text-muted"><%=friend.getName()%></div>
                         </div>
                     </div>
                     <div>
                         <div class="btn-group btn-group-justified m-2 mr-4" >
-                            <a class="btn btn-xs btn-primary" data-href="#" data-target="#" ><i class="material-icons" style="font-size:20px;">remove_red_eye</i>See profile</a>
+                            <a class="btn btn-xs btn-primary" href="ProfileServlet?user=<%=friend.getIdUser()%>" data-target="#" ><i class="material-icons" style="font-size:20px;">remove_red_eye</i>See profile</a>
                             <a class="btn btn-xs btn-danger trigger-btn" data-href="DeleteFriendServlet?idFriend=<%=friend.getIdUser()%>" data-target="#confirm-delete" data-toggle="modal"><i class="material-icons" style="font-size:20px;">clear</i>Delete</a>
                         </div>
                     </div>
