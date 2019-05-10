@@ -346,4 +346,28 @@ body {
 }
 
 
+/* GROUP TITLE */
 
+#group-title{
+    font-size: 50px;
+    color: white;
+    background-color:#4285f4;
+    border-radius: 2%;
+    text-align: center;
+    margin-top: 15px;
+    background-size: 100px 50px;
+    margin-left: 35%;
+    margin-right: 35%;
+    box-shadow: 5px 5px 11px -1px rgba(0,0,0,0.51);
+}
+
+
+/* SEARCH BOX */
+
+#searcher{
+    margin-left: 520px;
+}
+
+#searcher-box{
+    margin-top: 50%;
+}

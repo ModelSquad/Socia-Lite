@@ -12,12 +12,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import socialite.dao.AssociationFacade;
 import socialite.dao.PostFacade;
 import socialite.dao.UserFacade;
+import socialite.entity.Post;
 import socialite.entity.User;
 
 @WebServlet(name = "PostServlet", urlPatterns = {"/PostServlet"})
 public class PostServlet extends HttpServlet {
+
+    @EJB
+    private AssociationFacade associationFacade;
 
     @EJB
     private PostFacade postFacade;
@@ -27,17 +32,24 @@ public class PostServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        if(user!=null){
-            List<User> friends = user.getUserList();
-            List<Integer> ids = new ArrayList<>();
-            ids.add(user.getIdUser());
-            friends.forEach((u) -> {
-                ids.add(u.getIdUser());
-            });
-            request.setAttribute("posts", postFacade.findPostsByMultipleIds(ids));
+        if (user != null) {
+            String groupId = request.getParameter("idGroup");
+            if (groupId == null) {
+                List<User> friends = user.getUserList();
+                List<Integer> ids = new ArrayList<>();
+                ids.add(user.getIdUser());
+                friends.forEach((u) -> {
+                    ids.add(u.getIdUser());
+                });
+                request.setAttribute("posts", postFacade.findPostsByMultipleIds(ids, user.getIdUser()));
+            } else {
+                request.setAttribute("association", associationFacade.find(new Integer(groupId)));
+                request.setAttribute("posts", postFacade.findPostsByGroup(groupId));
+            }
+
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/welcome.jsp");
             rd.forward(request, response);
-        }else{
+        } else {
             response.sendRedirect(request.getContextPath() + "/login.jsp");
         }
     }

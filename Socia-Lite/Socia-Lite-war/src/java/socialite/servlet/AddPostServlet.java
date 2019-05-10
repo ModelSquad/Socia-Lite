@@ -5,9 +5,6 @@
  */
 package socialite.servlet;
 
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -66,17 +63,17 @@ public class AddPostServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+           
         HttpSession session = request.getSession();
         if(session.getAttribute("user") != null) {
             try {
-                
+                /**
                 FirebaseOptions options = new FirebaseOptions.Builder()
                 .setServiceAccount(new FileInputStream("socialite.json"))
                 .setDatabaseUrl("https://socia-lite.firebaseio.com/")
                 .build();
                 FirebaseApp.initializeApp(options);
-                
+                **/
                 HashMap<String, Object> requestData = this.getMedia(request);
                 
                 if(requestData.get("post-text") != null) {

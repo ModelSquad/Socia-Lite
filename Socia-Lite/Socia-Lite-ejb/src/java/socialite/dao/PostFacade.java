@@ -47,10 +47,20 @@ public class PostFacade extends AbstractFacade<Post> {
     Find posts of the user and his friends ordered by date
     In a future version the number of post will be limited due to eficacy
     */
-    public List<Post> findPostsByMultipleIds(List<Integer> ids) {
+    public List<Post> findPostsByMultipleIds(List<Integer> ids, Integer idUser) {
         Query q;
-        q = this.em.createQuery("select p from Post p where p.user IN :ids order by p.date DESC");
+        q = this.em.createQuery("select p from Post p "
+                + "where (p.user IN :ids) and ((not(p.idPost = :idUser) and (p.visibility.idVisibility = 1)) or (p.idPost = :idUser))"
+                + "order by p.date DESC");
         q.setParameter("ids", ids);
+        q.setParameter("idUser", idUser);
         return q.getResultList(); 
-    }    
+    }       
+
+    public List<Post> findPostsByGroup(String idGroup) {
+        Query q;
+        q = this.em.createQuery("select p from Post p where p.association.idAssociation = :id order by p.date DESC");
+        q.setParameter("id", new Integer(idGroup));
+        return q.getResultList(); 
+    }
 }
