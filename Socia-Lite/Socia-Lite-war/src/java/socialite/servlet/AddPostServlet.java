@@ -135,7 +135,7 @@ public class AddPostServlet extends HttpServlet {
                 
                 Media currentMedia = new Media();
                 currentMedia.setMediaUrl(
-                client.sharing().createSharedLinkWithSettings(metadata.getPathLower()).getUrl()
+                client.sharing().createSharedLinkWithSettings(metadata.getPathLower()).getUrl().replace("?dl=0", "?raw=1")
                 );
                 currentMedia.setPost(post);
                 mediaFacade.create(currentMedia);
