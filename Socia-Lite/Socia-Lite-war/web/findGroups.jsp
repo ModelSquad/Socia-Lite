@@ -1,6 +1,6 @@
 <%-- 
-    Document   : friends
-    Created on : 18-abr-2019, 20:01:29
+    Document   : findGroups
+    Created on : 09-may-2019, 17:48:16
     Author     : cherra
 --%>
 
@@ -12,12 +12,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <a href="friends.jsp"></a>
     <title>SociaLite - Friends</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-         <%@ include file="stylesheets/friends.css"%>
+         <%@ include file="stylesheets/friendshipRequest.css"%>
     </style>
     <script>
         <%@ include file="js/welcome.js"%>
@@ -47,17 +46,27 @@
   </head>
     <body>
          <% 
+             
         User user = (User)request.getSession().getAttribute("user");
-        List<FriendshipRequest> requests = new ArrayList<FriendshipRequest>();
-        List<User> friends= new ArrayList<User>();
+        List<AssociationRequest> requests = new ArrayList<AssociationRequest>();
+        List<Association> admin = new ArrayList<Association>();
+        List<Association> notAssociations = new ArrayList<Association>();
+        session.getAttribute("notGroups");
         if(user != null){
-            friends= user.getUserList();
-            requests = user.getFriendshipRequestList();
+            admin = user.getAssociationList1();
+            for(Association association : admin){
+                for(AssociationRequest userRequest :association.getAssociationRequestList()){
+                     requests.add(userRequest);
+                }
+            }
+            notAssociations  = (List<Association>)request.getSession().getAttribute("notGroups");
+        } else{
+            
         }
-
+         
     %>
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#">SociaLite</a>
+        <a class="navbar-brand" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -65,27 +74,27 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="/Socia-Lite-war/welcome.jsp"><i class="fa fa-home" aria-hidden="true" style="font-size:20px;"></i> Home</span></a>
+              <a class="nav-link" href="welcome.jsp"><i class="material-icons" style="font-size:20px;">home</i>Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="/Socia-Lite-war/friends.jsp"><i class="material-icons" style="font-size:22px;">people</i> Friends<span class="sr-only">(current)</a>
+               
+              <a class="nav-link active" href="friends.jsp"><i class="material-icons" style="font-size:20px;">people</i> Friends</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fa fa-users" aria-hidden="true"></i> Groups</a>
+              <a class="nav-link" href="#">Features</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/Socia-Lite-war/user.jsp"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
+              <a class="nav-link" href="#">Pricing</a>
             </li>
-            <form class="form-inline md-form form-sm mt-0" action="SearchServlet">
-                <i class="fa fa-search" aria-hidden="true" style="color:lightsteelblue"></i>
-                <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search users" aria-label="Search" name="search">
-            </form>
-          </ul>
-
-          <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-               <a class="nav-link" href="/Socia-Lite-war/SignoutServlet"><i class="fa fa-sign-out"></i> Sign out</a>
+                    <a class="nav-link" href="/Socia-Lite-war/user.jsp">My profile</a>
             </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/Socia-Lite-war/SignoutServlet"><i class="fa fa-sign-out"></i> Sign out</a>
+                </li>
+            </ul>
           </ul>
         </div>
     </nav>
@@ -101,64 +110,45 @@
 
             <div class="col-sm text-left feed">
                 <div class="btn-group" role="group">
-                    <a href="friends.jsp" class="btn btn-selection btn-selected">My friends</a>
-                    <a href="FindFriendsServlet" class="btn btn-selection btn-default">Find friends</a>
-                    <a href="friendshipRequest.jsp" class="btn btn-selection btn-default">Friendship Request <%
+                    <a href="groups.jsp" class="btn btn-selection btn-default">My groups</a>
+                    <a href="FindGroupsServlet" class="btn btn-selection btn-selected">Find groups</a>
+                    <a href="groupRequest.jsp" class="btn btn-selection btn-default">Group Request <%
                         if(requests != null && requests.size() > 0){%>
                         <span class="badge badge-danger"><%=requests.size()%></span>
                         <%};
                         %></a>
-                </div>
+                </div> 
             <% 
-                if(friends != null){
-                for(User friend: friends){
+                if(notAssociations != null){
+                for(Association notAssociation : notAssociations){
                     
                 %>
-            <div class="card gedf-card mt-2" style="width: 100%;">     
+                <div class="card gedf-card mt-2" style="width: 100%;">     
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="m-2">
-                            <img class="rounded-circle" width="45" src="<%=(friend.getProfilePic() == null) 
+                            <img class="rounded-circle" width="45" src="<%= 
+                                (notAssociation.getProfilePic() == null) 
                       ? "https://cdn.clipart.email/0ad2ce5b5370f2d91ef8b465f6770e77_people-icons-3800-free-files-in-png-eps-svg-format_338-338.jpeg" 
-                      : friend.getProfilePic() %>" alt="">
+                      : notAssociation.getProfilePic()%>" alt="">
                         </div>
                         <div class="ml-2">
-                            <div class="h5 m-0"><a href="ProfileServlet?user=<%=friend.getIdUser()%>"><%=friend.getNickname()%></a></div>
-                            <div class="h7 text-muted"><%=friend.getName()%></div>
+                            <div class="h5 m-0"><a href="#"><%=notAssociation.getName()%></a></div>
+                            <div class="h7 text-muted"><%=notAssociation.getDescription()== null? "" : notAssociation.getDescription() %></div>
                         </div>
                     </div>
                     <div>
                         <div class="btn-group btn-group-justified m-2 mr-4" >
-                            <a class="btn btn-xs btn-primary" href="ProfileServlet?user=<%=friend.getIdUser()%>" data-target="#" ><i class="material-icons" style="font-size:20px;">remove_red_eye</i>See profile</a>
-                            <a class="btn btn-xs btn-danger trigger-btn" data-href="DeleteFriendServlet?idFriend=<%=friend.getIdUser()%>" data-target="#confirm-delete" data-toggle="modal"><i class="material-icons" style="font-size:20px;">clear</i>Delete</a>
+                            <a href="RequestEntryServlet?idAssociation=<%=notAssociation.getIdAssociation()%>" class="btn btn-xs btn-primary"><i class="material-icons" style="font-size:20px;">done</i></span> Request entry</a>
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
-                 <%     
-                    };
+                 <%
+                   };
                 }
-                   %>
-                   
-              <div id="confirm-delete" class="modal fade">
-                        <div class="modal-dialog modal-confirm">
-                            <div class="modal-content">
-                                <div class="modal-header">				
-                                    <h4 class="modal-title">Are you sure?</h4>	
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Do you really want to delete this friend from your list? This process cannot be undone.</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                                    <a id="delete-btn" class="btn btn-danger btn-ok">Delete</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>   
-                
-            
+
+                %>
             </div>
                 <div class="col-sm-2 sidenav">
                     <div class="well">
@@ -172,11 +162,3 @@
     </div>
     </body>
 </html>
-
-<!-- SCRIPT DELETE FRIEND WARNING -->
-<script>
-    $('#confirm-delete').on('show.bs.modal', function (e) {
-        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-        $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
-    });
-</script>

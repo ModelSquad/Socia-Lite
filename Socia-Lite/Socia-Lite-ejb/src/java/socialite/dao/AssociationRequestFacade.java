@@ -5,10 +5,12 @@
  */
 package socialite.dao;
 
+import java.util.Iterator;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import socialite.entity.AssociationRequest;
+import socialite.entity.FriendshipRequest;
 
 /**
  *
@@ -28,5 +30,10 @@ public class AssociationRequestFacade extends AbstractFacade<AssociationRequest>
     public AssociationRequestFacade() {
         super(AssociationRequest.class);
     }
+
+    public AssociationRequest findByAssociationRequestId(Integer associationRequestId) {
+        Iterator it = em.createNamedQuery("AssociationRequest.findByAssociationRequestId")
+        .setParameter("associationRequestId", associationRequestId).getResultList().iterator();
+        return (it.hasNext()) ? (AssociationRequest)it.next() : null;    }
     
 }

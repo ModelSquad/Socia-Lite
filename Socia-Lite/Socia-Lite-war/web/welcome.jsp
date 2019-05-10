@@ -60,7 +60,7 @@
               <a class="nav-link" href="/Socia-Lite-war/friends.jsp"><i class="material-icons" style="font-size:22px;">people</i> Friends</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fa fa-users" aria-hidden="true"></i> Groups</a>
+              <a class="nav-link" href="/Socia-Lite-war/groups.jsp"><i class="fa fa-users" aria-hidden="true"></i> Groups</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/Socia-Lite-war/user.jsp"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
