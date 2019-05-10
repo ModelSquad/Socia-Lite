@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Sevi
+ * @author xfja
  */
 @Entity
 @Table(name = "Association")
@@ -41,9 +41,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Association.findByDescription", query = "SELECT a FROM Association a WHERE a.description = :description")
     , @NamedQuery(name = "Association.findByProfilePic", query = "SELECT a FROM Association a WHERE a.profilePic = :profilePic")})
 public class Association implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "associationReceiver")
-    private List<AssociationRequest> associationRequestList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -70,6 +67,10 @@ public class Association implements Serializable {
     @JoinColumn(name = "admin", referencedColumnName = "idUser")
     @ManyToOne(optional = false)
     private User admin;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "associationReceiver")
+    private List<AssociationRequest> associationRequestList;
+    @OneToMany(mappedBy = "association")
+    private List<Post> postList;
 
     public Association() {
     }
@@ -132,6 +133,24 @@ public class Association implements Serializable {
         this.admin = admin;
     }
 
+    @XmlTransient
+    public List<AssociationRequest> getAssociationRequestList() {
+        return associationRequestList;
+    }
+
+    public void setAssociationRequestList(List<AssociationRequest> associationRequestList) {
+        this.associationRequestList = associationRequestList;
+    }
+
+    @XmlTransient
+    public List<Post> getPostList() {
+        return postList;
+    }
+
+    public void setPostList(List<Post> postList) {
+        this.postList = postList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -155,15 +174,6 @@ public class Association implements Serializable {
     @Override
     public String toString() {
         return "socialite.entity.Association[ idAssociation=" + idAssociation + " ]";
-    }
-
-    @XmlTransient
-    public List<AssociationRequest> getAssociationRequestList() {
-        return associationRequestList;
-    }
-
-    public void setAssociationRequestList(List<AssociationRequest> associationRequestList) {
-        this.associationRequestList = associationRequestList;
     }
     
 }

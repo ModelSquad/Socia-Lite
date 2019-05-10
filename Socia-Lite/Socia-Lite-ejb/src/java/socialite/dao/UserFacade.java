@@ -49,35 +49,35 @@ public class UserFacade extends AbstractFacade<User> {
     public List<User> findNotFriends(User user){
         List<User> notFriends = null;
         Query q = this.em.createQuery("select u from User u where u.idUser not in :friends and u.idUser != :user");
-        List<Integer> idFriends =new ArrayList<Integer>();
-        for(User friend : user.getUserList()){
+        List<Integer> idFriends = new ArrayList<Integer>();
+        for (User friend : user.getUserList()) {
             idFriends.add(friend.getIdUser());
         }
-        for(FriendshipRequest fr : user.getFriendshipRequestList()){
+        for (FriendshipRequest fr : user.getFriendshipRequestList()) {
             idFriends.add(fr.getUserSender().getIdUser());
         }
-        for(FriendshipRequest fr : user.getFriendshipRequestList1()){
+        for (FriendshipRequest fr : user.getFriendshipRequestList1()) {
             idFriends.add(fr.getUserReceiver().getIdUser());
         }
         q.setParameter("friends", idFriends);
         q.setParameter("user", user.getIdUser());
         return q.getResultList();
     }
-    
-    public User findByNickname (String nickname){
+
+    public User findByNickname(String nickname) {
         Query q;
         q = em.createNamedQuery("User.findByNickname");
         q.setParameter("nickname", nickname);
         User user;
-        try{
+        try {
             user = (User) q.getSingleResult();
-        }catch(NoResultException e){
-            user=null;
+        } catch (NoResultException e) {
+            user = null;
         }
         return user;
-        
+
     }
-    
+}
 //    public List<User> findByNameAndSurname(String[] user){
 //        Query q;
 //        q = this.em.createQuery("select u from User u where u.name like :name and u.surname like :surname");
@@ -96,4 +96,3 @@ public class UserFacade extends AbstractFacade<User> {
 //        }
 //        return q.getResultList();    
 //    }
-}

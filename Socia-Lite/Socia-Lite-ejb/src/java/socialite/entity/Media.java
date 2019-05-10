@@ -13,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -24,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Sevi
+ * @author xfja
  */
 @Entity
 @Table(name = "Media")
@@ -46,9 +45,7 @@ public class Media implements Serializable {
     @Size(min = 1, max = 1000)
     @Column(name = "mediaUrl")
     private String mediaUrl;
-    @JoinColumns({
-        @JoinColumn(name = "post", referencedColumnName = "idPost")
-        , @JoinColumn(name = "post", referencedColumnName = "idPost")})
+    @JoinColumn(name = "post", referencedColumnName = "idPost")
     @ManyToOne(optional = false)
     private Post post;
 

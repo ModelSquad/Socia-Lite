@@ -8,7 +8,6 @@ package socialite.servlet;
 import com.dropbox.core.DbxRequestConfig;
 import com.dropbox.core.v2.DbxClientV2;
 import com.dropbox.core.v2.files.FileMetadata;
-import com.dropbox.core.v2.users.FullAccount;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -69,11 +68,10 @@ public class AddPostServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+           
         HttpSession session = request.getSession();
         if(session.getAttribute("user") != null) {
             try {
-                
                 HashMap<String, Object> requestData = this.getMedia(request);
                 
                 if(requestData.get("post-text") != null) {

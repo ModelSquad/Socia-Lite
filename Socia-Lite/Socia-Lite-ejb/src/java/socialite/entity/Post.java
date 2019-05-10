@@ -16,7 +16,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -31,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Sevi
+ * @author xfja
  */
 @Entity
 @Table(name = "Post")
@@ -64,12 +63,13 @@ public class Post implements Serializable {
     private String text;
     @Column(name = "likes")
     private Integer likes;
+    @JoinColumn(name = "association", referencedColumnName = "idAssociation")
+    @ManyToOne
+    private Association association;
     @JoinColumn(name = "user", referencedColumnName = "idUser")
     @ManyToOne(optional = false)
     private User user;
-    @JoinColumns({
-        @JoinColumn(name = "visibility", referencedColumnName = "idVisibility")
-        , @JoinColumn(name = "visibility", referencedColumnName = "idVisibility")})
+    @JoinColumn(name = "visibility", referencedColumnName = "idVisibility")
     @ManyToOne(optional = false)
     private Visibility visibility;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
@@ -125,6 +125,14 @@ public class Post implements Serializable {
 
     public void setLikes(Integer likes) {
         this.likes = likes;
+    }
+
+    public Association getAssociation() {
+        return association;
+    }
+
+    public void setAssociation(Association association) {
+        this.association = association;
     }
 
     public User getUser() {

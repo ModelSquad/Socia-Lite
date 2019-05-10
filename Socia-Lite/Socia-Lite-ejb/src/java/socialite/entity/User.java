@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Sevi
+ * @author xfja
  */
 @Entity
 @Table(name = "User")
@@ -51,9 +51,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "User.findByWebsite", query = "SELECT u FROM User u WHERE u.website = :website")
     , @NamedQuery(name = "User.findByProfilePic", query = "SELECT u FROM User u WHERE u.profilePic = :profilePic")})
 public class User implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userSender")
-    private List<AssociationRequest> associationRequestList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -122,6 +119,8 @@ public class User implements Serializable {
     private List<FriendshipRequest> friendshipRequestList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userSender")
     private List<FriendshipRequest> friendshipRequestList1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userSender")
+    private List<AssociationRequest> associationRequestList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Post> postList;
 
@@ -293,6 +292,15 @@ public class User implements Serializable {
     }
 
     @XmlTransient
+    public List<AssociationRequest> getAssociationRequestList() {
+        return associationRequestList;
+    }
+
+    public void setAssociationRequestList(List<AssociationRequest> associationRequestList) {
+        this.associationRequestList = associationRequestList;
+    }
+
+    @XmlTransient
     public List<Post> getPostList() {
         return postList;
     }
@@ -324,15 +332,6 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "socialite.entity.User[ idUser=" + idUser + " ]";
-    }
-
-    @XmlTransient
-    public List<AssociationRequest> getAssociationRequestList() {
-        return associationRequestList;
-    }
-
-    public void setAssociationRequestList(List<AssociationRequest> associationRequestList) {
-        this.associationRequestList = associationRequestList;
     }
     
 }
