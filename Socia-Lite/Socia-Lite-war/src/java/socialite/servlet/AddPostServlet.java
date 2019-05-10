@@ -5,21 +5,20 @@
  */
 package socialite.servlet;
 
-import java.io.File;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -28,16 +27,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
-import javax.validation.ConstraintViolationException;
 import socialite.dao.PostFacade;
 import socialite.dao.VisibilityFacade;
 import socialite.entity.Post;
 import socialite.entity.User;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemIterator;
-import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import socialite.dao.MediaFacade;
@@ -75,6 +70,13 @@ public class AddPostServlet extends HttpServlet {
         HttpSession session = request.getSession();
         if(session.getAttribute("user") != null) {
             try {
+                
+                FirebaseOptions options = new FirebaseOptions.Builder()
+                .setServiceAccount(new FileInputStream("socialite.json"))
+                .setDatabaseUrl("https://socia-lite.firebaseio.com/")
+                .build();
+                FirebaseApp.initializeApp(options);
+                
                 HashMap<String, Object> requestData = this.getMedia(request);
                 
                 if(requestData.get("post-text") != null) {
@@ -99,7 +101,7 @@ public class AddPostServlet extends HttpServlet {
         } 
     }
     
-    private HashMap<String, Object> getMedia(HttpServletRequest request) throws Exception {
+    private HashMap<String, Object> getMedia(HttpServletRequest request) throws Exception {       
         
         ServletFileUpload fileUpload = new ServletFileUpload(new DiskFileItemFactory());
         List<FileItem> items = fileUpload.parseRequest(request);
