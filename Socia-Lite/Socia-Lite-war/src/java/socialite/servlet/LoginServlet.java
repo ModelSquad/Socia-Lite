@@ -73,7 +73,7 @@ public class LoginServlet extends HttpServlet {
         if (password == null) {
             throw new RuntimeException("ERROR. Password is null");
         }
-
+        
         User user = userFacade.findByEmail(email);
         RequestDispatcher rd;
 

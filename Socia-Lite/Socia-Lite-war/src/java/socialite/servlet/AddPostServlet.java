@@ -91,7 +91,7 @@ public class AddPostServlet extends HttpServlet {
                         post.setAssociation(associationFacade.find(groupId));
                         postFacade.edit(post);
                         
-                        response.sendRedirect(request.getContextPath() + "/PostServlet?groupId" + groupId);
+                        response.sendRedirect(request.getContextPath() + "/PostServlet?idGroup=" + groupId);
                         
                     } else {
                         postFacade.edit(post);

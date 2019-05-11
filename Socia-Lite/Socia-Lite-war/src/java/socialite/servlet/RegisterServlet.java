@@ -81,7 +81,10 @@ public class RegisterServlet extends HttpServlet {
         }
         
         String nickname = request.getParameter("nickname");
-        if(nickname !=null && !nickname.isEmpty()){
+        if(nickname==null || nickname.isEmpty()){
+            strErrors+="nickname";
+        }
+        else{
             user.setNickname(nickname);
         }
         

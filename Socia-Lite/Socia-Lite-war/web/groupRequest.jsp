@@ -118,7 +118,7 @@
                         for(AssociationRequest associationRequest : requests){
                         User friend = associationRequest.getUserSender();
                         %>
-                        <div class="card gedf-card mt-1" style="width: 100%;">     
+                        <div class="card gedf-card mt-0 mb-3" style="width: 100%;">     
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="m-2">

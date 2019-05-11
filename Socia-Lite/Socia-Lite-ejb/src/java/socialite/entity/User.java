@@ -6,6 +6,7 @@
 package socialite.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -51,6 +52,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "User.findByWebsite", query = "SELECT u FROM User u WHERE u.website = :website")
     , @NamedQuery(name = "User.findByProfilePic", query = "SELECT u FROM User u WHERE u.profilePic = :profilePic")})
 public class User implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private Collection<PasswordReset> passwordResetCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -332,6 +336,15 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "socialite.entity.User[ idUser=" + idUser + " ]";
+    }
+
+    @XmlTransient
+    public Collection<PasswordReset> getPasswordResetCollection() {
+        return passwordResetCollection;
+    }
+
+    public void setPasswordResetCollection(Collection<PasswordReset> passwordResetCollection) {
+        this.passwordResetCollection = passwordResetCollection;
     }
     
 }
