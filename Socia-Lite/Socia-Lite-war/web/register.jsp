@@ -159,6 +159,19 @@
                                 <input type="text" id="nickname" class="fadeIn second" name="nickname" placeholder="nickname" <% if(nickname!=null) %> value="<%= nickname%>" />
                             </td>
                         </tr>
+                        <% if(strErrors !=null && strErrors.contains("nickname")) { %>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <div class="loginMessage alert alert-danger" role="alert">
+                                        <a id="message">
+                                            Enter your nickname
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% } %>
                         <tr>
                             <td>
                                 <label for="Birthdate">Birthdate</label>
