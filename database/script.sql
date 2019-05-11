@@ -86,6 +86,7 @@ DROP TABLE IF EXISTS `socialite`.`Post` ;
 CREATE TABLE IF NOT EXISTS `socialite`.`Post` (
   `idPost` INT NOT NULL AUTO_INCREMENT,
   `user` INT NOT NULL,
+  `association` INT,
   `visibility` INT NOT NULL,
   `date` DATETIME NOT NULL,
   `title` VARCHAR(45) NULL,
@@ -101,6 +102,11 @@ CREATE TABLE IF NOT EXISTS `socialite`.`Post` (
   CONSTRAINT `fk_Post_User`
     FOREIGN KEY (`user`)
     REFERENCES `socialite`.`User` (`idUser`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_Post_Association`
+    FOREIGN KEY (`association`)
+    REFERENCES `socialite`.`Association` (`idAssociation`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
