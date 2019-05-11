@@ -121,4 +121,37 @@ div.mdl-layout__drawer > nav.mdl-navigation > a.mdl-navigation__link {
     vertical-align: middle;    
 }
 
-     
+#searcher{
+   Padding-top: 5px;
+}
+
+#searcher-box{
+    margin-top: 50%;
+}    
+
+/* Set gray background color and 100% height */
+.sidenav {
+    padding-top: 0px;
+    background-color: #ffffff;
+    height: 100%;
+}
+
+.friend-panel{
+    text-align: center;
+    justify-content: center;
+    padding-top: 0px;
+    background-color: #FFF;
+    height: 70vh;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.friend-content{
+    height:65.4vh;
+}
+
+.panel-heading{
+    padding: 10px 16px;
+    background: #4285f4;
+    color: #f1f1f1;
+}

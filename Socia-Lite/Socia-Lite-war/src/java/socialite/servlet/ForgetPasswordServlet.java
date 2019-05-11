@@ -5,35 +5,40 @@
  */
 package socialite.servlet;
 
+import socialite.services.Mail;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import socialite.dao.FriendshipRequestFacade;
+import socialite.dao.PasswordResetFacade;
 import socialite.dao.UserFacade;
-import socialite.entity.*;
+import socialite.entity.PasswordReset;
+import socialite.entity.User;
 
 /**
  *
- * @author cherra
+ * @author jaysus
  */
-@WebServlet(name = "AceptFriendshipRequestServlet", urlPatterns = {"/AceptFriendshipRequestServlet"})
-public class AceptFriendshipRequestServlet extends HttpServlet {
+@WebServlet(name = "ForgetPasswordServlet", urlPatterns = {"/ForgetPasswordServlet"})
+public class ForgetPasswordServlet extends HttpServlet {
 
     @EJB
     private UserFacade userFacade;
-
+    
     @EJB
-    private FriendshipRequestFacade friendshipRequestFacade;
+    private PasswordResetFacade passwordResetFacade;
     
+    private static final String RESET_BASE_URL = "http://localhost:8080/Socia-Lite-war/ResetPasswordServlet?resetId=";
     
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,38 +50,32 @@ public class AceptFriendshipRequestServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        if(user != null){
-            Integer friendshipRequestId = Integer.valueOf(request.getParameter("friendshipRequest"));
-            FriendshipRequest friendshipRequest = friendshipRequestFacade.findByFriendshipRequestId(friendshipRequestId);
-            List<User> amigos = user.getUserList();
-            List<User> amigos1 = user.getUserList1();
-            User newFriend = friendshipRequest.getUserSender();
-            List<User> amigos2 = newFriend.getUserList();
-            List<User> amigos3 = newFriend.getUserList1();
-            amigos.add(newFriend);
-            amigos1.add(newFriend);
-            user.setUserList(amigos);
-            user.setUserList1(amigos1);
-            amigos2.add(user);
-            amigos3.add(user);
-            newFriend.setUserList(amigos2);
-            newFriend.setUserList1(amigos3);
-            List<FriendshipRequest> fr = user.getFriendshipRequestList();
-            List<FriendshipRequest> frSender = newFriend.getFriendshipRequestList1();
-            fr.remove(friendshipRequest);
-            user.setFriendshipRequestList(fr);
-            frSender.remove(friendshipRequest);
-            newFriend.setFriendshipRequestList1(frSender);
-            friendshipRequestFacade.remove(friendshipRequest);
-            userFacade.edit(user);
-            userFacade.edit(newFriend);
-            response.sendRedirect("friendshipRequest.jsp");
+        String email = request.getParameter("email");
+        User user = userFacade.findByEmail(email);
+        if(user == null) {
+            request.setAttribute("error", true);
         } else {
-            response.sendRedirect("login.jsp");
+            PasswordReset psswdReset = new PasswordReset();
+            psswdReset.setUsuario(user);
+            
+            Date date = new Date();
+            Calendar c = Calendar.getInstance();
+            c.setTime(new Date());
+            c.add(Calendar.HOUR, 1);
+            psswdReset.setExpiritionDate(c.getTime());
+            
+            String resetUrlId = UUID.randomUUID().toString();           
+            
+            psswdReset.setUrl(resetUrlId);
+            
+            passwordResetFacade.create(psswdReset);
+            
+            Mail.sendMail(user.getEmail(), RESET_BASE_URL + resetUrlId, user.getNickname());
+            request.setAttribute("error", false);
         }
+        
+        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/forgetPassword.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -50,7 +50,7 @@ public class DenyFriendshipRequestServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         if(user != null){
-            Integer friendshipRequestId = new Integer(request.getParameter("friendshipRequest"));
+            Integer friendshipRequestId = Integer.valueOf(request.getParameter("friendshipRequest"));
             FriendshipRequest friendshipRequest = friendshipRequestFacade.findByFriendshipRequestId(friendshipRequestId);
             User userSender = friendshipRequest.getUserSender();
             List<FriendshipRequest> fr = user.getFriendshipRequestList();

@@ -73,7 +73,7 @@ public class LoginServlet extends HttpServlet {
         if (password == null) {
             throw new RuntimeException("ERROR. Password is null");
         }
-
+        
         User user = userFacade.findByEmail(email);
         RequestDispatcher rd;
 
@@ -97,21 +97,5 @@ public class LoginServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private List<Post> getPosts(User user) {
-        List<Post> posts = postFacade.findByUser(user);
-        List<User> friends = user.getUserList();
-        friends.forEach((friend) -> {
-            posts.addAll(postFacade.findByUser(friend));
-        });
-        Collections.sort(posts, (Post p1, Post p2) -> {
-            if (p1.getDate() == null || p2.getDate() == null) {
-                return 0;
-            }
-            return p2.getDate().compareTo(p1.getDate());
-        });
-
-        return posts;
-    }
 
 }

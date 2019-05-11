@@ -55,7 +55,7 @@ public class DenyAssociationRequestServlet extends HttpServlet {
 HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         if(user != null){
-            Integer associationRequestId = new Integer(request.getParameter("associationRequestId"));
+            Integer associationRequestId = Integer.valueOf(request.getParameter("associationRequestId"));
             AssociationRequest associationRequest = associationRequestFacade.findByAssociationRequestId(associationRequestId);
             User sender = associationRequest.getUserSender();
             Association association = associationRequest.getAssociationReceiver();

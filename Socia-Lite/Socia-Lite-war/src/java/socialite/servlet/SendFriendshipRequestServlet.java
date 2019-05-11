@@ -48,7 +48,7 @@ public class SendFriendshipRequestServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         if(user != null){
-            Integer idFriendRequest = new Integer(request.getParameter("idFriendRequest"));
+            Integer idFriendRequest = Integer.valueOf(request.getParameter("idFriendRequest"));
             User friendRequested = userFacade.findByIdUser(idFriendRequest);
             FriendshipRequest friendshipRequest = new FriendshipRequest();
             friendshipRequest.setUserSender(user);

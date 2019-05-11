@@ -51,7 +51,10 @@
         List<AssociationRequest> requests = new ArrayList<AssociationRequest>();
         List<Association> admin = new ArrayList<Association>();
         List<Association> member = new ArrayList<Association>();
+        List<User> friends = new ArrayList<User>();
+        String contextPath = request.getContextPath();
         if(user != null){
+            friends = user.getUserList();
             member= user.getAssociationList();
             admin = user.getAssociationList1();
             for(Association association : admin){
@@ -62,47 +65,72 @@
         }
 
     %>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#">SociaLite</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="/Socia-Lite-war/welcome.jsp"><i class="fa fa-home" aria-hidden="true" style="font-size:20px;"></i> Home</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link " href="/Socia-Lite-war/friends.jsp"><i class="material-icons" style="font-size:22px;">people</i> Friends<span class="sr-only">(current)</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="/Socia-Lite-war/groups.jsp"><i class="fa fa-users" aria-hidden="true"></i> Groups</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/Socia-Lite-war/user.jsp"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
-            </li>
-            <form class="form-inline md-form form-sm mt-0" action="SearchServlet">
-                <i class="fa fa-search" aria-hidden="true" style="color:lightsteelblue"></i>
-                <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search users" aria-label="Search" name="search">
-            </form>
-          </ul>
-
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-               <a class="nav-link" href="/Socia-Lite-war/SignoutServlet"><i class="fa fa-sign-out"></i> Sign out</a>
-            </li>
-          </ul>
-        </div>
-    </nav>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="<%=contextPath%>/PostServlet">SociaLite</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=contextPath%>/welcome.jsp"><i class="fa fa-home" aria-hidden="true" style="font-size:20px;"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=contextPath%>/friends.jsp"><i class="material-icons" style="font-size:22px;">people</i> Friends</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="<%=contextPath%>/groups.jsp"><i class="fa fa-users" aria-hidden="true"></i> Groups</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=contextPath%>/user.jsp"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <div id="searcher">
+                            <form class="form-inline md-form form-sm mt-0" action="SearchServlet">
+                                <label>
+                                    <i class="fa fa-search" aria-hidden="true" style="color:lightsteelblue"></i>
+                                    <button input="submit" hidden></button>
+                                </label>                                               
+                            <input class="form-control form-control-sm ml-3 w-200 searcher-box input-lg" type="text" placeholder="Search users" aria-label="Search" name="search">                       
+                            </form>
+                         </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=contextPath%>/SignoutServlet"><i class="fa fa-sign-out"></i> Sign out</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     
     
     <div class="container-fluid text-center">
         <div class="row content">
             <div class="col-sm-2 sidenav">
-                <p><a href="#">Link</a></p>
-                <p><a href="#">Link</a></p>
-                <p><a href="#">Link</a></p>
+                <div class="panel panel-primary friend-panel m-2">
+                            <div class="panel-heading">Friends</div>
+                            <div class="panel-body friend-content" style="overflow-y: scroll; ">
+                                <%if (friends != null && friends.size() > 0) {
+                                        for (User friend : friends) {
+                                %>
+                                <div class="card m-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="mr-0">
+                                            <img class="rounded-circle" width="45" src="<%=(friend.getProfilePic() == null)
+                                                        ? "https://cdn.clipart.email/0ad2ce5b5370f2d91ef8b465f6770e77_people-icons-3800-free-files-in-png-eps-svg-format_338-338.jpeg"
+                                                        : friend.getProfilePic()%>" alt="">
+                                        </div>
+                                        <div class="ml-2">
+                                            <div class="h5 m-0"><a href="ProfileServlet?user=<%=friend.getIdUser()%>">@<%=friend.getNickname()%></a></div>
+                                            <div class="h7 text-muted"><%=friend.getName()%> <%=friend.getSurname()%></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%  }
+                                }%>
+                            </div>
+                        </div>
             </div>
 
             <div class="col-sm text-left feed">
@@ -119,7 +147,7 @@
                 if(member != null){
                 for(Association association: member){   
                 %>
-            <div class="card gedf-card expand-card mt-2" style="width: 100%;">     
+            <div class="card gedf-card expand-card m-0" style="width: 100%;">     
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="m-2">
@@ -145,7 +173,7 @@
                 </div>
 
             </div>
-            <div class="card gedf-card list-card plegable" style="width: 100%;">
+            <div class="card gedf-card list-card plegable mb-3" style="width: 100%;">
                 <div class="mt-2">
                     <ul>
                         <%for(User associationMember : association.getUserList()){%>
@@ -161,12 +189,9 @@
                 }
                 %>
             
-            <div class="card gedf-card align-items-center" style="width: 100%;">
-                
-               <a href=""  data-toggle="modal" data-target="#modalCreateGroup"><i class="material-icons mt-4" style="font-size:40px;">add_circle</i>Create Group</a>
+            <div class="card gedf-card align-items-center mt-3" style="width: 100%;">
+               <a href=""  data-toggle="modal" data-target="#modalCreateGroup"><i class="material-icons m-2" style="font-size:40px;">add_circle</i>Create Group</a>
             </div>
-
-            
                 <div class="modal fade" id="modalCreateGroup" >
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -187,7 +212,7 @@
                           <p>Description</p>
                           <input type="text" id="descriptionAssociation" name="descriptionAssociation" class="form-control validate">
                         </div>
-                        <button class="btn btn-indigo" type="submit" form="associationForm">Send</button>
+                        <button class="btn btn-indigo" type="submit" form="associationForm">Create</button>
                           </form>
                       </div>
 
@@ -219,11 +244,28 @@
             </form>
             </div>
                 <div class="col-sm-2 sidenav">
-                    <div class="well">
-                    <p>ADS</p>
-                    </div>
-                    <div class="well">
-                    <p>ADS</p>
+                    <div class="panel panel-primary friend-panel m-2">
+                            <div class="panel-heading">Groups</div>
+                            <div class="panel-body friend-content" style="overflow-y: scroll; ">
+
+                                <%if (member != null && member.size() > 0) {
+                                        for (Association associationMember : member) {
+                                %>
+                                <div class="card m-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="mr-0">
+                                            <img class="rounded-circle" width="45" src="<%=(associationMember.getProfilePic() == null)
+                                                        ? "https://cdn.clipart.email/0ad2ce5b5370f2d91ef8b465f6770e77_people-icons-3800-free-files-in-png-eps-svg-format_338-338.jpeg"
+                                                        : associationMember.getProfilePic()%>" alt="">
+                                        </div>
+                                        <div class="ml-2">
+                                            <div class="h5 m-0"><a href="PostServlet?idGroup=<%=associationMember.getIdAssociation()%>"><%=associationMember.getName()%></a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%  }
+                                    }%>
+                            </div>
                     </div>
                 </div>
         </div> 

@@ -64,6 +64,26 @@ CREATE TABLE IF NOT EXISTS `socialite`.`Association` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `socialite`.`PasswordReset`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `socialite`.`PasswordReset` ;
+
+CREATE TABLE IF NOT EXISTS `socialite`.`PasswordReset` (
+  `idPasswordReset` INT NOT NULL AUTO_INCREMENT,
+  `url` VARCHAR(500) NOT NULL,
+  `expiritionDate` DATETIME NOT NULL,
+  `usuario` INT NOT NULL,
+  PRIMARY KEY (`idPasswordReset`),
+  UNIQUE INDEX `idPasswordReset_UNIQUE` (`idPasswordReset` ASC),
+  INDEX `usuario_idx` (`usuario` ASC),
+  CONSTRAINT `User`
+    FOREIGN KEY (`usuario`)
+    REFERENCES `socialite`.`User` (`idUser`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table `socialite`.`Visibility`

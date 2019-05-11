@@ -44,7 +44,7 @@ public class PostServlet extends HttpServlet {
                 request.setAttribute("posts", postFacade.findPostsByMultipleIds(ids, user.getIdUser()));
             } else {
                 
-                request.setAttribute("association", associationFacade.find(new Integer(groupId)));
+                request.setAttribute("association", associationFacade.find(Integer.valueOf(groupId)));
                 request.setAttribute("posts", postFacade.findPostsByGroup(groupId));
             }
 
