@@ -11,12 +11,15 @@
             Vector<Post> posts = (Vector<Post>) request.getSession().getAttribute("posts");
             List<User> friends = user.getUserList();
             Association association = (Association) request.getAttribute("association");
+            if (association != null && !user.getAssociationList().contains(association)) {
+                response.sendRedirect(request.getContextPath() + "/PostServlet");
+            }
         %>
         <title>SociaLite <%
-            if(association == null) { %>
+            if (association == null) { %>
             - Homepage
-            <% }else{ %> 
-            - <%= association.getName() %> 
+            <% } else {%> 
+            - <%= association.getName()%> 
             <% } %>
         </title>
         <meta charset="utf-8">
@@ -53,7 +56,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark">
-            <a class="navbar-brand" href="#">SociaLite</a>
+            <a class="navbar-brand" href="/Socia-Lite-war/PostServlet">SociaLite</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -73,10 +76,10 @@
                         <a class="nav-link" href="/Socia-Lite-war/user.jsp"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
                     </li>
                     <div id="searcher">
-                    <form class="form-inline md-form form-sm mt-0" action="SearchServlet">
-                        <i class="fa fa-search" aria-hidden="true" style="color:lightsteelblue"></i>
-                        <input class="form-control form-control-sm ml-3 w-200 searcher-box input-lg" type="text" placeholder="Search users" aria-label="Search" name="search">
-                    </form>
+                        <form class="form-inline md-form form-sm mt-0" action="SearchServlet">
+                            <i class="fa fa-search" aria-hidden="true" style="color:lightsteelblue"></i>
+                            <input class="form-control form-control-sm ml-3 w-200 searcher-box input-lg" type="text" placeholder="Search users" aria-label="Search" name="search">
+                        </form>
                     </div>
                 </ul>
 
@@ -88,10 +91,10 @@
             </div>
         </nav>
         <div id="group-title-div">
-                    <!-- Group feed case -->
-                    <% if (association != null) {%>
-                    <h1 id="group-title"><%=association.getName()%></h1>
-                    <%}%>
+            <!-- Group feed case -->
+            <% if (association != null) {%>
+            <h1 id="group-title"><%=association.getName()%></h1>
+            <%}%>
         </div>
         <div class="container-fluid text-center">
             <div class="row content">
@@ -111,12 +114,12 @@
                                 %>
                                 <div class="card m-2">
                                     <img class="rounded-circle" width="30" src="<%=(friend.getProfilePic() == null)
-                            ? "https://cdn.clipart.email/0ad2ce5b5370f2d91ef8b465f6770e77_people-icons-3800-free-files-in-png-eps-svg-format_338-338.jpeg"
-                            : friend.getProfilePic()%>" alt=""> 
+                                            ? "https://cdn.clipart.email/0ad2ce5b5370f2d91ef8b465f6770e77_people-icons-3800-free-files-in-png-eps-svg-format_338-338.jpeg"
+                                            : friend.getProfilePic()%>" alt=""> 
                                     <div><%=friend.getNickname()%></div>
                                 </div>
                                 <%  }
-                    }%>
+                                    }%>
 
 
 
@@ -146,12 +149,12 @@
                         <div class="col-sm text-left feed">
                             <!-- ADD POST -->
                             <form method="POST" action="<%=request.getContextPath()%>/AddPostServlet" enctype='multipart/form-data'>
-                                <% if(association != null) {
-                                    %>
-                                    <input type="hidden" value="<%= association.getIdAssociation()%>" name="idGroup">
-                                    <%
-                                    } 
-                                    %>
+                                <% if (association != null) {
+                                %>
+                                <input type="hidden" value="<%= association.getIdAssociation()%>" name="idGroup">
+                                <%
+                                    }
+                                %>
                                 <div class="jumbotron jumbotron-post">
                                     <h4>Share your experiences</h4>
                                     <textarea name="post-text" class="form-control text-area-post" placeholder="Write something here..."></textarea>
@@ -218,6 +221,44 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o" aria-hidden="true"></i> <%=post.getDate()%> </div>
+                                    <%List<Media> photos = post.getMediaList();
+                                        if (photos != null) {%>
+                                    <div id="carouselIndicator" class="carousel slide" data-ride="carousel">
+                                        <ol class="carousel-indicators">
+                                            <%for (Integer i = 0; i < photos.size(); i++) {
+                                                    String str = "";
+                                                    str = (i == 0) ? "active" : "";
+                                            %>               
+                                            <li data-target="#carouselIndicator" data-slide-to="<%=i%>" class="<%=str%>"></li>
+                                                <%}%>
+                                        </ol>
+                                        <div class="carousel-inner">
+
+                                            <%boolean first = true;
+                                                for (Media ph : photos) {
+                                                    String str = "";
+                                                    if (first) {
+                                                        str = "active";
+                                                        first = false;
+                                                    }%>
+
+                                            <div class="carousel-item <%=str%> post-image">
+                                                <a data-fancybox="gallery" href="<%=ph.getMediaUrl()%>">
+                                                    <img class="card-img-top post-image" src="<%=ph.getMediaUrl()%>" alt="Card image">
+                                                </a>
+                                            </div>
+                                            <%}%>
+                                        </div>
+                                        <a class="carousel-control-prev" href="#carouselIndicator" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carouselIndicator" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previus</span>
+                                        </a>
+                                    </div>
+                                    <%}%>
                                     <a class="card-link" href="#">
                                         <h5 class="card-title"><%=post.getTitle()%></h5>
                                     </a>
