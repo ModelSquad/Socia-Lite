@@ -49,8 +49,10 @@ public class PostFacade extends AbstractFacade<Post> {
     */
     public List<Post> findPostsByMultipleIds(List<Integer> ids, Integer idUser) {
         Query q;
+        System.out.print(idUser);
+        
         q = this.em.createQuery("select p from Post p "
-                + "where (p.user IN :ids) and ((not(p.idPost = :idUser) and (p.visibility.idVisibility = 1)) or (p.idPost = :idUser))"
+                + "where (p.user IN :ids) and ((not(p.user.idUser = :idUser) and (p.visibility.idVisibility = 1)) or (p.user.idUser = :idUser))"
                 + "order by p.date DESC");
         q.setParameter("ids", ids);
         q.setParameter("idUser", idUser);
