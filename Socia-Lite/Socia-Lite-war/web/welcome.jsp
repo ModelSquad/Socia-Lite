@@ -307,7 +307,7 @@
 
                 <!-- Right colum -->
                 <div class="col-sm-2 sidenav">
-<div class="panel panel-primary friend-panel m-2">
+                    <div class="panel panel-primary friend-panel m-2">
                             <div class="panel-heading">Groups</div>
                             <div class="panel-body friend-content" style="overflow-y: scroll; ">
 
@@ -329,7 +329,7 @@
                                 <%  }
                                     }%>
                             </div>
-                        </div> 
+                    </div> 
                 </div>
 
                 </body>

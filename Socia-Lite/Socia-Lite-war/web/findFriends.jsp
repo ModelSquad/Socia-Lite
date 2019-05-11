@@ -4,6 +4,7 @@
     Author     : cherra
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="socialite.entity.*"%>
 <%@page import="java.util.Vector"%>
@@ -50,10 +51,14 @@
         List<User> notFriends = null;
         List<FriendshipRequest> requests= null;
         String contextPath = request.getContextPath();
+        List<User> friends = new ArrayList<User>();
+        List<Association> associations = new ArrayList<Association>();
         // Receive any request
         if(user != null){
           notFriends =(List<User>) session.getAttribute("notFriends");
           requests = user.getFriendshipRequestList();
+          friends = user.getUserList();
+          associations = user.getAssociationList();
         } 
          
         %>
@@ -100,9 +105,29 @@
     <div class="container-fluid text-center">
         <div class="row content">
             <div class="col-sm-2 sidenav">
-                <p><a href="#">Link</a></p>
-                <p><a href="#">Link</a></p>
-                <p><a href="#">Link</a></p>
+                <div class="panel panel-primary friend-panel m-2">
+                            <div class="panel-heading">Friends</div>
+                            <div class="panel-body friend-content" style="overflow-y: scroll; ">
+                                <%if (friends != null && friends.size() > 0) {
+                                        for (User friend : friends) {
+                                %>
+                                <div class="card m-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="mr-0">
+                                            <img class="rounded-circle" width="45" src="<%=(friend.getProfilePic() == null)
+                                                        ? "https://cdn.clipart.email/0ad2ce5b5370f2d91ef8b465f6770e77_people-icons-3800-free-files-in-png-eps-svg-format_338-338.jpeg"
+                                                        : friend.getProfilePic()%>" alt="">
+                                        </div>
+                                        <div class="ml-2">
+                                            <div class="h5 m-0"><a href="ProfileServlet?user=<%=friend.getIdUser()%>">@<%=friend.getNickname()%></a></div>
+                                            <div class="h7 text-muted"><%=friend.getName()%> <%=friend.getSurname()%></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%  }
+                                }%>
+                            </div>
+                        </div>
             </div>
 
             <div class="col-sm text-left feed">
@@ -152,11 +177,28 @@
                 %>
             </div>
                 <div class="col-sm-2 sidenav">
-                    <div class="well">
-                    <p>ADS</p>
-                    </div>
-                    <div class="well">
-                    <p>ADS</p>
+                    <div class="panel panel-primary friend-panel m-2">
+                            <div class="panel-heading">Groups</div>
+                            <div class="panel-body friend-content" style="overflow-y: scroll; ">
+
+                                <%if (associations != null && associations.size() > 0) {
+                                        for (Association associationMember : associations) {
+                                %>
+                                <div class="card m-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="mr-0">
+                                            <img class="rounded-circle" width="45" src="<%=(associationMember.getProfilePic() == null)
+                                                        ? "https://cdn.clipart.email/0ad2ce5b5370f2d91ef8b465f6770e77_people-icons-3800-free-files-in-png-eps-svg-format_338-338.jpeg"
+                                                        : associationMember.getProfilePic()%>" alt="">
+                                        </div>
+                                        <div class="ml-2">
+                                            <div class="h5 m-0"><a href="PostServlet?idGroup=<%=associationMember.getIdAssociation()%>"><%=associationMember.getName()%></a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%  }
+                                    }%>
+                            </div>
                     </div>
                 </div>
         </div> 
