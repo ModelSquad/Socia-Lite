@@ -105,26 +105,24 @@
                         <div class="panel panel-primary friend-panel m-2">
                             <div class="panel-heading">Friends</div>
                             <div class="panel-body friend-content" style="overflow-y: scroll; ">
-                                <div class="card m-2">
-                                    <div ml-2>
-                                        <img class="rounded-circle ml-2 mt-2" width="30" src="https://avatars0.githubusercontent.com/u/33965662?s=460&v=4" alt=""> 
-                                    </div>
-                                    <div>@XFJA</div>
-                                </div>
                                 <%if (friends != null && friends.size() > 0) {
                                         for (User friend : friends) {
                                 %>
                                 <div class="card m-2">
-                                    <img class="rounded-circle" width="30" src="<%=(friend.getProfilePic() == null)
-                                            ? "https://cdn.clipart.email/0ad2ce5b5370f2d91ef8b465f6770e77_people-icons-3800-free-files-in-png-eps-svg-format_338-338.jpeg"
-                                            : friend.getProfilePic()%>" alt=""> 
-                                    <div><%=friend.getNickname()%></div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="mr-0">
+                                            <img class="rounded-circle" width="45" src="<%=(friend.getProfilePic() == null)
+                                                        ? "https://cdn.clipart.email/0ad2ce5b5370f2d91ef8b465f6770e77_people-icons-3800-free-files-in-png-eps-svg-format_338-338.jpeg"
+                                                        : friend.getProfilePic()%>" alt="">
+                                        </div>
+                                        <div class="ml-2">
+                                            <div class="h5 m-0"><a href="ProfileServlet?user=<%=friend.getIdUser()%>">@<%=friend.getNickname()%></a></div>
+                                            <div class="h7 text-muted"><%=friend.getName()%> <%=friend.getSurname()%></div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <%  }
-                                    }%>
-
-
-
+                                }%>
                             </div>
                         </div>  
                     </div>
@@ -312,10 +310,16 @@
                                         for (Association associationMember : associations) {
                                 %>
                                 <div class="card m-2">
-                                    <img class="rounded-circle" width="30" src="<%=(associationMember.getProfilePic() == null)
-                                            ? "https://cdn.clipart.email/0ad2ce5b5370f2d91ef8b465f6770e77_people-icons-3800-free-files-in-png-eps-svg-format_338-338.jpeg"
-                                            : associationMember.getProfilePic()%>" alt=""> 
-                                    <div><%=associationMember.getName()%></div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="mr-0">
+                                            <img class="rounded-circle" width="45" src="<%=(associationMember.getProfilePic() == null)
+                                                        ? "https://cdn.clipart.email/0ad2ce5b5370f2d91ef8b465f6770e77_people-icons-3800-free-files-in-png-eps-svg-format_338-338.jpeg"
+                                                        : associationMember.getProfilePic()%>" alt="">
+                                        </div>
+                                        <div class="ml-2">
+                                            <div class="h5 m-0"><a href="PostServlet?idGroup=<%=associationMember.getIdAssociation()%>"><%=associationMember.getName()%></a></div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <%  }
                                     }%>
