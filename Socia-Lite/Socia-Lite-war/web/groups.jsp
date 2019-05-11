@@ -119,7 +119,7 @@
                 if(member != null){
                 for(Association association: member){   
                 %>
-            <div class="card gedf-card expand-card mt-2" style="width: 100%;">     
+            <div class="card gedf-card expand-card m-0" style="width: 100%;">     
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="m-2">
@@ -145,7 +145,7 @@
                 </div>
 
             </div>
-            <div class="card gedf-card list-card plegable" style="width: 100%;">
+            <div class="card gedf-card list-card plegable mb-3" style="width: 100%;">
                 <div class="mt-2">
                     <ul>
                         <%for(User associationMember : association.getUserList()){%>
@@ -161,12 +161,9 @@
                 }
                 %>
             
-            <div class="card gedf-card align-items-center" style="width: 100%;">
-                
-               <a href=""  data-toggle="modal" data-target="#modalCreateGroup"><i class="material-icons mt-4" style="font-size:40px;">add_circle</i>Create Group</a>
+            <div class="card gedf-card align-items-center mt-3" style="width: 100%;">
+               <a href=""  data-toggle="modal" data-target="#modalCreateGroup"><i class="material-icons m-2" style="font-size:40px;">add_circle</i>Create Group</a>
             </div>
-
-            
                 <div class="modal fade" id="modalCreateGroup" >
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -187,7 +184,7 @@
                           <p>Description</p>
                           <input type="text" id="descriptionAssociation" name="descriptionAssociation" class="form-control validate">
                         </div>
-                        <button class="btn btn-indigo" type="submit" form="associationForm">Send</button>
+                        <button class="btn btn-indigo" type="submit" form="associationForm">Create</button>
                           </form>
                       </div>
 
