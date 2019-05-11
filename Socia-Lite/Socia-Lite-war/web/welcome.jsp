@@ -10,6 +10,7 @@
             User user = (User) request.getSession().getAttribute("user");
             Vector<Post> posts = (Vector<Post>) request.getSession().getAttribute("posts");
             List<User> friends = user.getUserList();
+            List<Association> associations = user.getAssociationList();
             Association association = (Association) request.getAttribute("association");
             if (association != null && !user.getAssociationList().contains(association)) {
                 response.sendRedirect(request.getContextPath() + "/PostServlet");
@@ -492,12 +493,23 @@
 
                 <!-- Right colum -->
                 <div class="col-sm-2 sidenav">
-                    <div class="well">
-                        <p>ADS</p>
-                    </div>
-                    <div class="well">
-                        <p>ADS</p>
-                    </div>
+<div class="panel panel-primary friend-panel m-2">
+                            <div class="panel-heading">Groups</div>
+                            <div class="panel-body friend-content" style="overflow-y: scroll; ">
+
+                                <%if (associations != null && associations.size() > 0) {
+                                        for (Association associationMember : associations) {
+                                %>
+                                <div class="card m-2">
+                                    <img class="rounded-circle" width="30" src="<%=(associationMember.getProfilePic() == null)
+                                            ? "https://cdn.clipart.email/0ad2ce5b5370f2d91ef8b465f6770e77_people-icons-3800-free-files-in-png-eps-svg-format_338-338.jpeg"
+                                            : associationMember.getProfilePic()%>" alt=""> 
+                                    <div><%=associationMember.getName()%></div>
+                                </div>
+                                <%  }
+                                    }%>
+                            </div>
+                        </div> 
                 </div>
 
                 </body>

@@ -42,9 +42,15 @@ public class AssociationFacade extends AbstractFacade<Association> {
         for(AssociationRequest associationRequest : user.getAssociationRequestList()){
             associationsId.add(associationRequest.getAssociationReceiver().getIdAssociation());
         }
-        Query q = this.em.createQuery("select a from Association a where a.idAssociation not in :listaAsociaciones");
-        q.setParameter("listaAsociaciones", associationsId);
-        return q.getResultList();
+        List<Association> result;
+        if(associationsId.size()>0){
+            Query q = this.em.createQuery("select a from Association a where a.idAssociation not in :listaAsociaciones");
+            q.setParameter("listaAsociaciones", associationsId);
+            result = q.getResultList();
+        } else {
+            result = this.findAll();
+        }
+        return result;
     }
     
 }

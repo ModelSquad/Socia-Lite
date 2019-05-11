@@ -59,9 +59,15 @@ public class UserFacade extends AbstractFacade<User> {
         for (FriendshipRequest fr : user.getFriendshipRequestList1()) {
             idFriends.add(fr.getUserReceiver().getIdUser());
         }
-        q.setParameter("friends", idFriends);
-        q.setParameter("user", user.getIdUser());
-        return q.getResultList();
+        if(idFriends.size()>0){
+            q.setParameter("friends", idFriends);
+            q.setParameter("user", user.getIdUser());
+            notFriends=q.getResultList();
+        } else {
+            notFriends=this.findAll();
+        }
+
+        return notFriends;
     }
 
     public User findByNickname(String nickname) {
