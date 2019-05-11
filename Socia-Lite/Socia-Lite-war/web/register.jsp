@@ -27,7 +27,7 @@
             <div id="formContent">
                 <!-- Icon -->
                 <div class="fadeIn first">
-                    <img style="margin:10px" src="https://www.freeiconspng.com/uploads/no-image-icon-4.png" height=100 width=100 alt="User Icon" />
+                    <img style="margin:10px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/S-Bahn_Austria.svg/128px-S-Bahn_Austria.svg.png" height=100 width=100 alt="User Icon" />
                 </div>
 
                 <!-- Register Form -->
