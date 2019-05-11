@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import socialite.dao.PostFacade;
+import socialite.dao.VisibilityFacade;
 import socialite.entity.Post;
 import socialite.entity.User;
 
@@ -27,8 +28,12 @@ import socialite.entity.User;
 public class SavePostServlet extends HttpServlet {
 
     @EJB
-    private PostFacade postFacade;
+    private VisibilityFacade visibilityFacade;
 
+    @EJB
+    private PostFacade postFacade;
+    
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -50,6 +55,8 @@ public class SavePostServlet extends HttpServlet {
             String textBody = (String) request.getParameter("text-body");
             post.setText(textBody);
             post.setDate(new Date());
+            String visibility = (String)request.getParameter("visibility");
+            post.setVisibility((visibility.equalsIgnoreCase("PUBLIC")) ? visibilityFacade.find(1) : visibilityFacade.find(2));
             postFacade.edit(post);
             RequestDispatcher rd = request.getRequestDispatcher("/PostServlet");
             rd.forward(request, response);

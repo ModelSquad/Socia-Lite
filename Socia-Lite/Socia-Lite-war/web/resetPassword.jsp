@@ -24,7 +24,7 @@
 
     <!-- Icon -->
     <div class="fadeIn first">
-      <img style="margin:10px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png" height=100 width=100 alt="User Icon" />
+      <img style="margin:10px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/S-Bahn_Austria.svg/128px-S-Bahn_Austria.svg.png" height=100 width=100 alt="User Icon" />
     </div>
     <% if(success != null && success) { %>
     
@@ -47,11 +47,11 @@
               Password:
           </a>
           <input type="hidden" name="userId" value="<%= user.getIdUser() %>">
-          <input type="password" id="login" class="fadeIn second" name="password" placeholder="user@email.com">
+          <input type="password" id="login" class="fadeIn second" name="password" placeholder="password">
            <a class="fadeIn second">
               Repeat password:
           </a>
-          <input type="password" id="login" class="fadeIn second" name="checkPassword" placeholder="user@email.com">
+          <input type="password" id="login" class="fadeIn second" name="checkPassword" placeholder="password">
           <input type="submit" class="fadeIn fourth" value="Reset password">
         </form>
             <% if(error != null && error) {%>
