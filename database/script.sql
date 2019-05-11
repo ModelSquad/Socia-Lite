@@ -72,7 +72,7 @@ DROP TABLE IF EXISTS `socialite`.`PasswordReset` ;
 CREATE TABLE IF NOT EXISTS `socialite`.`PasswordReset` (
   `idPasswordReset` INT NOT NULL AUTO_INCREMENT,
   `url` VARCHAR(500) NOT NULL,
-  `expiritionDate` DATE NOT NULL,
+  `expiritionDate` DATETIME NOT NULL,
   `usuario` INT NOT NULL,
   PRIMARY KEY (`idPasswordReset`),
   UNIQUE INDEX `idPasswordReset_UNIQUE` (`idPasswordReset` ASC),

@@ -1,4 +1,4 @@
-package socialite.servlet;
+package socialite.services;
 
 import java.util.*;
 import javax.mail.*;
@@ -14,7 +14,7 @@ public class Mail {
         String pass = PASSWORD;
         String[] to = { recipient };
         String subject = "Socia-Lite password reset";
-        String body = "Hi " + username + "!\n This is your reset password link: " + resetUrl;
+        String body = "Hi " + username + "!\nThis is your reset password link: " + resetUrl;
 
         sendFromGMail(from, pass, to, subject, body);
     }

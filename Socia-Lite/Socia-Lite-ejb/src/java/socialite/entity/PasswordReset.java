@@ -52,7 +52,7 @@ public class PasswordReset implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "expiritionDate")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date expiritionDate;
     @JoinColumn(name = "usuario", referencedColumnName = "idUser")
     @ManyToOne(optional = false)

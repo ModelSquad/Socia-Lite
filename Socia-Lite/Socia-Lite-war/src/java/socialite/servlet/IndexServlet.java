@@ -29,10 +29,7 @@ import socialite.dao.VisibilityFacade;
 public class IndexServlet extends HttpServlet {
 
     @EJB
-    private PostFacade postFacade;    
-    
-    @EJB
-    private VisibilityFacade visibilityFacade;    
+    private PostFacade postFacade;      
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

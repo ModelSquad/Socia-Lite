@@ -5,12 +5,13 @@
  */
 package socialite.servlet;
 
+import socialite.services.Mail;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -57,18 +58,19 @@ public class ForgetPasswordServlet extends HttpServlet {
             PasswordReset psswdReset = new PasswordReset();
             psswdReset.setUsuario(user);
             
+            Date date = new Date();
             Calendar c = Calendar.getInstance();
             c.setTime(new Date());
             c.add(Calendar.HOUR, 1);
             psswdReset.setExpiritionDate(c.getTime());
             
-            String resetUrlId = UUID.randomUUID().toString();
+            String resetUrlId = UUID.randomUUID().toString();           
             
-            String resetUrl = RESET_BASE_URL + resetUrlId;
+            psswdReset.setUrl(resetUrlId);
             
-            psswdReset.setUrl(resetUrl);
+            passwordResetFacade.create(psswdReset);
             
-            Mail.sendMail(user.getEmail(), resetUrl, user.getNickname());
+            Mail.sendMail(user.getEmail(), RESET_BASE_URL + resetUrlId, user.getNickname());
             request.setAttribute("error", false);
         }
         

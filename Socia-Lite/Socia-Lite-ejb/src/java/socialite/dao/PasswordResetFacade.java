@@ -5,9 +5,11 @@
  */
 package socialite.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import socialite.entity.PasswordReset;
 
 /**
@@ -27,6 +29,14 @@ public class PasswordResetFacade extends AbstractFacade<PasswordReset> {
 
     public PasswordResetFacade() {
         super(PasswordReset.class);
+    }
+    
+    public PasswordReset getByUrlId(String urlId) {
+        Query q;
+        q = this.em.createQuery("select pr from PasswordReset pr where pr.url = :urlId order by pr.expiritionDate desc");
+        q.setParameter("urlId", urlId);
+        List<PasswordReset> passwordReset = (List<PasswordReset>)q.getResultList();
+        return (passwordReset.isEmpty()) ? null : passwordReset.get(0);
     }
     
 }
