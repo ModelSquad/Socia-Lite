@@ -50,7 +50,7 @@ public class PostServlet extends HttpServlet {
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/welcome.jsp");
             rd.forward(request, response);
         } else {
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
         }
     }
 

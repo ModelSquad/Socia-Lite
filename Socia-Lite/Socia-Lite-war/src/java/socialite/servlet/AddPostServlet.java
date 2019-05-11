@@ -84,15 +84,14 @@ public class AddPostServlet extends HttpServlet {
                     
                     postFacade.edit(post);
 
-                    RequestDispatcher rd = request.getRequestDispatcher("/PostServlet");
-                    rd.forward(request, response);
+                    response.sendRedirect(request.getContextPath() + "/PostServlet");
                 }
                 
             } catch (Exception ex) {
                 Logger.getLogger(AddPostServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
-          response.sendRedirect(request.getContextPath()+"/index.jsp");  
+          response.sendRedirect(request.getContextPath() + "/LoginServlet");
         } 
     }
     
