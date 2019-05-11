@@ -72,10 +72,16 @@
                         <br>
                         <div class="md-form">
                             <a href="#"><i class="fas fa-pencil-alt prefix"> Visibility</i></a>
+                            <%String v1 = "active";
+                              String v2 = "notActive";
+                              if(post.getVisibility().getIdVisibility()==2){
+                                 v1 = "notActive";
+                                 v2 = "active";
+                              }%>
                             <div class="input-group">
                                 <div id="radioBtn" class="btn-group">
-                                    <a class="btn btn-primary btn-sm active" data-toggle="visibility" data-title="public">Friends</a>
-                                    <a class="btn btn-primary btn-sm notActive" data-toggle="visibility" data-title="private">Private</a>
+                                    <a class="btn btn-primary btn-sm <%=v1%>" data-toggle="visibility" data-title="public">Friends</a>
+                                    <a class="btn btn-primary btn-sm <%=v2%>" data-toggle="visibility" data-title="private">Private</a>
                                 </div>
                                 <input type="hidden" name="visibility" id="visibility">
                             </div>
