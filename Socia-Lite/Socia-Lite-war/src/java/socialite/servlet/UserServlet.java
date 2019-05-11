@@ -45,7 +45,6 @@ public class UserServlet extends HttpServlet {
     private UserFacade userFacade;
     
     private static final String ACCESS_TOKEN = "3wQ3NmRIRPAAAAAAAAAADR3SEijLf_rodEXbuypIw0ubDuUyjZ-bDPvuA9-qdgEv";
-    private boolean changepic=false;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -61,7 +60,6 @@ public class UserServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             HashMap<String, Object> requestData = this.getMedia(request);
-            if(!changepic){
                 String name = (String) requestData.get("name");
                 String surname = (String) requestData.get("surname");
                 String birthdate = (String) requestData.get("birthdate");
@@ -102,8 +100,7 @@ public class UserServlet extends HttpServlet {
                     user.setWebsite(null);
                 }
                 userFacade.edit(user);
-            }
-            response.sendRedirect(request.getContextPath()+"/user.jsp");
+                response.sendRedirect(request.getContextPath()+"/user.jsp");
             
         } catch (Exception ex) {
                 Logger.getLogger(AddPostServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -133,7 +130,6 @@ public class UserServlet extends HttpServlet {
                 
                 user.setProfilePic(client.sharing().createSharedLinkWithSettings(metadata.getPathLower()).getUrl().replace("?dl=0", "?raw=1"));
                 userFacade.edit(user);
-                changepic=true;
             }
         }            
         return result;       

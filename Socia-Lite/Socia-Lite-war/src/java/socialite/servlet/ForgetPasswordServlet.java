@@ -36,7 +36,7 @@ public class ForgetPasswordServlet extends HttpServlet {
     @EJB
     private PasswordResetFacade passwordResetFacade;
     
-    private final String RESET_BASE_URL = "http://localhost:8080/Socia-Lite-war/ResetPasswordServlet?resetId=";
+    private static final String RESET_BASE_URL = "http://localhost:8080/Socia-Lite-war/ResetPasswordServlet?resetId=";
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

@@ -57,7 +57,7 @@ public class RequestEntryServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         if(user != null){
-            Integer associationId = new Integer(request.getParameter("idAssociation"));
+            Integer associationId = Integer.valueOf(request.getParameter("idAssociation"));
             Association association = associationFacade.find(associationId);
             AssociationRequest associationRequest = new AssociationRequest();
             associationRequest.setAssociationReceiver(association);

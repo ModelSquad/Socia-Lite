@@ -49,7 +49,7 @@ public class AceptFriendshipRequestServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         if(user != null){
-            Integer friendshipRequestId = new Integer(request.getParameter("friendshipRequest"));
+            Integer friendshipRequestId = Integer.valueOf(request.getParameter("friendshipRequest"));
             FriendshipRequest friendshipRequest = friendshipRequestFacade.findByFriendshipRequestId(friendshipRequestId);
             List<User> amigos = user.getUserList();
             List<User> amigos1 = user.getUserList1();

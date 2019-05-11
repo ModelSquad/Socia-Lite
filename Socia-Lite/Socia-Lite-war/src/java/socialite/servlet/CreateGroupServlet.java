@@ -57,7 +57,7 @@ public class CreateGroupServlet extends HttpServlet {
             String descriptionAssociation = request.getParameter("descriptionAssociation");
             Association association = new Association();
             association.setName(nameAssociation);
-            association.setDescription(nameAssociation);
+            association.setDescription(descriptionAssociation);
             association.setAdmin(user);
             List<User> users = new ArrayList<User>();
             users.add(user);
