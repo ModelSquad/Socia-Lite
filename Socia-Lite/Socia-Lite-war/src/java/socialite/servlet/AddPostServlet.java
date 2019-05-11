@@ -5,11 +5,15 @@
  */
 package socialite.servlet;
 
+import com.dropbox.core.DbxRequestConfig;
+import com.dropbox.core.v2.DbxClientV2;
+import com.dropbox.core.v2.files.FileMetadata;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +31,6 @@ import javax.servlet.http.HttpSession;
 import socialite.dao.PostFacade;
 import socialite.dao.VisibilityFacade;
 import socialite.entity.Post;
-import socialite.entity.User;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -52,6 +55,8 @@ public class AddPostServlet extends HttpServlet {
     @EJB
     private MediaFacade mediaFacade;
     
+        private static final String ACCESS_TOKEN = "3wQ3NmRIRPAAAAAAAAAADR3SEijLf_rodEXbuypIw0ubDuUyjZ-bDPvuA9-qdgEv";
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -67,17 +72,10 @@ public class AddPostServlet extends HttpServlet {
         HttpSession session = request.getSession();
         if(session.getAttribute("user") != null) {
             try {
-                /**
-                FirebaseOptions options = new FirebaseOptions.Builder()
-                .setServiceAccount(new FileInputStream("socialite.json"))
-                .setDatabaseUrl("https://socia-lite.firebaseio.com/")
-                .build();
-                FirebaseApp.initializeApp(options);
-                **/
                 HashMap<String, Object> requestData = this.getMedia(request);
                 
                 if(requestData.get("post-text") != null) {
-                    User user = (User)session.getAttribute("user");
+                    socialite.entity.User user = (socialite.entity.User)session.getAttribute("user");
                     Post post = (Post)requestData.get("post");
                     String visibility = (String)requestData.get("visibility");
                     post.setText((String)requestData.get("post-text"));
@@ -104,8 +102,10 @@ public class AddPostServlet extends HttpServlet {
         List<FileItem> items = fileUpload.parseRequest(request);
         HashMap<String, Object> result = new HashMap<>();     
         
+        DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
+        DbxClientV2 client = new DbxClientV2(config, ACCESS_TOKEN);
         
-        User user = (User)request.getSession().getAttribute("user");
+        socialite.entity.User user = (socialite.entity.User)request.getSession().getAttribute("user");
         
         Post post = new Post();
         post.setText("");
@@ -116,7 +116,7 @@ public class AddPostServlet extends HttpServlet {
         post.setVisibility(visibilityFacade.find(1));
         postFacade.create(post);
         
-        String filename = System.getProperty("user.dir") + user.getNickname() + new Date().toString().replaceAll("[ :]", "_");
+        String filename = user.getNickname() + new Date().toString().replaceAll("[ :]", "_");
         
         int counter = 1;
         List<Media> media = new ArrayList<>();
@@ -128,19 +128,15 @@ public class AddPostServlet extends HttpServlet {
             } else if(item.getContentType().startsWith("image")){
                 
                 InputStream inputStream = item.getInputStream();
-
-                Logger.getLogger(AddPostServlet.class.getName()).log(Level.SEVERE, item.getContentType());
-                
                 String extension = item.getContentType().substring(item.getContentType().lastIndexOf("/") + 1);
                 
-                int data = inputStream.read();
-                FileOutputStream file = new FileOutputStream(filename + counter + "." + extension);
-                while(data != -1) {
-                    file.write(data);
-                    data = inputStream.read();
-                }
+                FileMetadata metadata = client.files().uploadBuilder("/" + filename + counter + "." + extension)
+                .uploadAndFinish(inputStream);
+                
                 Media currentMedia = new Media();
-                currentMedia.setMediaUrl(filename + counter + "." + extension);
+                currentMedia.setMediaUrl(
+                client.sharing().createSharedLinkWithSettings(metadata.getPathLower()).getUrl().replace("?dl=0", "?raw=1")
+                );
                 currentMedia.setPost(post);
                 mediaFacade.create(currentMedia);
                 media.add(currentMedia);

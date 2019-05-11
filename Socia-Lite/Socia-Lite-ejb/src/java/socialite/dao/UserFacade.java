@@ -35,22 +35,19 @@ public class UserFacade extends AbstractFacade<User> {
     public UserFacade() {
         super(User.class);
     }
-
-    public User findByEmail(String email) {
+        public User findByEmail (String email) {
         Iterator it = em.createNamedQuery("User.findByEmail")
-                .setParameter("email", email).getResultList().iterator();
-        return (it.hasNext()) ? (User) it.next() : null;
-    }
-
-    public User findByIdUser(Integer id) {
+        .setParameter("email", email).getResultList().iterator();
+        return (it.hasNext()) ? (User)it.next() : null;
+    }  
+    public User findByIdUser (Integer id) {
         Iterator it = em.createNamedQuery("User.findByIdUser")
-                .setParameter("idUser", id).getResultList().iterator();
-        return (it.hasNext()) ? (User) it.next() : null;
-    }
-
-    public List<User> findNotFriends(User user) {
-        List<Integer> notFriends = null;
-
+        .setParameter("idUser", id).getResultList().iterator();
+        return (it.hasNext()) ? (User)it.next() : null;
+    } 
+    
+    public List<User> findNotFriends(User user){
+        List<User> notFriends = null;
         Query q = this.em.createQuery("select u from User u where u.idUser not in :friends and u.idUser != :user");
         List<Integer> idFriends = new ArrayList<Integer>();
         for (User friend : user.getUserList()) {
@@ -99,4 +96,3 @@ public class UserFacade extends AbstractFacade<User> {
 //        }
 //        return q.getResultList();    
 //    }
-
