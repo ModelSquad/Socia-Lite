@@ -6,7 +6,19 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>SociaLite - Homepage</title>
+        <%
+            User user = (User) request.getSession().getAttribute("user");
+            Vector<Post> posts = (Vector<Post>) request.getSession().getAttribute("posts");
+            List<User> friends = user.getUserList();
+            Association association = (Association) request.getAttribute("association");
+        %>
+        <title>SociaLite <%
+            if(association == null) { %>
+            - Homepage
+            <% }else{ %> 
+            - <%= association.getName() %> 
+            <% } %>
+        </title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
@@ -40,12 +52,6 @@
 
     </head>
     <body>
-        <%
-            User user = (User) request.getSession().getAttribute("user");
-            Vector<Post> posts = (Vector<Post>) request.getSession().getAttribute("posts");
-            List<User> friends = user.getUserList();
-            Association association = (Association) request.getAttribute("association");
-        %>
         <nav class="navbar navbar-expand-lg navbar-dark">
             <a class="navbar-brand" href="#">SociaLite</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -140,6 +146,12 @@
                         <div class="col-sm text-left feed">
                             <!-- ADD POST -->
                             <form method="POST" action="<%=request.getContextPath()%>/AddPostServlet" enctype='multipart/form-data'>
+                                <% if(association != null) {
+                                    %>
+                                    <input type="hidden" value="<%= association.getIdAssociation()%>" name="idGroup">
+                                    <%
+                                    } 
+                                    %>
                                 <div class="jumbotron jumbotron-post">
                                     <h4>Share your experiences</h4>
                                     <textarea name="post-text" class="form-control text-area-post" placeholder="Write something here..."></textarea>

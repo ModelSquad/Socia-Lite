@@ -128,7 +128,7 @@
                       : association.getProfilePic() %>" alt="">
                         </div>
                         <div class="ml-2">
-                            <div class="h5 m-0"><a href="AssociationServlet?association=<%=association.getIdAssociation()%>"><%=association.getName()%><%if(association.getAdmin().getIdUser()==user.getIdUser()){%>  [Admin]<%}%></a></div>
+                            <div class="h5 m-0"><a href="PostServlet?idGroup=<%=association.getIdAssociation()%>"><%=association.getName()%><%if(association.getAdmin().getIdUser()==user.getIdUser()){%>  [Admin]<%}%></a></div>
                             <div class="h7 text-muted"><%=association.getDescription()== null? "" :association.getDescription() %></div>
                         </div>
                         

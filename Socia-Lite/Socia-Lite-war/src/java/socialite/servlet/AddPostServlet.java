@@ -35,6 +35,7 @@ import socialite.entity.Post;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import socialite.dao.AssociationFacade;
 import socialite.dao.MediaFacade;
 import socialite.entity.Media;
 
@@ -54,6 +55,9 @@ public class AddPostServlet extends HttpServlet {
 
     @EJB
     private MediaFacade mediaFacade;
+    
+    @EJB
+    private AssociationFacade associationFacade;
     
         private static final String ACCESS_TOKEN = "3wQ3NmRIRPAAAAAAAAAADR3SEijLf_rodEXbuypIw0ubDuUyjZ-bDPvuA9-qdgEv";
     
@@ -82,9 +86,17 @@ public class AddPostServlet extends HttpServlet {
                     post.setVisibility((visibility.equalsIgnoreCase("PUBLIC")) ? visibilityFacade.find(1) : visibilityFacade.find(2));
                     post.setMediaList((List<Media>)requestData.get("media"));
                     
-                    postFacade.edit(post);
-
-                    response.sendRedirect(request.getContextPath() + "/PostServlet");
+                    if(requestData.containsKey("idGroup")) {
+                        Integer groupId = Integer.parseInt((String)requestData.get("idGroup"));
+                        post.setAssociation(associationFacade.find(groupId));
+                        postFacade.edit(post);
+                        
+                        response.sendRedirect(request.getContextPath() + "/PostServlet?groupId" + groupId);
+                        
+                    } else {
+                        postFacade.edit(post);
+                        response.sendRedirect(request.getContextPath() + "/PostServlet");
+                    }
                 }
                 
             } catch (Exception ex) {
