@@ -121,7 +121,7 @@
                             <img src="http://www.softball.org.au/wp-content/uploads/2017/05/no-profile-image.png" name="aboutme" width="140" height="140" border="0" class="rounded-circle"></a>
                         <% } %>
                         <div>
-                            <% if(!user.getUserList().contains(u)){ %>
+                            <% if(!user.getUserList().contains(u) && !u.equals(user)){ %>
                         <div class="btn-group btn-group-justified m-2 mr-4" >
                             <a href="SendFriendshipRequestServlet?idFriendRequest=<%=u.getIdUser()%>" class="btn btn-xs btn-primary"><i class="material-icons" style="font-size:20px;">done</i></span> Request friends</a>
                             </div>

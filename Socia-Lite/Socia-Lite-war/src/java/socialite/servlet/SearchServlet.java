@@ -40,12 +40,20 @@ public class SearchServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String search = request.getParameter("search");
         
-        User result = userFacade.findByNickname(search);
-        request.setAttribute("user", result);
-        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/profile.jsp");
-        rd.forward(request, response);    
-
-        
+        List<User> results = userFacade.findByNickname(search);
+        RequestDispatcher rd;
+        if(results.size()>1){
+            request.setAttribute("search", results);
+            rd= this.getServletContext().getRequestDispatcher("/search.jsp");
+        }else{
+            if(results.isEmpty()){
+                request.setAttribute("user", null);
+            }else{
+                request.setAttribute("user", results.get(0));
+            }
+            rd= this.getServletContext().getRequestDispatcher("/profile.jsp");
+        }
+        rd.forward(request, response);          
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

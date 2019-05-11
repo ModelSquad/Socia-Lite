@@ -70,18 +70,11 @@ public class UserFacade extends AbstractFacade<User> {
         return notFriends;
     }
 
-    public User findByNickname(String nickname) {
+    public List<User> findByNickname(String nickname) {
         Query q;
-        q = em.createNamedQuery("User.findByNickname");
-        q.setParameter("nickname", nickname);
-        User user;
-        try {
-            user = (User) q.getSingleResult();
-        } catch (NoResultException e) {
-            user = null;
-        }
-        return user;
-
+        q = em.createQuery("SELECT u FROM User u where u.nickname like :nickname");
+        q.setParameter("nickname", "%"+nickname+"%");
+        return q.getResultList();
     }
 }
 //    public List<User> findByNameAndSurname(String[] user){
