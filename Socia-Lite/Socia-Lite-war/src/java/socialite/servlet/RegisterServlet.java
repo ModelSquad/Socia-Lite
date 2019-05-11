@@ -102,8 +102,7 @@ public class RegisterServlet extends HttpServlet {
             userFacade.create(user);
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/PostServlet");
-            rd.forward(request, response);
+            response.sendRedirect(request.getContextPath()+"/PostServlet");
         }else{
             request.setAttribute("email", email);
             request.setAttribute("password", password);

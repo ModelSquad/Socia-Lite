@@ -50,9 +50,9 @@ public class GoOutFromGroupServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         if(user != null){
-            Integer idAssociation = new Integer(request.getParameter("idAssociation"));
+            Integer idAssociation = Integer.valueOf(request.getParameter("idAssociation"));
             Association association = associationFacade.find(idAssociation);
-            if(user.getIdUser() != association.getAdmin().getIdUser()){
+            if(!user.getIdUser().equals(association.getAdmin().getIdUser())){
                 List<Association> associations = user.getAssociationList();
                 associations.remove(association);
                 user.setAssociationList(associations);
@@ -61,7 +61,7 @@ public class GoOutFromGroupServlet extends HttpServlet {
                 association.setUserList(members);
                 userFacade.edit(user);
                 associationFacade.edit(association);
-            } else if(user.getIdUser() == association.getAdmin().getIdUser() && association.getUserList().size() == 1){
+            } else if(user.getIdUser().equals(association.getAdmin().getIdUser()) && association.getUserList().size() == 1){
                 List<User> members = association.getUserList();
                 members.remove(user);
                 association.setUserList(members);

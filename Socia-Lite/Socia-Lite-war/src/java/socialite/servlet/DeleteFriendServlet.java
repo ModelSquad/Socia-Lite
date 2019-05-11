@@ -46,7 +46,7 @@ public class DeleteFriendServlet extends HttpServlet {
         
         if(currentUser != null){
             String deleteFriend = (String)request.getParameter("idFriend");
-            Integer idFriend = new Integer(deleteFriend);
+            Integer idFriend = Integer.valueOf(deleteFriend);
             User friend = userFacade.findByIdUser(idFriend);
             if(friend != null){
                 List<User> friends1 = currentUser.getUserList();
