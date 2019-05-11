@@ -14,6 +14,7 @@
             if (association != null && !user.getAssociationList().contains(association)) {
                 response.sendRedirect(request.getContextPath() + "/PostServlet");
             }
+            String contextPath = request.getContextPath();
         %>
         <title>SociaLite <%
             if (association == null) { %>
@@ -56,40 +57,44 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark">
-            <a class="navbar-brand" href="/Socia-Lite-war/PostServlet">SociaLite</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="<%=contextPath%>/PostServlet">SociaLite</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/Socia-Lite-war/welcome.jsp"><i class="fa fa-home" aria-hidden="true" style="font-size:20px;"></i> Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="<%=contextPath%>/welcome.jsp"><i class="fa fa-home" aria-hidden="true" style="font-size:20px;"></i> Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Socia-Lite-war/friends.jsp"><i class="material-icons" style="font-size:22px;">people</i> Friends</a>
+                        <a class="nav-link" href="<%=contextPath%>/friends.jsp"><i class="material-icons" style="font-size:22px;">people</i> Friends</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Socia-Lite-war/groups.jsp"><i class="fa fa-users" aria-hidden="true"></i> Groups</a>
+                        <a class="nav-link" href="<%=contextPath%>/groups.jsp"><i class="fa fa-users" aria-hidden="true"></i> Groups</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Socia-Lite-war/user.jsp"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
+                        <a class="nav-link" href="<%=contextPath%>/user.jsp"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
                     </li>
-                    <div id="searcher">
-                        <form class="form-inline md-form form-sm mt-0" action="SearchServlet">
-                            <i class="fa fa-search" aria-hidden="true" style="color:lightsteelblue"></i>
-                            <input class="form-control form-control-sm ml-3 w-200 searcher-box input-lg" type="text" placeholder="Search users" aria-label="Search" name="search">
-                        </form>
-                    </div>
                 </ul>
-
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/Socia-Lite-war/SignoutServlet"><i class="fa fa-sign-out"></i> Sign out</a>
+                        <div id="searcher">
+                            <form class="form-inline md-form form-sm mt-0" action="SearchServlet">
+                                <label>
+                                    <i class="fa fa-search" aria-hidden="true" style="color:lightsteelblue"></i>
+                                    <button input="submit" hidden></button>
+                                </label>                                               
+                            <input class="form-control form-control-sm ml-3 w-200 searcher-box input-lg" type="text" placeholder="Search users" aria-label="Search" name="search">                       
+                            </form>
+                         </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=contextPath%>/SignoutServlet"><i class="fa fa-sign-out"></i> Sign out</a>
                     </li>
                 </ul>
             </div>
         </nav>
+                    
         <div id="group-title-div">
             <!-- Group feed case -->
             <% if (association != null) {%>

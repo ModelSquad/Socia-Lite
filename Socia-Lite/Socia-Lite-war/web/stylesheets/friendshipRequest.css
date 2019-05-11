@@ -120,5 +120,11 @@ div.mdl-layout__drawer > nav.mdl-navigation > a.mdl-navigation__link {
     justify-content: center;
     vertical-align: middle;    
 }
+#searcher{
+   Padding-top: 5px;
+}
 
+#searcher-box{
+    margin-top: 50%;
+}
      

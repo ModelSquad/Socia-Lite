@@ -7,9 +7,11 @@
 <%@page import="socialite.entity.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-
-
 <!DOCTYPE html>
+<%  String contextPath = request.getContextPath(); 
+    User user = (User) request.getSession().getAttribute("user");
+%>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -35,41 +37,43 @@
         crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     </head>
-    <body>
-        <%
-            User user = (User) request.getSession().getAttribute("user");
-        %>
+    <body>        
         <nav class="navbar navbar-expand-lg navbar-dark">
-            <a class="navbar-brand" href="#">SociaLite</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="<%=contextPath%>/PostServlet">SociaLite</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link" href="/Socia-Lite-war/welcome.jsp"><i class="fa fa-home" aria-hidden="true" style="font-size:20px;"></i> Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/Socia-Lite-war/friends.jsp"><i class="material-icons" style="font-size:22px;">people</i> Friends</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#"><i class="fa fa-users" aria-hidden="true"></i> Groups</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" href="/Socia-Lite-war/user.jsp"><i class="fa fa-user" aria-hidden="true"></i> Profile<span class="sr-only">(current)</span></a>
-                </li>
-                <form class="form-inline md-form form-sm mt-0" action="SearchServlet">
-                    <i class="fa fa-search" aria-hidden="true" style="color:lightsteelblue"></i>
-                    <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search users" aria-label="Search" name="search">
-                </form>
-              </ul>
-
-              <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                   <a class="nav-link" href="/Socia-Lite-war/SignoutServlet"><i class="fa fa-sign-out"></i> Sign out</a>
-                </li>
-              </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=contextPath%>/welcome.jsp"><i class="fa fa-home" aria-hidden="true" style="font-size:20px;"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=contextPath%>/friends.jsp"><i class="material-icons" style="font-size:22px;">people</i> Friends</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=contextPath%>/groups.jsp"><i class="fa fa-users" aria-hidden="true"></i> Groups</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="<%=contextPath%>/user.jsp"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <div id="searcher">
+                            <form class="form-inline md-form form-sm mt-0" action="SearchServlet">
+                                <label>
+                                    <i class="fa fa-search" aria-hidden="true" style="color:lightsteelblue"></i>
+                                    <button input="submit" hidden></button>
+                                </label>                                               
+                            <input class="form-control form-control-sm ml-3 w-200 searcher-box input-lg" type="text" placeholder="Search users" aria-label="Search" name="search">                       
+                            </form>
+                         </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=contextPath%>/SignoutServlet"><i class="fa fa-sign-out"></i> Sign out</a>
+                    </li>
+                </ul>
             </div>
         </nav>        
         
@@ -88,6 +92,12 @@
                     <% } else{ %>
                         <img src="http://www.softball.org.au/wp-content/uploads/2017/05/no-profile-image.png" name="aboutme" width="140" height="140" border="0" class="rounded-circle"></a>
                     <% } %>
+                    <br>
+                    <label class="btn btn-post">
+                        <form method="post" action="UserServlet" enctype='multipart/form-data'>
+                        Change picture <input type="file" onchange="this.form.submit()" name="img-upload" id="img-upload" hidden>
+                        </form>
+                    </label>
                     <h5 class="media-heading"><%=user.getName()%> <%=user.getSurname()%> <small><%=user.getNickname()%></small></h5>
        
                     <br>   
