@@ -111,7 +111,7 @@
                             <div class="card-body">
                                 <p class="card-text"><%=user.getName()%></p>
                                 <div class="card-body ename" style="display:none">
-                                    <form action="UserServlet" method="post">
+                                    <form action="UserServlet" method="post" enctype='multipart/form-data'>
                                         <h4>Edit your name</h4>
                                         <input type="text" name="name">
                                         <input type="submit" name="submit" value="Edit" class="btn btn-outline-secondary btn-sm">  
@@ -135,7 +135,7 @@
                             <div class="card-body">
                                 <p class="card-text"><%=user.getSurname()%></p>
                                 <div class="card-body esurname" style="display:none">
-                                    <form action="UserServlet" method="post">
+                                    <form action="UserServlet" method="post" enctype='multipart/form-data'>
                                         <h4>Edit your surname</h4>
                                         <input type="text" name="surname">
                                         <input type="submit" name="submit" value="Edit" class="btn btn-outline-secondary btn-sm">  
@@ -169,7 +169,7 @@
                                 </p>
                                 
                                 <div class="card-body ebirthdate" style="display:none">
-                                    <form action="UserServlet" method="post">
+                                    <form action="UserServlet" method="post" enctype='multipart/form-data'>
                                         <h4>Edit your birthdate</h4>
                                         <input type="date" name="birthdate">
                                         <input type="submit" name="submit" value="Edit" class="btn btn-outline-secondary btn-sm">  
@@ -192,7 +192,7 @@
                                 <button type="button" class="babirthplace btn btn-outline-primary btn-sm"><i class="fas fa-plus"></i> Add</button>
                             <% } else {%>
                                 <button type="button" class="bebirthplace btn btn-outline-secondary btn-sm"><i class="fas fa-edit"></i> Edit</button>
-                                <form action="UserServlet" method="post" class="linea">
+                                <form action="UserServlet" method="post" class="linea" enctype='multipart/form-data'>
                                     <input hidden type="text" name="birthplaceDelete" value="yes">
                                     <button type="submit" class ="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>     
                                 </form>
@@ -204,14 +204,14 @@
                                 <% } %>
                             </div>
                             <div class="card-body abirthplace" style="display:none">
-                                <form action="UserServlet" method="post">
+                                <form action="UserServlet" method="post" enctype='multipart/form-data'>
                                     <h4>Add your birthplace</h4>
                                     <input type="text" name="birthplace">
                                     <input type="submit" name="submit" value="Add" class="btn btn-outline-primary btn-sm">    
                                 </form>
                             </div>
                             <div class="card-body ebirthplace" style="display:none">
-                                <form action="UserServlet" method="post">
+                                <form action="UserServlet" method="post" enctype='multipart/form-data'>
                                     <h4>Edit your birthplace</h4>
                                     <input type="text" name="birthplace">
                                     <input type="submit" name="submit" value="Edit" class="btn btn-outline-secondary btn-sm">  
@@ -238,7 +238,7 @@
                             <button type="button" class="bajob btn btn-outline-primary btn-sm"><i class="fas fa-plus"></i> Add</button>
                             <% }else{ %>
                             <button type="button" class="bejob btn btn-outline-secondary btn-sm"><i class="fas fa-edit"></i> Edit</button>
-                            <form action="UserServlet" method="post" class="linea">
+                            <form action="UserServlet" method="post" class="linea" enctype='multipart/form-data'>
                                 <input hidden type="text" name="jobDelete" value="yes">
                                 <button type="submit" class ="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>     
                             </form>
@@ -251,14 +251,14 @@
                                 <% } %>
                             </div>
                             <div class="card-body ajob" style="display:none">
-                                <form action="UserServlet" method="post">
+                                <form action="UserServlet" method="post" enctype='multipart/form-data'>
                                     <h4>Add your job</h4>
                                     <input type="text" name="job">
                                     <input type="submit" name="submit" value="Add" class="btn btn-outline-primary btn-sm">  
                                 </form>
                             </div>
                             <div class="card-body ejob" style="display:none">
-                                <form action="UserServlet" method="post">
+                                <form action="UserServlet" method="post" enctype='multipart/form-data'>
                                     <h4>Edit your job</h4>
                                     <input type="text" name="job">
                                     <input type="submit" name="submit" value="Edit" class="btn btn-outline-secondary btn-sm">  
@@ -284,7 +284,7 @@
                             <% } %>
                             <% if(user.getStudyPlace()!=null){ %>
                             <button type="button" class="bestudyPlace btn btn-outline-secondary btn-sm"><i class="fas fa-edit"></i> Edit</button>
-                            <form action="UserServlet" method="post" class="linea">
+                            <form action="UserServlet" method="post" class="linea" enctype='multipart/form-data'>
                                 <input hidden type="text" name="studyPlaceDelete" value="yes">
                                 <button type="submit" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>     
                             </form>
@@ -297,14 +297,14 @@
                                 <% } %>
                             </div>
                             <div class="card-body astudyPlace" style="display:none">
-                                <form action="UserServlet" method="post">
+                                <form action="UserServlet" method="post" enctype='multipart/form-data'>
                                     <h4>Add your study place</h4>
                                     <input type="text" name="studyPlace">
                                     <input type="submit" name="submit" value="Add" class="btn btn-outline-primary btn-sm">  
                                 </form>
                             </div>
                             <div class="card-body estudyPlace" style="display:none">
-                                <form action="UserServlet" method="post">
+                                <form action="UserServlet" method="post" enctype='multipart/form-data'>
                                     <h4>Edit your study place</h4>
                                     <input type="text" name="studyPlace">
                                     <input type="submit" name="submit" value="Edit" class="btn btn-outline-secondary btn-sm">  
@@ -331,7 +331,7 @@
                             <% } %>
                             <% if(user.getWebsite()!=null){ %>
                             <button type="button" class="bewebsite btn btn-outline-secondary btn-sm"><i class="fas fa-edit"></i> Edit</button>
-                            <form action="UserServlet" method="post" class="linea">
+                            <form action="UserServlet" method="post" class="linea" enctype='multipart/form-data'>
                                 <input hidden type="text" name="websiteDelete" value="yes">
                                 <button type="submit" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>     
                             </form>
@@ -344,14 +344,14 @@
                                 <% } %>
                             </div>
                             <div class="card-body awebsite" style="display:none">
-                                <form action="UserServlet" method="post">
+                                <form action="UserServlet" method="post" enctype='multipart/form-data'>
                                     <h4>Add your website</h4>
                                     <input type="text" name="website">
                                     <input type="submit" name="submit" value="Add" class="btn btn-outline-primary btn-sm">  
                                 </form>
                             </div>
                             <div class="card-body ewebsite" style="display:none">
-                                <form action="UserServlet" method="post">
+                                <form action="UserServlet" method="post" enctype='multipart/form-data'>
                                     <h4>Edit your website</h4>
                                     <input type="text" name="website">
                                     <input type="submit" name="submit" value="Edit" class="btn btn-outline-secondary btn-sm">  

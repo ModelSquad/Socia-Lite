@@ -45,6 +45,7 @@ public class UserServlet extends HttpServlet {
     private UserFacade userFacade;
     
     private static final String ACCESS_TOKEN = "3wQ3NmRIRPAAAAAAAAAADR3SEijLf_rodEXbuypIw0ubDuUyjZ-bDPvuA9-qdgEv";
+    private boolean changepic=false;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -60,50 +61,49 @@ public class UserServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             HashMap<String, Object> requestData = this.getMedia(request);
-
-            String name = (String) requestData.get("name");
-            String surname = (String) requestData.get("surname");
-            String birthdate = (String) requestData.get("birthdate");
-            String birthplace = (String) requestData.get("birthplace");
-            String birthplaceDelete = (String) requestData.get("birthplaceDelete");
-            String job = (String) requestData.get("job");
-            String jobdelete = (String) requestData.get("jobDelete");
-            String studyPlace = (String) requestData.get("studyPlace");
-            String studyPlaceDelete = (String) requestData.get("studyPlaceDelete");
-            String website = (String) requestData.get("website");
-            String websiteDelete = (String) requestData.get("websiteDelete");
-            User user = (User) request.getSession().getAttribute("user");
-
-            if(name!=null){
-                user.setName(name);
-            }else if(surname!=null){
-                user.setSurname(surname);
-            }else if(birthdate!=null){
-                try {  
-                    user.setBirthDate(new SimpleDateFormat("yyyy-MM-dd").parse(birthdate));
-                } catch (ParseException ex) {
-                    throw new RuntimeException("Error: editing birthdate");
+            if(!changepic){
+                String name = (String) requestData.get("name");
+                String surname = (String) requestData.get("surname");
+                String birthdate = (String) requestData.get("birthdate");
+                String birthplace = (String) requestData.get("birthplace");
+                String birthplaceDelete = (String) requestData.get("birthplaceDelete");
+                String job = (String) requestData.get("job");
+                String jobdelete = (String) requestData.get("jobDelete");
+                String studyPlace = (String) requestData.get("studyPlace");
+                String studyPlaceDelete = (String) requestData.get("studyPlaceDelete");
+                String website = (String) requestData.get("website");
+                String websiteDelete = (String) requestData.get("websiteDelete");
+                User user = (User) request.getSession().getAttribute("user");
+                if(name!=null){
+                    user.setName(name);
+                }else if(surname!=null){
+                    user.setSurname(surname);
+                }else if(birthdate!=null){
+                    try {  
+                        user.setBirthDate(new SimpleDateFormat("yyyy-MM-dd").parse(birthdate));
+                    } catch (ParseException ex) {
+                        throw new RuntimeException("Error: editing birthdate");
+                    }
+                }else if(birthplace!=null){ 
+                    user.setBirthPlace(birthplace);
+                }else if(birthplaceDelete!=null){
+                    user.setBirthPlace(null);
+                }else if(job!=null){
+                    user.setJob(job);
+                }else if(jobdelete!=null){
+                    user.setJob(null);
+                }else if(studyPlace!=null){
+                    user.setStudyPlace(studyPlace);
+                }else if(studyPlaceDelete!=null){
+                    user.setStudyPlace(null);
+                }else if(website!=null){
+                    user.setWebsite(website);
+                }else if(websiteDelete!=null){
+                    user.setWebsite(null);
                 }
-            }else if(birthplace!=null){ 
-                user.setBirthPlace(birthplace);
-            }else if(birthplaceDelete!=null){
-                user.setBirthPlace(null);
-            }else if(job!=null){
-                user.setJob(job);
-            }else if(jobdelete!=null){
-                user.setJob(null);
-            }else if(studyPlace!=null){
-                user.setStudyPlace(studyPlace);
-            }else if(studyPlaceDelete!=null){
-                user.setStudyPlace(null);
-            }else if(website!=null){
-                user.setWebsite(website);
-            }else if(websiteDelete!=null){
-                user.setWebsite(null);
+                userFacade.edit(user);
             }
-            userFacade.edit(user);
-            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/user.jsp");
-            rd.forward(request, response);
+            response.sendRedirect(request.getContextPath()+"/user.jsp");
             
         } catch (Exception ex) {
                 Logger.getLogger(AddPostServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -116,27 +116,24 @@ public class UserServlet extends HttpServlet {
         ServletFileUpload fileUpload = new ServletFileUpload(new DiskFileItemFactory());
         List<FileItem> items = fileUpload.parseRequest(request);
         HashMap<String, Object> result = new HashMap<>();   
-        
-        DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
-        DbxClientV2 client = new DbxClientV2(config, ACCESS_TOKEN);
-        
+
         User user = (User)request.getSession().getAttribute("user");
         String filename = user.getNickname() + new Date().toString().replaceAll("[ :]", "_");
-        List<Media> media = new ArrayList<>();
         
         for (FileItem item : items) {
             
             if(item.isFormField()) {
                 result.put(item.getFieldName(), item.getString());
-            } else if(item.getContentType().startsWith("image")){                
+            } else if(item.getContentType().startsWith("image")){
+                DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
+                DbxClientV2 client = new DbxClientV2(config, ACCESS_TOKEN);                
                 InputStream inputStream = item.getInputStream();  
-                String extension = item.getContentType().substring(item.getContentType().lastIndexOf("/") + 1);
+                String extension = item.getContentType().substring(item.getContentType().lastIndexOf("/") + 1);             
+                FileMetadata metadata = client.files().uploadBuilder("/" + filename + "." + extension).uploadAndFinish(inputStream);                              
                 
-                FileMetadata metadata = client.files().uploadBuilder("/" + filename + "." + extension)
-                .uploadAndFinish(inputStream);
-                              
                 user.setProfilePic(client.sharing().createSharedLinkWithSettings(metadata.getPathLower()).getUrl().replace("?dl=0", "?raw=1"));
                 userFacade.edit(user);
+                changepic=true;
             }
         }            
         return result;       
