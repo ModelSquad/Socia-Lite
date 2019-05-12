@@ -33,6 +33,10 @@
     opacity: 0;
 }
 
+.post-title {
+    margin-top: 15px !important;
+}
+
 .jumbotron-post{
     padding-top: 25px !important;
     height: 130px;
@@ -51,7 +55,7 @@
 
 .text-area-post {
     margin-top: 20px;
-    height: 2.3em !important;
+    height: 0px !important;
     resize: none;
     transition: 2s ease-out;
 }
@@ -105,8 +109,22 @@
 }
 
 .jumbotron-post:not(:hover) > .text-area-post {
-    height: 2.3em !important;
+    height: 0em !important;
     transition: 0.7s;
+}
+
+.jumbotron-post:hover > .post-visibility {
+    height: 10px !important;
+    transition: 0.7s;
+}
+
+.jumbotron-post:not(:hover) > .post-visibility {
+    height: 0em !important;
+    transition: 0.7s;
+}
+
+.post-visibility {
+    height: 0em;
 }
 
 /* Remove the navbar's default margin-bottom and rounded borders */

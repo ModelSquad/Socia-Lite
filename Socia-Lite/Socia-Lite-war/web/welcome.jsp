@@ -156,9 +156,9 @@
                                 %>
                                 <div class="jumbotron jumbotron-post">
                                     <h4>Share your experiences</h4>
-                                    <textarea name="post-text" class="form-control text-area-post" placeholder="Write something here..."></textarea>
-                                    <input type="text" name="title" class="form-control post-actions" placeholder="Title"/>
-                                    <div class="btn-group post-actions" role="group">
+                                    <input type="text" name="title" class="form-control post-title" placeholder="Set a title to your post"/>
+                                    <textarea name="post-text" class="form-control text-area-post post-actions" placeholder="Write something here..."></textarea>
+                                    <div class="btn-group post-actions post-visibility" role="group">
                                         <div class="input-group">
                                             <div id="radioBtn" class="btn-group">
                                                 <a class="btn btn-primary btn-sm active" data-toggle="visibility" data-title="public">Friends</a>
@@ -221,6 +221,10 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o" aria-hidden="true"></i> <%=post.getDate()%> </div>
+                                    
+                                    <a class="card-link" href="#">
+                                        <h5 class="card-title"><%=post.getTitle()%></h5>
+                                    </a>
                                     <%List<Media> photos = post.getMediaList();
                                         if (photos != null) {%>
                                     <div id="carouselIndicator" class="carousel slide" data-ride="carousel">
@@ -259,9 +263,7 @@
                                         </a>
                                     </div>
                                     <%}%>
-                                    <a class="card-link" href="#">
-                                        <h5 class="card-title"><%=post.getTitle()%></h5>
-                                    </a>
+                                    <br>
                                     <p class="card-text">
                                         <%= post.getText()%>
                                     </p>
