@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS `socialite`.`User` ;
 CREATE TABLE IF NOT EXISTS `socialite`.`User` (
   `idUser` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(100) NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `surname` VARCHAR(45) NOT NULL,
   `nickname` VARCHAR(45) NOT NULL,
@@ -59,26 +59,6 @@ CREATE TABLE IF NOT EXISTS `socialite`.`Association` (
   INDEX `Administrator_idx` (`admin` ASC),
   CONSTRAINT `Administrator`
     FOREIGN KEY (`admin`)
-    REFERENCES `socialite`.`User` (`idUser`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
-
--- -----------------------------------------------------
--- Table `socialite`.`PasswordReset`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `socialite`.`PasswordReset` ;
-
-CREATE TABLE IF NOT EXISTS `socialite`.`PasswordReset` (
-  `idPasswordReset` INT NOT NULL AUTO_INCREMENT,
-  `url` VARCHAR(500) NOT NULL,
-  `expiritionDate` DATETIME NOT NULL,
-  `usuario` INT NOT NULL,
-  PRIMARY KEY (`idPasswordReset`),
-  UNIQUE INDEX `idPasswordReset_UNIQUE` (`idPasswordReset` ASC),
-  INDEX `usuario_idx` (`usuario` ASC),
-  CONSTRAINT `User`
-    FOREIGN KEY (`usuario`)
     REFERENCES `socialite`.`User` (`idUser`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
@@ -272,11 +252,11 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `socialite`;
-INSERT INTO `socialite`.`User` (`idUser`, `email`, `password`, `name`, `surname`, `nickname`, `birthDate`, `birthPlace`, `job`, `studyPlace`, `website`, `profilePic`) VALUES (1, 'juan@gmail.es', 'juan', 'Juan', 'Martinez', 'juan97', '1997-05-22', 'Antequera', 'Mecánico', 'I.E.S. Pedro Espinosa', '', NULL);
-INSERT INTO `socialite`.`User` (`idUser`, `email`, `password`, `name`, `surname`, `nickname`, `birthDate`, `birthPlace`, `job`, `studyPlace`, `website`, `profilePic`) VALUES (2, 'jose@gmail.com', 'jose', 'Jose', 'Jimenez', 'jose778', '1996-06-30', 'Estepona', 'Pintor', 'I.E.S. Vino', NULL, NULL);
-INSERT INTO `socialite`.`User` (`idUser`, `email`, `password`, `name`, `surname`, `nickname`, `birthDate`, `birthPlace`, `job`, `studyPlace`, `website`, `profilePic`) VALUES (3, 'pepe@gmail.com', 'pepe', 'Pepe', 'Ruiz', 'pepe777', '1990-02-22', 'Guadix', 'Electricista', '', NULL, NULL);
-INSERT INTO `socialite`.`User` (`idUser`, `email`, `password`, `name`, `surname`, `nickname`, `birthDate`, `birthPlace`, `job`, `studyPlace`, `website`, `profilePic`) VALUES (4, 'andres@gmail.com', 'andres', 'Andres', 'Aguilar', 'andres11', '1990-02-22', 'Guadix', 'Juez', '', NULL, NULL);
-INSERT INTO `socialite`.`User` (`idUser`, `email`, `password`, `name`, `surname`, `nickname`, `birthDate`, `birthPlace`, `job`, `studyPlace`, `website`, `profilePic`) VALUES (5, 'jorge@gmail.com', 'jorge', 'Jorge', 'Paz', 'jorge22', '1990-02-22', 'Lanzarote', 'Barrendero', '', NULL, NULL);
+INSERT INTO `socialite`.`User` (`idUser`, `email`, `password`, `name`, `surname`, `nickname`, `birthDate`, `birthPlace`, `job`, `studyPlace`, `website`, `profilePic`) VALUES (1, 'juan@gmail.es', '$2a$12$v2M1FoZY2oauOe2qoMPh1eEGUs6f1wslgjhWGSrFR8J6aGSqx8eOC', 'Juan', 'Martinez', 'juan97', '1997-05-22', 'Antequera', 'Mecánico', 'I.E.S. Pedro Espinosa', '', NULL);
+INSERT INTO `socialite`.`User` (`idUser`, `email`, `password`, `name`, `surname`, `nickname`, `birthDate`, `birthPlace`, `job`, `studyPlace`, `website`, `profilePic`) VALUES (2, 'jose@gmail.com', '$2a$12$v2M1FoZY2oauOe2qoMPh1eEGUs6f1wslgjhWGSrFR8J6aGSqx8eOC', 'Jose', 'Jimenez', 'jose778', '1996-06-30', 'Estepona', 'Pintor', 'I.E.S. Vino', NULL, NULL);
+INSERT INTO `socialite`.`User` (`idUser`, `email`, `password`, `name`, `surname`, `nickname`, `birthDate`, `birthPlace`, `job`, `studyPlace`, `website`, `profilePic`) VALUES (3, 'pepe@gmail.com', '$2a$12$v2M1FoZY2oauOe2qoMPh1eEGUs6f1wslgjhWGSrFR8J6aGSqx8eOC', 'Pepe', 'Ruiz', 'pepe777', '1990-02-22', 'Guadix', 'Electricista', '', NULL, NULL);
+INSERT INTO `socialite`.`User` (`idUser`, `email`, `password`, `name`, `surname`, `nickname`, `birthDate`, `birthPlace`, `job`, `studyPlace`, `website`, `profilePic`) VALUES (4, 'andres@gmail.com', '$2a$12$v2M1FoZY2oauOe2qoMPh1eEGUs6f1wslgjhWGSrFR8J6aGSqx8eOC', 'Andres', 'Aguilar', 'andres11', '1990-02-22', 'Guadix', 'Juez', '', NULL, NULL);
+INSERT INTO `socialite`.`User` (`idUser`, `email`, `password`, `name`, `surname`, `nickname`, `birthDate`, `birthPlace`, `job`, `studyPlace`, `website`, `profilePic`) VALUES (5, 'jorge@gmail.com', '$2a$12$v2M1FoZY2oauOe2qoMPh1eEGUs6f1wslgjhWGSrFR8J6aGSqx8eOC', 'Jorge', 'Paz', 'jorge22', '1990-02-22', 'Lanzarote', 'Barrendero', '', NULL, NULL);
 
 COMMIT;
 

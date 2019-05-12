@@ -70,7 +70,7 @@ public class User implements Serializable {
     private String email;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 1, max = 100)
     @Column(name = "password")
     private String password;
     @Basic(optional = false)

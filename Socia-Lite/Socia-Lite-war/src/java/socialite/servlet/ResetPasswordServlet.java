@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.mindrot.jbcrypt.BCrypt;
 import socialite.dao.PasswordResetFacade;
 import socialite.dao.UserFacade;
 import socialite.entity.PasswordReset;
@@ -86,7 +87,7 @@ public class ResetPasswordServlet extends HttpServlet {
             request.setAttribute("error", true);
             request.setAttribute("user", user);
         } else {
-            user.setPassword(password);
+            user.setPassword(this.hashPassword(password));
             
             Collection<PasswordReset> passwordResetCollecion = user.getPasswordResetCollection();
             for(PasswordReset pw : passwordResetCollecion) {
@@ -114,5 +115,11 @@ public class ResetPasswordServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
+        public String hashPassword(String password_plaintext) {
+        int workload = 12;
+        String salt = BCrypt.gensalt(workload);
+        String hashed_password = BCrypt.hashpw(password_plaintext, salt);
+        return (hashed_password);
+    }
 }

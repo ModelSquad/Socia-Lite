@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.mindrot.jbcrypt.BCrypt;
 import socialite.dao.PostFacade;
 import socialite.dao.UserFacade;
 import socialite.entity.Post;
@@ -73,11 +74,11 @@ public class LoginServlet extends HttpServlet {
         if (password == null) {
             throw new RuntimeException("ERROR. Password is null");
         }
-        
+
         User user = userFacade.findByEmail(email);
         RequestDispatcher rd;
 
-        if (user == null || !user.getPassword().equals(password)) {
+        if (user == null || !this.checkPassword(password, user.getPassword())) {
             request.setAttribute("errorLogin", true);
             rd = request.getRequestDispatcher("/index.jsp");
         } else {
@@ -85,7 +86,7 @@ public class LoginServlet extends HttpServlet {
             rd = request.getRequestDispatcher("/PostServlet");
         }
         rd.forward(request, response);
-        
+
     }
 
     /**
@@ -98,4 +99,15 @@ public class LoginServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    public boolean checkPassword(String password_plaintext, String stored_hash) {
+        boolean password_verified = false;
+        System.out.print(stored_hash);
+        if (null == stored_hash || !stored_hash.startsWith("$2a")) {
+            throw new java.lang.IllegalArgumentException("Invalid hash provided for comparison");
+        }
+
+        password_verified = BCrypt.checkpw(password_plaintext, stored_hash);
+
+        return (password_verified);
+    }
 }

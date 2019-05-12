@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpSession;
+import org.mindrot.jbcrypt.BCrypt;
 import socialite.dao.UserFacade;
 
 /**
@@ -29,8 +30,10 @@ import socialite.dao.UserFacade;
  */
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/RegisterServlet"})
 public class RegisterServlet extends HttpServlet {
+
     @EJB
     private UserFacade userFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,67 +46,66 @@ public class RegisterServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        String strErrors="";        
+
+        String strErrors = "";
         User user = new User();
 
         String email = request.getParameter("email");
-        if (email==null || email.isEmpty()){
-            strErrors +="emailNull";
-        } else if (!emailIsAvailable(email)){
-            strErrors +="emailExists";
+        if (email == null || email.isEmpty()) {
+            strErrors += "emailNull";
+        } else if (!emailIsAvailable(email)) {
+            strErrors += "emailExists";
         } else {
             user.setEmail(email);
-        }     
-      
+        }
+
         String password = request.getParameter("password");
         String repeatPassword = request.getParameter("repeatPassword");
-        if (password==null || password.isEmpty()){
-            strErrors+="password";
-        }else if (repeatPassword==null || repeatPassword.isEmpty() || !password.equals(repeatPassword)){
-            strErrors+="repeatPassword";
-        }else{
-            user.setPassword(password);
+        if (password == null || password.isEmpty()) {
+            strErrors += "password";
+        } else if (repeatPassword == null || repeatPassword.isEmpty() || !password.equals(repeatPassword)) {
+            strErrors += "repeatPassword";
+        } else {
+            user.setPassword(this.hashPassword(password));
         }
-        
+
         String name = request.getParameter("name");
-        if (name==null || name.isEmpty()){
-            strErrors+="justname";
-        }else{
+        if (name == null || name.isEmpty()) {
+            strErrors += "justname";
+        } else {
             user.setName(name);
         }
-        
+
         String surname = request.getParameter("surname");
-        if (surname==null || surname.isEmpty()){
-            strErrors+="surname";
-        }else{
+        if (surname == null || surname.isEmpty()) {
+            strErrors += "surname";
+        } else {
             user.setSurname(surname);
         }
-        
+
         String nickname = request.getParameter("nickname");
-        if(nickname==null || nickname.isEmpty()){
-            strErrors+="nickname";
-        }
-        else{
+        if (nickname == null || nickname.isEmpty()) {
+            strErrors += "nickname";
+        } else {
             user.setNickname(nickname);
         }
-        
+
         String birthdate = request.getParameter("birthdate");
-        if (birthdate==null || birthdate.isEmpty()){
-            strErrors+="birthdate";
-        }else{
-            try {  
+        if (birthdate == null || birthdate.isEmpty()) {
+            strErrors += "birthdate";
+        } else {
+            try {
                 user.setBirthDate(new SimpleDateFormat("yyyy-MM-dd").parse(birthdate));
             } catch (ParseException ex) {
-                strErrors+="birthdate";
+                strErrors += "birthdate";
             }
         }
-        if(strErrors.equals("")){
+        if (strErrors.equals("")) {
             userFacade.create(user);
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            response.sendRedirect(request.getContextPath()+"/PostServlet");
-        }else{
+            response.sendRedirect(request.getContextPath() + "/PostServlet");
+        } else {
             request.setAttribute("email", email);
             request.setAttribute("password", password);
             request.setAttribute("repeatPassword", repeatPassword);
@@ -115,21 +117,13 @@ public class RegisterServlet extends HttpServlet {
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/register.jsp");
             rd.forward(request, response);
         }
-        
-        
 
     }
-    
-    private boolean emailIsAvailable(String email){
-        return userFacade.findByEmail(email)==null;
+
+    private boolean emailIsAvailable(String email) {
+        return userFacade.findByEmail(email) == null;
     }
-    
-    
-    
-    
-    
-    
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -169,4 +163,10 @@ public class RegisterServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    public String hashPassword(String password_plaintext) {
+        int workload = 12;
+        String salt = BCrypt.gensalt(workload);
+        String hashed_password = BCrypt.hashpw(password_plaintext, salt);
+        return (hashed_password);
+    }
 }
