@@ -25,9 +25,10 @@
 }
 
 .post-row {
-    margin-top: 20px;
+    margin-top: 40px;
     position: relative;
     height: 200px;
+    width: 700px;
     justify-content: center;
     visibility: hidden;
     opacity: 0;

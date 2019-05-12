@@ -20,7 +20,7 @@ $(document).ready(function () {
         
         for(var i = 0; i < maximum; i++) {
             document.getElementById('img-' + i).src = window.URL.createObjectURL(this.files[i]);
-            $('.jumbotron-post').css('height', '130px');
+            $('.jumbotron-post').css('height', '400px');
             $('.jumbotron-post').hover(function() {
                 $(this).css('height', '400px');
             }, function() {
