@@ -69,7 +69,7 @@ public class GoOutFromGroupServlet extends HttpServlet {
                 member.remove(association);
                 user.setAssociationList(member);
                 List<Association> admin = user.getAssociationList1();
-                member.remove(admin);
+                member.remove(association);
                 user.setAssociationList1(admin);
                 userFacade.edit(user);
                 associationFacade.remove(association);
