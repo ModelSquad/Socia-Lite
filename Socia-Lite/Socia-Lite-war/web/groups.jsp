@@ -165,7 +165,7 @@
                         <div class="btn-group btn-group-justified m-2 mr-4" >
                             <a class="btn btn-xs btn-primary" href="#" ><i class="material-icons" style="font-size:20px;">remove_red_eye</i>See members</a>
                             <%if(association.getAdmin().getIdUser() != user.getIdUser() || association.getUserList().size() == 1){%>
-                            <a class="btn btn-xs btn-danger trigger-btn" data-href="GoOutFromGroupServlet?idAssociation=<%=association.getIdAssociation()%>" data-target="#confirm-delete" data-toggle="modal"><i class="material-icons" style="font-size:20px;">clear</i>Go out</a>
+                                <a class="btn btn-xs btn-danger" href="GoOutFromGroupServlet?idAssociation=<%=association.getIdAssociation()%>"><i class="material-icons" style="font-size:20px;">clear</i>Go out</a>
                             <%}%>
                         </div>
                     </div>
