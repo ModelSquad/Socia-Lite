@@ -93,7 +93,8 @@ public class ResetPasswordServlet extends HttpServlet {
             for(PasswordReset pw : passwordResetCollecion) {
                 passwordResetFacade.remove(pw);
             }
-            user.setPasswordResetCollection(new ArrayList<PasswordReset>());
+            passwordResetCollecion.clear();
+            user.setPasswordResetCollection(passwordResetCollecion);
             
             userFacade.edit(user);
             

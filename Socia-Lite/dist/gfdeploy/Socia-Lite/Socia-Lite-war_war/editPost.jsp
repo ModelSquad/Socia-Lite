@@ -17,6 +17,13 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
               crossorigin="anonymous">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script>
+            <%@ include file="js/welcome.js"%>
+        </script>
+        <style>
+            <%@ include file="stylesheets/welcome.css"%>
+        </style>
     </head>
     <body>
         <%
@@ -61,6 +68,23 @@
                         <div class="md-form">
                             <a href="#"><i class="fas fa-pencil-alt prefix"> Body</i></a>
                             <textarea name="text-body" id="formText" class="md-textarea form-control" rows="3" form="editForm"><%=post.getText()%></textarea>
+                        </div>
+                        <br>
+                        <div class="md-form">
+                            <a href="#"><i class="fas fa-pencil-alt prefix"> Visibility</i></a>
+                            <%String v1 = "active";
+                              String v2 = "notActive";
+                              if(post.getVisibility().getIdVisibility()==2){
+                                 v1 = "notActive";
+                                 v2 = "active";
+                              }%>
+                            <div class="input-group">
+                                <div id="radioBtn" class="btn-group">
+                                    <a class="btn btn-primary btn-sm <%=v1%>" data-toggle="visibility" data-title="public">Friends</a>
+                                    <a class="btn btn-primary btn-sm <%=v2%>" data-toggle="visibility" data-title="private">Private</a>
+                                </div>
+                                <input type="hidden" name="visibility" id="visibility">
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer">

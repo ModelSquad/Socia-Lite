@@ -33,6 +33,10 @@
     opacity: 0;
 }
 
+.post-title {
+    margin-top: 15px !important;
+}
+
 .jumbotron-post{
     padding-top: 25px !important;
     height: 130px;
@@ -51,7 +55,7 @@
 
 .text-area-post {
     margin-top: 20px;
-    height: 2.3em !important;
+    height: 0px !important;
     resize: none;
     transition: 2s ease-out;
 }
@@ -61,7 +65,7 @@
 }
 
 .jumbotron-post:hover {
-    height: 230px;
+    height: 290px;
     transition: 0.65s ease;
 }
 
@@ -105,8 +109,22 @@
 }
 
 .jumbotron-post:not(:hover) > .text-area-post {
-    height: 2.3em !important;
+    height: 0em !important;
     transition: 0.7s;
+}
+
+.jumbotron-post:hover > .post-visibility {
+    height: 10px !important;
+    transition: 0.7s;
+}
+
+.jumbotron-post:not(:hover) > .post-visibility {
+    height: 0em !important;
+    transition: 0.7s;
+}
+
+.post-visibility {
+    height: 0em;
 }
 
 /* Remove the navbar's default margin-bottom and rounded borders */
@@ -346,4 +364,28 @@ body {
 }
 
 
+/* GROUP TITLE */
 
+#group-title{
+    font-size: 50px;
+    color: white;
+    background-color:#4285f4;
+    border-radius: 2%;
+    text-align: center;
+    margin-top: 15px;
+    background-size: 100px 50px;
+    margin-left: 35%;
+    margin-right: 35%;
+    box-shadow: 5px 5px 11px -1px rgba(0,0,0,0.51);
+}
+
+
+/* SEARCH BOX */
+
+#searcher{
+   Padding-top: 5px;
+}
+
+#searcher-box{
+    margin-top: 50%;
+}

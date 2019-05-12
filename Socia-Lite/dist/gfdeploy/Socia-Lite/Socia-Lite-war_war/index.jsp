@@ -20,11 +20,11 @@
 
     <!-- Icon -->
     <div class="fadeIn first">
-      <img style="margin:10px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png" height=100 width=100 alt="User Icon" />
+      <img style="margin:10px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/S-Bahn_Austria.svg/128px-S-Bahn_Austria.svg.png" height=100 width=100 alt="User Icon" />
     </div>
 
     <!-- Login Form -->
-    <form action="#" method="POST">
+    <form action="<%= request.getContextPath() %>/IndexServlet" method="POST">
       <input type="email" id="login" class="fadeIn second" name="email" placeholder="user@email.com">
       <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
       <input type="submit" class="fadeIn fourth" value="Log In">
@@ -40,12 +40,12 @@
 
     <!-- Remind Password -->
     <div id="formFooter">
-      <a class="underlineHover" href="#">Forgot Password?</a>
+      <a class="underlineHover" href="<%= request.getContextPath() %>/forgetPassword.jsp">Forgot Password?</a>
     </div>
 
         <!-- Register -->
     <div id="formFooter">
-      <a class="underlineHover" href="Socia-Lite-war/register.jsp">Register</a>
+      <a class="underlineHover" href="<%= request.getContextPath() %>/register.jsp">Register</a>
     </div>
   </div>
 </div>

@@ -27,7 +27,7 @@
             <div id="formContent">
                 <!-- Icon -->
                 <div class="fadeIn first">
-                    <img style="margin:10px" src="https://www.freeiconspng.com/uploads/no-image-icon-4.png" height=100 width=100 alt="User Icon" />
+                    <img style="margin:10px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/S-Bahn_Austria.svg/128px-S-Bahn_Austria.svg.png" height=100 width=100 alt="User Icon" />
                 </div>
 
                 <!-- Register Form -->
@@ -159,6 +159,19 @@
                                 <input type="text" id="nickname" class="fadeIn second" name="nickname" placeholder="nickname" <% if(nickname!=null) %> value="<%= nickname%>" />
                             </td>
                         </tr>
+                        <% if(strErrors !=null && strErrors.contains("nickname")) { %>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <div class="loginMessage alert alert-danger" role="alert">
+                                        <a id="message">
+                                            Enter your nickname
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% } %>
                         <tr>
                             <td>
                                 <label for="Birthdate">Birthdate</label>

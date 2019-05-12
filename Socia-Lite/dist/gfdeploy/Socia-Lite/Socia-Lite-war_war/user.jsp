@@ -3,13 +3,18 @@
     Created on : Apr 19, 2019, 12:26:46 PM
     Author     : Sevi
 --%>
+<%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="socialite.entity.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-
-
 <!DOCTYPE html>
+<%  String contextPath = request.getContextPath(); 
+    User user = (User) request.getSession().getAttribute("user");
+    List<User> friends = user.getUserList();
+    List<Association> associations = user.getAssociationList();
+%>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -35,52 +40,75 @@
         crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     </head>
-    <body>
-        <%
-            User user = (User) request.getSession().getAttribute("user");
-        %>
+    <body>        
         <nav class="navbar navbar-expand-lg navbar-dark">
-            <a class="navbar-brand" href="#">SociaLite</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="<%=contextPath%>/PostServlet">SociaLite</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link" href="/Socia-Lite-war/welcome.jsp"><i class="fa fa-home" aria-hidden="true" style="font-size:20px;"></i> Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/Socia-Lite-war/friends.jsp"><i class="material-icons" style="font-size:22px;">people</i> Friends</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#"><i class="fa fa-users" aria-hidden="true"></i> Groups</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" href="/Socia-Lite-war/user.jsp"><i class="fa fa-user" aria-hidden="true"></i> Profile<span class="sr-only">(current)</span></a>
-                </li>
-                <form class="form-inline md-form form-sm mt-0" action="SearchServlet">
-                    <i class="fa fa-search" aria-hidden="true" style="color:lightsteelblue"></i>
-                    <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search users" aria-label="Search" name="search">
-                </form>
-              </ul>
-
-              <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                   <a class="nav-link" href="/Socia-Lite-war/SignoutServlet"><i class="fa fa-sign-out"></i> Sign out</a>
-                </li>
-              </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=contextPath%>/welcome.jsp"><i class="fa fa-home" aria-hidden="true" style="font-size:20px;"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=contextPath%>/friends.jsp"><i class="material-icons" style="font-size:22px;">people</i> Friends</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=contextPath%>/groups.jsp"><i class="fa fa-users" aria-hidden="true"></i> Groups</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="<%=contextPath%>/user.jsp"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <div id="searcher">
+                            <form class="form-inline md-form form-sm mt-0" action="SearchServlet">
+                                <label>
+                                    <i class="fa fa-search" aria-hidden="true" style="color:lightsteelblue"></i>
+                                    <button input="submit" hidden></button>
+                                </label>                                               
+                            <input class="form-control form-control-sm ml-3 w-200 searcher-box input-lg" type="text" placeholder="Search users" aria-label="Search" name="search">                       
+                            </form>
+                         </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=contextPath%>/SignoutServlet"><i class="fa fa-sign-out"></i> Sign out</a>
+                    </li>
+                </ul>
             </div>
         </nav>        
         
         <div class="container-fluid text-center">
             <div class="row content">
                 <div class="col-sm-2 sidenav">
-                    <p><a href="#">Link</a></p>
-                    <p><a href="#">Link</a></p>
-                    <p><a href="#">Link</a></p>
+                    <div class="row content">
+                        <div class="panel panel-primary friend-panel m-2">
+                            <div class="panel-heading">Friends</div>
+                            <div class="panel-body friend-content" style="overflow-y: scroll; ">
+                                <%if (friends != null && friends.size() > 0) {
+                                        for (User friend : friends) {
+                                %>
+                                <div class="card m-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="mr-0">
+                                            <img class="rounded-circle" width="45" src="<%=(friend.getProfilePic() == null)
+                                                        ? "https://cdn.clipart.email/0ad2ce5b5370f2d91ef8b465f6770e77_people-icons-3800-free-files-in-png-eps-svg-format_338-338.jpeg"
+                                                        : friend.getProfilePic()%>" alt="">
+                                        </div>
+                                        <div class="ml-2">
+                                            <div class="h5 m-0"><a href="ProfileServlet?user=<%=friend.getIdUser()%>">@<%=friend.getNickname()%></a></div>
+                                            <div class="h7 text-muted"><%=friend.getName()%> <%=friend.getSurname()%></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%  }
+                                }%>
+                            </div>
+                        </div>  
+                    </div>
                 </div>
-                
                 <div class="col-sm text-left feed">
                     <center>
                     <% if(user.getProfilePic()!=null) {%>
@@ -88,6 +116,12 @@
                     <% } else{ %>
                         <img src="http://www.softball.org.au/wp-content/uploads/2017/05/no-profile-image.png" name="aboutme" width="140" height="140" border="0" class="rounded-circle"></a>
                     <% } %>
+                    <br>
+                    <label class="btn btn-post">
+                        <form method="post" action="UserServlet" enctype='multipart/form-data'>
+                        Change picture <input type="file" onchange="this.form.submit()" name="img-upload" id="img-upload" hidden>
+                        </form>
+                    </label>
                     <h5 class="media-heading"><%=user.getName()%> <%=user.getSurname()%> <small><%=user.getNickname()%></small></h5>
        
                     <br>   
@@ -101,7 +135,7 @@
                             <div class="card-body">
                                 <p class="card-text"><%=user.getName()%></p>
                                 <div class="card-body ename" style="display:none">
-                                    <form action="UserServlet" method="post">
+                                    <form action="UserServlet" method="post" enctype='multipart/form-data'>
                                         <h4>Edit your name</h4>
                                         <input type="text" name="name">
                                         <input type="submit" name="submit" value="Edit" class="btn btn-outline-secondary btn-sm">  
@@ -125,7 +159,7 @@
                             <div class="card-body">
                                 <p class="card-text"><%=user.getSurname()%></p>
                                 <div class="card-body esurname" style="display:none">
-                                    <form action="UserServlet" method="post">
+                                    <form action="UserServlet" method="post" enctype='multipart/form-data'>
                                         <h4>Edit your surname</h4>
                                         <input type="text" name="surname">
                                         <input type="submit" name="submit" value="Edit" class="btn btn-outline-secondary btn-sm">  
@@ -159,7 +193,7 @@
                                 </p>
                                 
                                 <div class="card-body ebirthdate" style="display:none">
-                                    <form action="UserServlet" method="post">
+                                    <form action="UserServlet" method="post" enctype='multipart/form-data'>
                                         <h4>Edit your birthdate</h4>
                                         <input type="date" name="birthdate">
                                         <input type="submit" name="submit" value="Edit" class="btn btn-outline-secondary btn-sm">  
@@ -182,7 +216,7 @@
                                 <button type="button" class="babirthplace btn btn-outline-primary btn-sm"><i class="fas fa-plus"></i> Add</button>
                             <% } else {%>
                                 <button type="button" class="bebirthplace btn btn-outline-secondary btn-sm"><i class="fas fa-edit"></i> Edit</button>
-                                <form action="UserServlet" method="post" class="linea">
+                                <form action="UserServlet" method="post" class="linea" enctype='multipart/form-data'>
                                     <input hidden type="text" name="birthplaceDelete" value="yes">
                                     <button type="submit" class ="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>     
                                 </form>
@@ -194,14 +228,14 @@
                                 <% } %>
                             </div>
                             <div class="card-body abirthplace" style="display:none">
-                                <form action="UserServlet" method="post">
+                                <form action="UserServlet" method="post" enctype='multipart/form-data'>
                                     <h4>Add your birthplace</h4>
                                     <input type="text" name="birthplace">
                                     <input type="submit" name="submit" value="Add" class="btn btn-outline-primary btn-sm">    
                                 </form>
                             </div>
                             <div class="card-body ebirthplace" style="display:none">
-                                <form action="UserServlet" method="post">
+                                <form action="UserServlet" method="post" enctype='multipart/form-data'>
                                     <h4>Edit your birthplace</h4>
                                     <input type="text" name="birthplace">
                                     <input type="submit" name="submit" value="Edit" class="btn btn-outline-secondary btn-sm">  
@@ -228,7 +262,7 @@
                             <button type="button" class="bajob btn btn-outline-primary btn-sm"><i class="fas fa-plus"></i> Add</button>
                             <% }else{ %>
                             <button type="button" class="bejob btn btn-outline-secondary btn-sm"><i class="fas fa-edit"></i> Edit</button>
-                            <form action="UserServlet" method="post" class="linea">
+                            <form action="UserServlet" method="post" class="linea" enctype='multipart/form-data'>
                                 <input hidden type="text" name="jobDelete" value="yes">
                                 <button type="submit" class ="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>     
                             </form>
@@ -241,14 +275,14 @@
                                 <% } %>
                             </div>
                             <div class="card-body ajob" style="display:none">
-                                <form action="UserServlet" method="post">
+                                <form action="UserServlet" method="post" enctype='multipart/form-data'>
                                     <h4>Add your job</h4>
                                     <input type="text" name="job">
                                     <input type="submit" name="submit" value="Add" class="btn btn-outline-primary btn-sm">  
                                 </form>
                             </div>
                             <div class="card-body ejob" style="display:none">
-                                <form action="UserServlet" method="post">
+                                <form action="UserServlet" method="post" enctype='multipart/form-data'>
                                     <h4>Edit your job</h4>
                                     <input type="text" name="job">
                                     <input type="submit" name="submit" value="Edit" class="btn btn-outline-secondary btn-sm">  
@@ -274,7 +308,7 @@
                             <% } %>
                             <% if(user.getStudyPlace()!=null){ %>
                             <button type="button" class="bestudyPlace btn btn-outline-secondary btn-sm"><i class="fas fa-edit"></i> Edit</button>
-                            <form action="UserServlet" method="post" class="linea">
+                            <form action="UserServlet" method="post" class="linea" enctype='multipart/form-data'>
                                 <input hidden type="text" name="studyPlaceDelete" value="yes">
                                 <button type="submit" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>     
                             </form>
@@ -287,14 +321,14 @@
                                 <% } %>
                             </div>
                             <div class="card-body astudyPlace" style="display:none">
-                                <form action="UserServlet" method="post">
+                                <form action="UserServlet" method="post" enctype='multipart/form-data'>
                                     <h4>Add your study place</h4>
                                     <input type="text" name="studyPlace">
                                     <input type="submit" name="submit" value="Add" class="btn btn-outline-primary btn-sm">  
                                 </form>
                             </div>
                             <div class="card-body estudyPlace" style="display:none">
-                                <form action="UserServlet" method="post">
+                                <form action="UserServlet" method="post" enctype='multipart/form-data'>
                                     <h4>Edit your study place</h4>
                                     <input type="text" name="studyPlace">
                                     <input type="submit" name="submit" value="Edit" class="btn btn-outline-secondary btn-sm">  
@@ -321,7 +355,7 @@
                             <% } %>
                             <% if(user.getWebsite()!=null){ %>
                             <button type="button" class="bewebsite btn btn-outline-secondary btn-sm"><i class="fas fa-edit"></i> Edit</button>
-                            <form action="UserServlet" method="post" class="linea">
+                            <form action="UserServlet" method="post" class="linea" enctype='multipart/form-data'>
                                 <input hidden type="text" name="websiteDelete" value="yes">
                                 <button type="submit" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>     
                             </form>
@@ -334,14 +368,14 @@
                                 <% } %>
                             </div>
                             <div class="card-body awebsite" style="display:none">
-                                <form action="UserServlet" method="post">
+                                <form action="UserServlet" method="post" enctype='multipart/form-data'>
                                     <h4>Add your website</h4>
                                     <input type="text" name="website">
                                     <input type="submit" name="submit" value="Add" class="btn btn-outline-primary btn-sm">  
                                 </form>
                             </div>
                             <div class="card-body ewebsite" style="display:none">
-                                <form action="UserServlet" method="post">
+                                <form action="UserServlet" method="post" enctype='multipart/form-data'>
                                     <h4>Edit your website</h4>
                                     <input type="text" name="website">
                                     <input type="submit" name="submit" value="Edit" class="btn btn-outline-secondary btn-sm">  
@@ -366,20 +400,31 @@
                 
                 
                 <div class="col-sm-2 sidenav">
-                    <div class="well">
-                        <p>ADS</p>
-                    </div>
-                    <div class="well">
-                        <p>ADS</p>
+                    <div class="panel panel-primary friend-panel m-2">
+                            <div class="panel-heading">Groups</div>
+                            <div class="panel-body friend-content" style="overflow-y: scroll; ">
+
+                                <%if (associations != null && associations.size() > 0) {
+                                        for (Association associationMember : associations) {
+                                %>
+                                <div class="card m-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="mr-0">
+                                            <img class="rounded-circle" width="45" src="<%=(associationMember.getProfilePic() == null)
+                                                        ? "https://cdn.clipart.email/0ad2ce5b5370f2d91ef8b465f6770e77_people-icons-3800-free-files-in-png-eps-svg-format_338-338.jpeg"
+                                                        : associationMember.getProfilePic()%>" alt="">
+                                        </div>
+                                        <div class="ml-2">
+                                            <div class="h5 m-0"><a href="PostServlet?idGroup=<%=associationMember.getIdAssociation()%>"><%=associationMember.getName()%></a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%  }
+                                    }%>
+                            </div>
                     </div>
                 </div>
             </div>
         </div>
-                            
-                            
-        <footer class="container-fluid text-center">
-            <p>Footer Text</p>
-        </footer>
-
-    </body>
+ </body>
 </html>
