@@ -85,6 +85,7 @@ public class AddPostServlet extends HttpServlet {
                     post.setText((String)requestData.get("post-text"));
                     post.setVisibility((visibility.equalsIgnoreCase("PUBLIC")) ? visibilityFacade.find(1) : visibilityFacade.find(2));
                     post.setMediaList((List<Media>)requestData.get("media"));
+                    post.setTitle((String)requestData.get("title"));
                     
                     if(requestData.containsKey("idGroup")) {
                         Integer groupId = Integer.parseInt((String)requestData.get("idGroup"));

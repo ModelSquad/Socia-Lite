@@ -20,18 +20,18 @@ $(document).ready(function () {
         
         for(var i = 0; i < maximum; i++) {
             document.getElementById('img-' + i).src = window.URL.createObjectURL(this.files[i]);
-            $('.jumbotron-post').css('height', '350px');
+            $('.jumbotron-post').css('height', '400px');
             $('.jumbotron-post').hover(function() {
-                $(this).css('height', '350px');
+                $(this).css('height', '400px');
             }, function() {
                 $(this).css('height', '130px');
             });
         }
         
         if(i === 0) {
-            $('.jumbotron-post').css('height', '230px');
+            $('.jumbotron-post').css('height', '290px');
             $('.jumbotron-post').hover(function() {
-                $(this).css('height', '230px');
+                $(this).css('height', '290px');
             }, function() {
                 $(this).css('height', '130px');
             });

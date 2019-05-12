@@ -97,12 +97,7 @@
             </div>
         </nav>
                     
-        <div id="group-title-div">
-            <!-- Group feed case -->
-            <% if (association != null) {%>
-            <h1 id="group-title"><%=association.getName()%></h1>
-            <%}%>
-        </div>
+        
         <div class="container-fluid text-center">
             <div class="row content">
                 <div class="col-sm-2 sidenav">
@@ -150,6 +145,7 @@
 
                     <div class="container-fluid text-center">
                         <div class="col-sm text-left feed">
+                            <% if(association != null) { %> <center><h1><%= association.getName() %> </h1></center> <% } %>
                             <!-- ADD POST -->
                             <form method="POST" action="<%=request.getContextPath()%>/AddPostServlet" enctype='multipart/form-data'>
                                 <% if (association != null) {
@@ -161,6 +157,7 @@
                                 <div class="jumbotron jumbotron-post">
                                     <h4>Share your experiences</h4>
                                     <textarea name="post-text" class="form-control text-area-post" placeholder="Write something here..."></textarea>
+                                    <input type="text" name="title" class="form-control post-actions" placeholder="Title"/>
                                     <div class="btn-group post-actions" role="group">
                                         <div class="input-group">
                                             <div id="radioBtn" class="btn-group">
@@ -268,11 +265,6 @@
                                     <p class="card-text">
                                         <%= post.getText()%>
                                     </p>
-                                </div>
-                                <div class="card-footer">
-                                    <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
-                                    <a href="#" class="card-link"><i class="fa fa-comment"></i> Comentario </a>
-                                    <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Compartir </a>
                                 </div>
                             </div>
 
